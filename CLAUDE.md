@@ -24,20 +24,20 @@ Prefer derivations that hold in the general case, and say explicitly where a spe
 - **Production.** A general production function in principle. Because of data limits, the baseline is Cobb-Douglas with output elasticities constant within an industry. Labor is the flexible input.
 - **Markets.** A market is a county or a commuting zone. Results use both.
 - **Conduct.** The baseline is monopolistic competition: establishments take the local price indices as given. A planned extension is oligopolistic competition in the style of `Atkeson&Burstein08`, where establishments internalize their effect on the local price indices. This matters most in small markets, where single establishments can have large sales shares.
-- **Estimating equation.** The ratio estimator $\mu_{jint} = (\beta_i/\alpha^l_{jint})\,e^{-\nu_{jint}}$ is combined with the demand system. Markups then become a function of $s^y_{jint}\,\mathbb{P}_{int}/\mathbb{D}_{int}$. A cubic sieve with no constant term (the choke price implies $\mu \to 1$ as $s^y \to 0$) gives the baseline
+- **Estimating equation.** Derived in `paper/Scratch.tex`, Section `sec:estequ`. Sales are observed with multiplicative error $e^{\nu_{jint}}$, and input expenditures are measured without error. The ratio estimator in observed shares, $\mu_{jint} = (\beta^l_i/\tilde\alpha^l_{jint})\,e^{-\nu_{jint}}$, is combined with the demand system, so log markups are a function $m_i(s^y_{jint}\,\mathbb{P}_{int}/\mathbb{D}_{int})$ of the true sales share, with $m_i(0)=0$ from the choke price. A sieve of order $K$ (baseline $K=3$) with no constant term, written in observed shares $\tilde s^y$, gives
 
   ```latex
-  \log \alpha_{jint}^l = \log \beta_i + \varsigma_{1,int} s^y_{jint} + \varsigma_{2,int} (s^y_{jint})^2 + \varsigma_{3,int} (s^y_{jint})^3 + \upsilon_{jint}
+  \log \tilde\alpha_{jint}^l = \log \beta^l_i + \sum_{k=1}^{K} \varsigma_{k,int} (\tilde s^y_{jint})^k + \upsilon_{jint}
   ```
 
   Here $j$ is the establishment, $i$ the industry, $n$ the region (market) and $t$ the year.
-  $\alpha^l_{jint}$ is the wage bill over sales.
-  $\beta_i$ is the industry-specific labor output elasticity.
-  $s^y_{jint}$ is the establishment's sales share in its region-industry-year.
-  The $\varsigma_{k,int}$ are region-industry-year coefficients that absorb $\mathbb{P}_{int}/\mathbb{D}_{int}$, the ratio of the ideal price index to the competition price index.
-  Markups are $\hat\mu_{jint} = \exp(-\sum_k \hat\varsigma_{k,int} (s^y_{jint})^k)$.
-  This is the multi-sector version in JMP Appendix `a:muext` with a time index added. The single-market JMP equation is the special case with one industry and one year.
-  Whether $\beta_i$ should also vary over time ($\beta_{it}$) is an open choice.
+  $\tilde\alpha^l_{jint}$ is the wage bill over observed sales.
+  $\beta^l_i$ is the industry-specific labor output elasticity.
+  $\tilde s^y_{jint}$ is the observed sales share in the region-industry-year.
+  The coefficients are $\varsigma_{k,int} = -(\varsigma_{k,i}/\kappa_k)(\bar e_{int}\,\mathbb{P}_{int}/\mathbb{D}_{int})^k$, where $\kappa_k = \mathbb{E}[e^{k\nu}]$ and $\bar e_{int}$ is the sales-weighted mean of $e^{\nu}$ in the market.
+  Because observed shares contain the measurement error, OLS is inconsistent. The equation is estimated by IV with lagged observed shares, which is valid if $\nu$ is i.i.d. and independent of fundamentals.
+  Markups are $\log\hat\mu_{jint} = -\sum_k \hat\varsigma_{k,int} (\tilde s^y_{jint})^k$. This is unbiased for the log markup given the true share, but noisy at the establishment level.
+  Whether $\beta^l_i$ should also vary over time ($\beta^l_{it}$) is an open choice.
 - Notation is listed in `derivations/notation.md`.
 
 ## Relation to the job market paper

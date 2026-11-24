@@ -179,16 +179,206 @@ Substituting into \eqref{eq:ratio},
 \end{equation}
 Because the error is in measurement only, establishments' choices are unaffected and \eqref{eq:lerner} still holds at the true price.
 
-\textbf{Open:} The sales shares used later are built from observed sales, so they contain $\n_{jint}$ as well.
-This creates a correlation between the regressors and the error in the estimating equation.
-It motivates the lagged-sales-share instruments used in the JMP.
-The assumptions needed on $\n_{jint}$ (mean zero, independence across establishments and over time) are not stated yet.
+The sales shares used for estimation are built from observed sales, so they contain $\n_{jint}$ as well.
+Section~\ref{sec:estequ} states the assumptions on $\n_{jint}$ and works out the consequences.
 
 \textbf{Summary.}
 Equations \eqref{eq:ratioobs} and \eqref{eq:lerner} are the two building blocks for markup estimation.
 The first links markups to observables up to $\b^x_i$ and the measurement error.
 The second links markups to the demand system through the relative price $p_{jint}/\mathbb{D}_{int}$, which is not observed.
-The next step expresses the relative price in terms of observed sales shares, as in Appendix \texttt{a:muestderiv} of the JMP.
+The next step expresses the relative price in terms of observed sales shares.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%									estimating equation									%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% 2026-11-24: first draft. Follows JMP Appendix a:muestderiv, extended to industries, time,
+%             and measurement error in observed sales.
+
+\section{Estimating Equation}\label{sec:estequ}
+
+Throughout this section, fix an industry $i$, a region $n$, and a period $t$, and use labor as the flexible input.
+Write $x_{jint} \equiv p_{jint}/\mathbb{D}_{int}$ for the relative price.
+
+\subsection{Markups as a Function of True Sales Shares}\label{sec:mushares}
+
+\textbf{Step 1: sales shares and relative prices.}
+Let $R_{jint} \equiv p_{jint} q_{jint}$ denote true sales.
+The true sales share of establishment $j$ in its region-industry-period is
+\begin{equation}\label{eq:share}
+	s^y_{jint} \equiv \frac{R_{jint}}{\sum_{j' \in \cJ_{int}} R_{j'int}}.
+\end{equation}
+Total sales in the market equal total expenditure, $\sum_{j'} R_{j'int} = \P_{int} Y_{int} L_{nt}$, by \eqref{eq:indexp} and the definition of $\P_{int}$.
+Using $q_{jint} = L_{nt} y_{jint}$ and the demand curve \eqref{eq:demand},
+\begin{align}
+	s^y_{jint} &= \frac{p_{jint} y_{jint}}{\P_{int} Y_{int}}
+	= \frac{p_{jint}}{\mathbb{D}_{int}} \, \frac{y_{jint}}{Y_{int}} \, \frac{\mathbb{D}_{int}}{\P_{int}} \nonumber \\
+	&= h_i\left(x_{jint}\right) \frac{\mathbb{D}_{int}}{\P_{int}}, \qquad h_i(x) \equiv x \, \vp_i(x). \label{eq:sharex}
+\end{align}
+As a check, summing \eqref{eq:sharex} over $j$ and using \eqref{eq:Pindex} gives $\sum_j s^y_{jint} = 1$.
+
+\textbf{Step 2: inverting the share equation.}
+Differentiating $h_i$ and using the definition of $\s_i$ in \eqref{eq:sigma},
+\begin{equation*}
+	h_i'(x) = \vp_i(x) + x \vp_i'(x) = -\vp_i(x)\left(\s_i(x) - 1\right).
+\end{equation*}
+So $h_i$ is strictly decreasing wherever demand is elastic and positive.
+To invert it on the whole set of prices that establishments choose, I need that set to lie in one interval where demand is elastic.
+
+\bassu[Choke price and elastic region]\label{assum:choke}
+For each industry $i$:
+\begin{enumerate}[(i)]
+	\item There is a choke price $\overline{p}_i < \infty$ with $\vp_i(\overline{p}_i) = 0$ and $\vp_i'(\overline{p}_i) \in (-\infty, 0)$.
+	\item There is $\underline{x}_i < \overline{p}_i$ such that $\s_i(x) > 1$ for all $x \in (\underline{x}_i, \overline{p}_i)$, and all equilibrium relative prices lie in this interval.
+\end{enumerate}
+\eassu
+
+Part (i) holds when $\Upsilon_i''(0)$ is finite, since $\vp_i'(\overline{p}_i) = 1/\Upsilon_i''(0)$.
+Part (ii) holds, for example, under Marshall's second law of demand ($\s_i$ increasing).
+\textbf{Open:} Check that the \textcite{Klenow&Willis16} form satisfies (i). The JMP's Assumption \texttt{a3} only imposes the choke price, so (i)'s condition on $\vp_i'$ and (ii) are additions.
+
+Under Assumption~\ref{assum:choke}, $h_i$ is strictly decreasing on $(\underline{x}_i, \overline{p}_i)$, with $h_i(x) \to 0$ as $x \to \overline{p}_i$.
+Let $\zeta_i(\cdot)$ denote its inverse.
+Then \eqref{eq:sharex} gives
+\begin{equation}\label{eq:relpriceshare}
+	x_{jint} = \zeta_i\left(s^y_{jint} \, \frac{\P_{int}}{\mathbb{D}_{int}}\right).
+\end{equation}
+
+\textbf{Step 3: markups as a function of shares.}
+Substituting \eqref{eq:relpriceshare} into the Lerner condition \eqref{eq:lerner},
+\begin{equation}\label{eq:mushare}
+	\log \m_{jint} = m_i\left(s^y_{jint} \, \frac{\P_{int}}{\mathbb{D}_{int}}\right), \qquad m_i(a) \equiv \log \m_i\left(\zeta_i(a)\right).
+\end{equation}
+The function $m_i$ is industry specific but common to all regions and periods.
+All regional and time variation in the mapping from shares to markups goes through one scalar per market, $\P_{int}/\mathbb{D}_{int}$.
+
+\textbf{Step 4: no constant term.}
+As $a \to 0$, $\zeta_i(a) \to \overline{p}_i$.
+At the choke price, $\s_i(x) = -x\vp_i'(x)/\vp_i(x)$ has a numerator that tends to $-\overline{p}_i \vp_i'(\overline{p}_i) \in (0, \infty)$ and a denominator that tends to $0^+$, so $\s_i \to \infty$ and $\m_i \to 1$.
+Hence
+\begin{equation}\label{eq:noconst}
+	\lim_{a \to 0} m_i(a) = 0.
+\end{equation}
+Establishments with vanishing sales shares charge no markup.
+This is what separates the markup level from the output elasticity $\b^l_i$ below.
+
+\subsection{Measurement Error in Sales Shares}\label{sec:mesales}
+
+Observed sales shares are built from observed sales \eqref{eq:obssales}:
+\begin{equation*}
+	\tilde{s}^y_{jint} \equiv \frac{\tilde{R}_{jint}}{\sum_{j'} \tilde{R}_{j'int}} = \frac{s^y_{jint} \, e^{\n_{jint}}}{\sum_{j'} s^y_{j'int} \, e^{\n_{j'int}}}.
+\end{equation*}
+Define the sales-weighted mean of the measurement error in the market, $\bar{e}_{int} \equiv \sum_{j'} s^y_{j'int} e^{\n_{j'int}}$.
+Then the true share in terms of the observed share is
+\begin{equation}\label{eq:sharetrue}
+	s^y_{jint} = \tilde{s}^y_{jint} \, \bar{e}_{int} \, e^{-\n_{jint}}.
+\end{equation}
+Measurement error therefore affects the share in two ways.
+The market-level term $\bar{e}_{int}$ rescales all shares in the market, like $\P_{int}/\mathbb{D}_{int}$.
+The establishment-level term $e^{-\n_{jint}}$ is classical, multiplicative error in the regressor.
+
+\bassu[Measurement error]\label{assum:me}
+The measurement error $\n_{jint}$ is i.i.d.\ across establishments and periods, with $\E[\n_{jint}] = 0$ and $\kappa_k \equiv \E[e^{k \n_{jint}}] < \infty$ for $k = 1, \dots, K$.
+It is independent of productivity, fixed inputs, input prices, the sets of establishments, and so of all true prices, quantities, and shares, in every period.
+\eassu
+
+The normalization $\E[\n_{jint}] = 0$ pins down the level of $\b^l_i$.
+Note that $\kappa_k \neq 1$ in general, even with mean-zero errors.
+
+\textbf{Open:} I treat $\bar{e}_{int}$ as a market-level constant, independent of each $\n_{jint}$.
+This is exact in the limit of many establishments with small shares, where $\bar{e}_{int} \to \kappa_1$.
+In markets with few establishments, $\bar{e}_{int}$ depends on $\n_{jint}$ through $j$'s own weight $s^y_{jint}$, and the argument below is only approximate.
+
+\subsection{The Estimating Equation}\label{sec:estequation}
+
+\textbf{Step 5: sieve approximation.}
+Approximate $m_i$ by a polynomial of order $K$ with no constant term, as \eqref{eq:noconst} requires:
+\begin{equation}\label{eq:sieve}
+	m_i(a) = \sum_{k=1}^{K} \vs_{k,i} \, a^k + r_{i}(a),
+\end{equation}
+where $r_i(a)$ is the approximation error, which vanishes as $K$ grows.
+
+\textbf{Step 6: substitute into the ratio estimator.}
+Taking logs of \eqref{eq:ratioobs} with $x = l$, and using \eqref{eq:mushare} and \eqref{eq:sieve},
+\begin{equation*}
+	\log \tilde{\a}^l_{jint} = \log \b^l_i - \sum_{k=1}^{K} \vs_{k,i} \left(\frac{\P_{int}}{\mathbb{D}_{int}}\right)^k \left(s^y_{jint}\right)^k - r_i\left(a_{jint}\right) - \n_{jint},
+\end{equation*}
+where $a_{jint} \equiv s^y_{jint}\P_{int}/\mathbb{D}_{int}$.
+The true share is not observed.
+Using \eqref{eq:sharetrue}, $(s^y_{jint})^k = (\tilde{s}^y_{jint})^k \, \bar{e}_{int}^k \, e^{-k\n_{jint}}$.
+Define the market-specific coefficients
+\begin{equation}\label{eq:coefs}
+	\vs_{k,int} \equiv -\frac{\vs_{k,i}}{\kappa_k} \left(\bar{e}_{int} \, \frac{\P_{int}}{\mathbb{D}_{int}}\right)^k, \qquad k = 1, \dots, K.
+\end{equation}
+Then, adding and subtracting $\sum_k \vs_{k,int} (\tilde{s}^y_{jint})^k$,
+\begin{equation}\label{eq:estequ}
+	\log \tilde{\a}^l_{jint} = \log \b^l_i + \sum_{k=1}^{K} \vs_{k,int} \left(\tilde{s}^y_{jint}\right)^k + \upsilon_{jint},
+\end{equation}
+with composite error
+\begin{equation}\label{eq:compositeerror}
+	\upsilon_{jint} \equiv \sum_{k=1}^{K} \vs_{k,int} \left(\tilde{s}^y_{jint}\right)^k \left(\kappa_k e^{-k\n_{jint}} - 1\right) - \n_{jint} - r_i\left(a_{jint}\right).
+\end{equation}
+The baseline is $K = 3$, which gives the JMP's estimating equation written in observed shares.
+
+\subsection{Identification}\label{sec:ident}
+
+\textbf{OLS is inconsistent.}
+The observed share $\tilde{s}^y_{jint}$ contains $e^{\n_{jint}}$, and the composite error \eqref{eq:compositeerror} contains $-\n_{jint}$ and terms in $e^{-k\n_{jint}}$.
+So the regressors are correlated with the error.
+
+\textbf{Instruments.}
+Let $\mathbf{z}_{jint}$ be a vector of instruments that is independent of $\n_{jint}$ and correlated with the true share.
+Under Assumption~\ref{assum:me}, lagged observed shares, $\tilde{s}^y_{jin,t-1}$ and their powers, qualify.
+They contain $\n_{jin,t-1}$, which is independent of $\n_{jint}$.
+They are correlated with $s^y_{jint}$ to the extent that productivity and fixed inputs are persistent.
+
+\textbf{Moment condition.}
+Condition on the market, so that $\bar{e}_{int}$ and $\P_{int}/\mathbb{D}_{int}$ are constants.
+I show that the first term of \eqref{eq:compositeerror} has mean zero given $\mathbf{z}_{jint}$.
+By \eqref{eq:sharetrue}, $(\tilde{s}^y_{jint})^k = (s^y_{jint})^k e^{k\n_{jint}} \bar{e}_{int}^{-k}$, so
+\begin{equation*}
+	\left(\tilde{s}^y_{jint}\right)^k \left(\kappa_k e^{-k\n_{jint}} - 1\right) = \bar{e}_{int}^{-k} \left(s^y_{jint}\right)^k \left(\kappa_k - e^{k\n_{jint}}\right).
+\end{equation*}
+Because $\n_{jint}$ is independent of $(s^y_{jint}, \mathbf{z}_{jint})$, and $\E[e^{k\n_{jint}}] = \kappa_k$,
+\begin{equation*}
+	\E\left[\left(s^y_{jint}\right)^k \left(\kappa_k - e^{k\n_{jint}}\right) \,\middle|\, \mathbf{z}_{jint}\right] = \E\left[\left(s^y_{jint}\right)^k \,\middle|\, \mathbf{z}_{jint}\right] \left(\kappa_k - \kappa_k\right) = 0.
+\end{equation*}
+The second term has $\E[\n_{jint} \mid \mathbf{z}_{jint}] = 0$ by the same independence.
+Therefore
+\begin{equation}\label{eq:moment}
+	\E\left[\upsilon_{jint} \,\middle|\, \mathbf{z}_{jint}\right] = -\E\left[r_i(a_{jint}) \,\middle|\, \mathbf{z}_{jint}\right],
+\end{equation}
+which vanishes as $K$ grows.
+So \eqref{eq:estequ} can be estimated by IV, with $\log \b^l_i$ common to all markets in industry $i$ and $\vs_{k,int}$ specific to each market.
+Dividing by $\kappa_k$ in \eqref{eq:coefs} is what makes this work: it is exactly the rescaling that undoes the bias from using $\tilde{s}^y$ in place of $s^y$, term by term.
+
+\textbf{Open:}
+\begin{itemize}
+	\item The sieve approximation error is not mean zero given the instruments for finite $K$. This is the usual sieve caveat. Formal consistency needs the JMP's \textcite{Newey97}-type argument (Appendix \texttt{a:mucons}) adapted to IV.
+	\item Lagged shares exist only for establishments active in $t-1$. Under Assumption~\ref{assum:me}, survival does not depend on $\n$, so the moment condition still holds in the sample of survivors. Survival may depend on productivity, though, so the estimation sample is selected toward more productive establishments.
+	\item Persistent measurement error (for example, an establishment-level fixed component) would invalidate lagged shares as instruments.
+\end{itemize}
+
+\subsection{Recovering Markups}\label{sec:recovermu}
+
+Given estimates $\hat{\vs}_{k,int}$, the natural estimate of the log markup is
+\begin{equation}\label{eq:muhat}
+	\log \hat{\m}_{jint} = -\sum_{k=1}^{K} \hat{\vs}_{k,int} \left(\tilde{s}^y_{jint}\right)^k.
+\end{equation}
+At the true coefficients, and using \eqref{eq:coefs} and \eqref{eq:sharetrue},
+\begin{equation*}
+	-\sum_{k=1}^{K} \vs_{k,int} \left(\tilde{s}^y_{jint}\right)^k = \sum_{k=1}^{K} \vs_{k,i} \left(\frac{\P_{int}}{\mathbb{D}_{int}}\right)^k \left(s^y_{jint}\right)^k \, \frac{e^{k\n_{jint}}}{\kappa_k}.
+\end{equation*}
+Each term equals the corresponding term of the true log markup times $e^{k\n_{jint}}/\kappa_k$, which has mean one.
+So \eqref{eq:muhat} is unbiased for the log markup conditional on the true share (up to the sieve error), but it is noisy at the establishment level, because the measurement error does not average out for a single establishment.
+
+\textbf{Open:}
+\begin{itemize}
+	\item Aggregate markups, such as the sales-weighted harmonic mean, are nonlinear in $\hat{\m}_{jint}$ and weight by observed sales. The establishment-level noise may bias them. One option is to use the fitted values of the shares from the first stage in place of $\tilde{s}^y_{jint}$ in \eqref{eq:muhat}.
+	\item Equation \eqref{eq:coefs} implies cross-market restrictions. Within industry $i$, all market variation in the $K$ coefficients comes from one scalar, $\Phi_{int} \equiv \bar{e}_{int}\P_{int}/\mathbb{D}_{int}$. For example, $\vs_{2,int}/\vs_{1,int}^2 = -(\vs_{2,i}/\vs_{1,i}^2)(\kappa_1^2/\kappa_2)$ is constant across regions and periods. This can be tested, or imposed to estimate one parameter per market in place of $K$.
+	\item With more than one flexible input, \eqref{eq:estequ} holds for each, with the same markup. This gives overidentifying restrictions.
+\end{itemize}
 
 
 \end{document}

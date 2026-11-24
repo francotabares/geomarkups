@@ -57,16 +57,30 @@ When porting JMP material, relabel sector $n \to i$ and city $c$ (or $a$) $\to n
 | $\tilde{R}_{jint} = p_{jint} q_{jint} e^{\nu_{jint}}$ | Observed sales |
 | $\tilde{\alpha}^x_{jint} = \alpha^x_{jint} e^{-\nu_{jint}}$ | Observed expenditure share of input $x$ |
 
-## Estimation (JMP `s:myproc`, `a:muestderiv`; not yet in `Scratch.tex`)
+## Estimating equation (`sec:estequ`)
 
 | Symbol | Meaning |
 |---|---|
-| $s^y_{jint}$ | Establishment sales share in its region-industry-period |
-| $\zeta_i(\cdot)$ | Inverse of $x\varphi_i(x)$; maps $s^y_{jint}\,\mathbb{P}_{int}/\mathbb{D}_{int}$ to $p_{jint}/\mathbb{D}_{int}$ |
-| $\overline{p}$ | Choke price: $\varphi_i(\overline{p}) = 0$ |
-| $\varsigma_{k,int}$ | Sieve coefficients: $\varsigma_{k,int} = -\varsigma_k(\mathbb{P}_{int}/\mathbb{D}_{int})^k$ |
-| $\upsilon_{jint}$ | Composite error: measurement error plus sieve approximation error |
-| $\mathcal{M}_{int}$ | Aggregate markup: sales-weighted harmonic mean of $\mu_{jint}$ |
+| $x_{jint} \equiv p_{jint}/\mathbb{D}_{int}$ | Relative price |
+| $R_{jint} \equiv p_{jint} q_{jint}$ | True sales |
+| $s^y_{jint}$ | True sales share in its region-industry-period |
+| $\tilde{s}^y_{jint}$ | Observed sales share (built from $\tilde{R}$) |
+| $h_i(x) \equiv x\varphi_i(x)$ | Share function: $s^y_{jint} = h_i(x_{jint})\,\mathbb{D}_{int}/\mathbb{P}_{int}$ |
+| $\zeta_i(\cdot)$ | Inverse of $h_i$; maps $s^y_{jint}\,\mathbb{P}_{int}/\mathbb{D}_{int}$ to $x_{jint}$ |
+| $\overline{p}_i$ | Choke price: $\varphi_i(\overline{p}_i) = 0$ |
+| $\underline{x}_i$ | Lower end of the elastic interval $(\underline{x}_i, \overline{p}_i)$ where $\sigma_i > 1$ |
+| $m_i(a) \equiv \log\mu_i(\zeta_i(a))$ | Log markup as a function of $a = s^y\,\mathbb{P}/\mathbb{D}$; $m_i(0) = 0$ |
+| $a_{jint} \equiv s^y_{jint}\,\mathbb{P}_{int}/\mathbb{D}_{int}$ | Argument of $m_i$ |
+| $\bar{e}_{int} \equiv \sum_j s^y_{jint} e^{\nu_{jint}}$ | Sales-weighted mean of $e^{\nu}$ in the market |
+| $\kappa_k \equiv \mathbb{E}[e^{k\nu}]$ | Moments of the measurement error |
+| $K$ | Sieve order (baseline $K=3$) |
+| $\varsigma_{k,i}$ | Industry-level sieve coefficients of $m_i$ |
+| $r_i(a)$ | Sieve approximation error |
+| $\varsigma_{k,int} \equiv -(\varsigma_{k,i}/\kappa_k)(\bar{e}_{int}\mathbb{P}_{int}/\mathbb{D}_{int})^k$ | Market-specific coefficients in the estimating equation |
+| $\Phi_{int} \equiv \bar{e}_{int}\mathbb{P}_{int}/\mathbb{D}_{int}$ | The single market-level shifter behind all $\varsigma_{k,int}$ |
+| $\upsilon_{jint}$ | Composite error: measurement error in shares and sales, plus sieve error |
+| $\mathbf{z}_{jint}$ | Instruments (baseline: lagged observed shares and powers) |
+| $\mathcal{M}_{int}$ | Aggregate markup: sales-weighted harmonic mean of $\mu_{jint}$ (JMP; not yet used here) |
 
 ## JMP-only objects (not yet used here)
 

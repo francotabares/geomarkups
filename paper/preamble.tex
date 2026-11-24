@@ -1,0 +1,395 @@
+
+%\input{preamble1.tex}
+
+% Document class
+\documentclass[12pt]{article}
+
+% Change font
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+
+% Text width
+%\setlength{\columnsep}{15mm}
+%\setlength{\columnseprule}{0.001mm}
+%\addtolength{\oddsidemargin}{-0.5cm}
+%\addtolength{\evensidemargin}{-0.5cm}
+%\addtolength{\textwidth}{0.5cm}
+
+%\addtolength{\topmargin}{-3cm}
+%\addtolength{\textheight}{6cm}
+
+\usepackage[margin=2cm]{geometry}
+\usepackage{parskip}
+
+%%% Packages %%%
+	
+	% Formatting
+	\usepackage{setspace}
+	\setstretch{1.1}
+	
+	%\usepackage{fontspec}
+	%\setmainfont{Times New Roman}
+	
+	% Mathematics
+	\usepackage{amsmath, latexsym}
+	\usepackage{amsthm}
+	\usepackage{amssymb}
+	\usepackage{bm}
+	\usepackage{eurosym}
+	\usepackage{caption}
+	\usepackage{accents}
+	\usepackage{enumerate}
+	\usepackage{empheq}
+	\usepackage{array}
+	\usepackage{booktabs}
+	\usepackage{footmisc}
+	\usepackage{dcolumn}
+	\usepackage{verbatim}
+	\usepackage{xcolor}
+	\usepackage{tikz}
+	\usepackage{bigints}
+	\usetikzlibrary{patterns}
+	%\usepackage{subcaption}
+%	\usepackage[subrefformat=parens,labelformat=parens]{subcaption}
+\usepackage[labelformat=simple]{subcaption}
+\renewcommand\thesubfigure{(\alph{subfigure})}
+
+    %\usepackage[capposition=top]{floatrow}
+	% Define figure note command
+\newcommand{\fignote}[1]{\caption*{\scriptsize Note: #1}}
+
+	\usepackage{adjustbox}
+	%\definecolor{mygray}{gray}{0.5}
+	\usepackage{setspace} 
+	\usepackage[flushleft]{threeparttable}	
+	\usepackage[strict]{changepage}
+	
+	% Fonts
+	\usepackage{dsfont}
+	%\usepackage{pxfonts}
+	\usepackage{mathrsfs}
+	\usepackage{bbm}
+	
+	% Graphics
+	\usepackage{graphicx}
+	
+	% For fixing location of figures
+	\usepackage{float}
+	
+	% For landscape
+	\usepackage{pdflscape}
+	
+	% Colors
+	\definecolor{OliveGreen}{RGB}{53, 98, 26}
+	\definecolor{LightOliveGreen}{RGB}{121,148,103}
+	\definecolor{MyOrange}{RGB}{231,101,45}
+	\definecolor{MyBlue}{RGB}{60,106,209}
+	\definecolor{MyDarkOrange}{RGB}{169,74,1}
+
+	% Bold and colored fonts
+	\newcommand\boldmo[1]{\color{MyOrange}{\bm{#1}}}
+	\newcommand\boldmb[1]{\color{MyBlue}{\bm{#1}}}
+	\newcommand\boldmg[1]{\color{OliveGreen}{\bm{#1}}}
+	
+	% bold and colored text
+	\newcommand\boldtg[1]{\textcolor{OliveGreen}{\textbf{#1}}}
+	\newcommand\boldto[1]{\textcolor{MyOrange}{\textbf{#1}}}
+	\newcommand\boldtb[1]{\textcolor{MyBlue}{\textbf{#1}}}
+	
+	% Hyperlinks
+	\usepackage{hyperref}
+%	\hypersetup{
+%  colorlinks   = true ,    % Colours links instead of ugly 	boxes
+%  urlcolor     = MyDarkOrange,    % Colour for external hyperlinks
+%  linkcolor    = MyDarkOrange,%black,    % Colour of internal links
+%  citecolor    = MyDarkOrange      % Colour of citations
+%}
+\hypersetup{
+	colorlinks = true,
+    linkcolor = MyDarkOrange, %blue
+    urlcolor  = MyDarkOrange,
+    citecolor = MyDarkOrange,
+    anchorcolor = MyDarkOrange,
+    hypertexnames=true
+}
+
+	% Appendix table of contents (loaded after hyperref)
+	\usepackage{etoc}
+	
+	% Bibliography
+
+%\usepackage{natbib}
+\usepackage[backend=biber,style=authoryear,citestyle=apa,doi=false, eprint=false, url=false]{biblatex}
+%\bibliographystyle{aeanobold-oxford}
+
+%%% Definitions of shortcuts %%%
+
+	% Equations
+	\def\dsp{\displaystyle}
+	\def\beq{\begin{equation}}
+	\def\eeq{\end{equation}}
+	\def\ben{\begin{equation*}}
+	\def\een{\end{equation*}}
+	\def\ba{\begin{eqnarray}}
+	\def\ea{\end{eqnarray}}
+	\def\ban{ \begin{eqnarray*} }
+	\def\ean{ \end{eqnarray*} }
+	\def\bea{\begin{array}}
+	\def\eea{\end{array}}
+	
+	% Itemize and enumerate
+	\def\bi{\begin{itemize}}
+	\def\ei{\end{itemize}}
+
+	\def\bnum{\begin{enumerate}}
+	\def\enum{\end{enumerate}}
+	\def\bnumi{\begin{enumerate}[(i)]}
+
+
+	% Greek letters
+	\def\k{\kappa}
+	\def\r{\rho}
+	\def\a{\alpha}
+	\def\b{\beta}
+	\def\g{\gamma}
+	\def\gh{\hat\g}
+	\def\G{\Gamma}
+	\def\d{\delta}
+	\def\D{\Delta}
+	\def\e{\varepsilon}
+	\def\f{\phi}
+	\def\F{\Phi}
+	\def\p{\psi}
+	\def\pb{\bar\p}
+	\def\P{\Psi}
+	\def\C{\Chi}
+	\def\Th{\Theta}
+	\def\l{\lambda}
+	\def\m{\mu}
+	\def\n{\nu}
+	\def\o{\omega}
+	\def\O{\Omega}
+	\def\l{\lambda}
+	\def\L{\Lambda}
+	\def\s{\sigma}
+	\def\S{\Sigma}
+	\def\vf{\varphi}
+	\def\vphi{\varphi}
+	\def\t{\theta}
+	\def\ph{\varphi}
+	\def\vs{\varsigma}
+	\def\z{\zeta}
+
+	% Caligraphic letters
+	\def\cN{{\cal N}}
+	\def\cM{{\cal M}}
+	\def\cL{{\cal L}}
+	\def\cF{{\cal F}}
+	\def\cA{{\cal A}}
+	\def\cB{{\cal B}}
+	\def\cC{{\cal C}}
+	\def\cO{{\cal O}}
+	\def\cD{{\cal D}}
+	\def\cR{{\cal R}}
+	\def\cQ{{\cal Q}}
+	\def\cG{{\cal G}}
+	\def\cP{{\cal P}}
+	\def\cT{{\cal T}}
+	\def\cH{{\cal H}}
+	\def\cU{{\cal U}}
+	\def\cJ{{\cal J}}
+	\def\cI{{\cal I}}
+	\def\cH{{\cal H}}
+	\def\cS{{\cal S}}
+	\def\cZ{{\cal Z}}
+	\def\cX{{\cal X}}
+	\def\cE{{\cal E}}
+	\def\cV{{\cal V}}
+	\def\cK{{\cal K}}
+	\def\cW{{\cal W}}
+	
+	% Operators
+	\DeclareMathOperator*{\argmin}{argmin}
+	\DeclareMathOperator*{\argmax}{argmax}
+	
+	% Properties, Lemmas et theorems...
+	\theoremstyle{plain} \newtheorem{prop}{Proposition}
+	\theoremstyle{plain} \newtheorem{assum}{Assumption}
+	\theoremstyle{plain} \newtheorem{thm}{Theorem}
+	\theoremstyle{plain} \newtheorem{lemma}{Lemma}
+	\theoremstyle{plain} \newtheorem{cor}{Corollary}
+	\theoremstyle{plain} \newtheorem{defi}{Definition}
+   	\theoremstyle{plain} \newtheorem{claim}{Claim}
+	\theoremstyle{plain} \newtheorem{rem}{Remark}
+	\theoremstyle{definition} \newtheorem{def-prop}{Def-Prop}
+
+	\def\bdefi{\begin{defi}}
+	\def\edefi{\end{defi}}
+	\def\bprop{\begin{prop}}
+	\def\eprop{\end{prop}}
+	\def\blem{\begin{lemma}}
+	\def\elem{\end{lemma}}
+	\def\bassu{\begin{assum}}
+	\def\eassu{\end{assum}}
+	\def\bthm{\begin{thm}}
+	\def\ethm{\end{thm}}
+	\def\bth{\begin{thm}}
+	\def\eth{\end{thm}}
+	\def\bcor{\begin{cor}}
+	\def\ecor{\end{cor}}
+	\def\brem{\begin{rem}}
+	\def\erem{\end{rem}}
+	\def\bdefprop{\begin{def-prop}}
+	\def\edefprop{\end{def-prop}}
+	\def\bclaim{\begin{claim}}
+	\def\eclaim{\end{claim}}
+
+
+
+	% Thick math sets
+	\def\1{\mathds{1}}
+	\def\P{\mathbb{P}}
+	\def\R{\mathbb{R}}
+	\def\C{\mathbb{C}}
+	\def\E{\mathbb{E}}
+	\def\N{\mathbb{N}}
+	\def\Q{\mathbb{Q}}
+	\def\Sb{\mathbb{S}}
+
+	% Convergence
+	\def\ascv{\overset{a.s.}{\longrightarrow}}
+	\def\dcv{\Longrightarrow}
+	\def\pcv{\overset{P}{\longrightarrow}}
+
+	% Economics and econometrics
+	\def\rel{\succeq}
+	\def\srel{\succ}
+	\def\hb{\hat{\b}}
+	\def\hbo{\hat{\b}_{OLS}}
+	\def\hth{\hat{\t}}
+	\def\ut{\underline{\t}}
+
+	\def\bx{\overline{x}}
+	\def\bo{\overline{\o}}
+	\def\by{\overline{y}}
+	
+	% Partial derivative
+	\newcommand\parder[2]{\frac{\partial #1}{\partial #2}}
+
+%%% Others %%%
+
+	% Allow large matrices
+	\setcounter{MaxMatrixCols}{20}
+	
+%%% Specific %%%
+\def\hb{\overline{h}}
+
+\def\vp{\varphi}
+\def\uvp{\underline{\varphi}}
+\def\uw{\underline{w}}
+\def\os{\underline{s}}
+\def\ovp{\overline{\vp}}
+\def\hvp{\hat{\vp}}
+\def\tvp{\tilde{\vp}}
+\def\op{\overline{\phi}}
+\def\up{\underline{\phi}}
+
+\def\al{\underline{a}}
+\def\au{\overline{a}}
+
+
+\def\rl{\underline{r}}
+\def\rh{\overline{r}}
+
+\def\zl{\underline{z}}
+\def\zu{\overline{z}}
+\def\xl{\underline{x}}
+\def\xu{\overline{x}}
+\def\yl{\underline{y}}
+\def\yu{\overline{y}}
+\def\sl{\underline{s}}
+\def\su{\overline{s}}
+\def\nul{\underline{\nu}}
+\def\nuu{\overline{\nu}}
+\def\bcF{\overline{\cF}}
+\def\hl{\underline{h}}
+\def\hu{\overline{h}}
+
+\def\cd{\cdot}
+
+
+
+\newcommand{\x}{\bm{x}}
+\newcommand{\y}{\bm{y}}
+\newcommand{\h}{\overline{h}}
+
+\newcommand{\vl}{\underline{v}}
+\newcommand{\vu}{\overline{v}}
+
+\newcommand{\wl}{\underline{w}}
+\newcommand{\wu}{\overline{w}}
+
+
+\newcommand{\zetal}{\underline{\zeta}}
+\newcommand{\zetau}{\overline{\zeta}}
+
+\newcommand{\elll}{\underline{\ell}}
+\newcommand{\ellu}{\overline{\ell}}
+
+\newcommand{\gl}{\underline{g}}
+\newcommand{\gu}{\overline{g}}
+
+\newcommand{\bl}{\underline{b}}
+\newcommand{\bu}{\overline{b}}
+
+%\renewcommand*{\thefootnote}{\fnsymbol{footnote}}
+
+\newcommand{\smallinput}[1]{
+  \begingroup
+  \renewcommand\normalsize{\small}
+  \input{#1}
+  \endgroup
+}
+
+\newcommand{\footnotesizeinput}[1]{
+  \begingroup
+  \renewcommand\normalsize{\footnotesize}
+  \input{#1}
+  \endgroup
+}
+
+\newcommand{\scriptsizeinput}[1]{
+  \begingroup
+  \renewcommand\normalsize{\scriptsize}
+  \input{#1}
+  \endgroup
+}
+
+\newcommand{\tinyinput}[1]{
+  \begingroup
+  \renewcommand\normalsize{\tiny}
+  \input{#1}
+  \endgroup
+}
+
+
+% Colored text
+\newcommand{\gray}{\textcolor{gray}}
+\newcommand{\tgray}[1]{\text{\textcolor{gray}{#1}}}
+
+
+% Stuff I am not happy about
+\newcommand{\todo}[1]{\textbf{\textcolor{red}{#1}}}
+
+
+% Inner product
+\newcommand{\la}{\left\langle}
+\newcommand{\ra}{\right\rangle}
+
+% Acrsinh functions etc
+\DeclareMathOperator{\arccosh}{arcCosh}
+\DeclareMathOperator{\arcsinh}{arcsinh}
+
+% bold
+\newcommand{\bg}{\pmb{g}}
+\newcommand{\bh}{\pmb{h}}

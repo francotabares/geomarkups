@@ -1,0 +1,148 @@
+\input{preamble}
+\addbibresource{biblio.bib}
+
+\title{\textbf{Geographic Markups}\footnote{Any views expressed are mine and not those of the U.S. Census Bureau.
+The Census Bureau has reviewed this data product to ensure appropriate access, use, and disclosure avoidance protection of the confidential source data used to produce this product.
+This research was performed at a Federal Statistical Research Data Center under FSRDC Project Number XX (CBDRB-FYXX-XX).}}
+
+\author{Santiago Franco \\ \textit{Boston University}}
+
+\date{November 2026}
+
+
+\begin{document}
+\maketitle
+
+\thispagestyle{empty}
+
+\begin{abstract}
+\noindent To be written.
+\end{abstract}
+
+\clearpage
+\pagenumbering{arabic}
+
+\etocdepthtag.toc{maintext}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%										introduction									%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Introduction}\label{sec:intro}
+
+% Research question, approach, findings (XX until disclosure-approved), contribution relative to the literature.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%										model											%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Model}\label{sec:model}
+
+\subsection{Demand}\label{sec:demand}
+
+% HDIA (Kimball) preferences over non-traded varieties; residual demand; price indices P and D.
+
+\subsection{Production and Pricing}\label{sec:production}
+
+% Production function (baseline: Cobb-Douglas, industry-level elasticities); monopolistic competition; markup function.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%										empirical analysis								%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Empirical Analysis}\label{sec:empanal}
+
+\subsection{Data}\label{sec:data}
+
+% Census data sources, sample construction, market definitions (counties and commuting zones).
+
+\subsection{Non-Traded Industries}\label{sec:industries}
+
+% Definition and classification of non-traded industries.
+
+\subsection{Markup Estimation}\label{sec:muest}
+
+% Ratio estimator, demand-based control function, estimating equation.
+
+\subsection{Markups Across Space, Time, and Industries}\label{sec:muresults}
+
+% Results. All numbers XX until disclosure-approved.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%										conclusion										%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Conclusion}\label{sec:conc}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%									references											%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newpage
+
+\printbibliography
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%										appendix										%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newpage
+
+\appendix
+
+% appendix numbering: equations, figures, and tables as A1, A2, ..., B1, ...
+\counterwithin{equation}{section}
+\counterwithin{figure}{section}
+\counterwithin{table}{section}
+\renewcommand{\theequation}{\thesection\arabic{equation}}
+\renewcommand{\thefigure}{\thesection\arabic{figure}}
+\renewcommand{\thetable}{\thesection\arabic{table}}
+\renewcommand{\theHequation}{\thesection\arabic{equation}}% unique hyperref anchors after the counter resets
+\renewcommand{\theHfigure}{\thesection\arabic{figure}}
+\renewcommand{\theHtable}{\thesection\arabic{table}}
+
+% every appendix section starts on a new page
+\let\oldsection\section
+\renewcommand{\section}{\clearpage\oldsection}
+
+% appendix index page: sections and subsections with page numbers
+\etocdepthtag.toc{appendix}
+\etocsettagdepth{maintext}{none}
+\etocsettagdepth{appendix}{subsubsection}
+\etocsettocstyle{{\centering\LARGE\bfseries Appendix\par}\bigskip}{}
+\tableofcontents
+
+
+%%%%%%%%%%%%%%%%%%
+% A: Derivations %
+%%%%%%%%%%%%%%%%%%
+
+\section{Derivations}\label{sec:app-deriv}
+
+% Demand derivations and the estimating equation.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% B: Markup Estimation       %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Markup Estimation}\label{sec:app-muest}
+
+% Sieve consistency, multi-sector and time extensions, labor market power, general production function, oligopoly.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%
+% C: Empirical Appendix %
+%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Empirical Appendix}\label{sec:app-emp}
+
+% Additional results and robustness. All numbers XX until disclosure-approved.
+
+\end{document}

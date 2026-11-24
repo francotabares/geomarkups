@@ -45,7 +45,7 @@ Prefer derivations that hold in the general case, and say explicitly where a spe
 - The JMP is `literature/OMPSM_Franco.tex` ("Output Market Power and Spatial Misallocation"). This paper extends its empirical part: Section "Empirical Analysis" (`s:empanal`) and the appendix "Markup Estimation".
 - The JMP appendix already contains the derivation of the estimating equation (`a:muestderiv`), sieve consistency (`a:mucons`), the multi-sector version (`a:muext`), labor market power (`a:muestlmp`), and the general production function (`a:genprodfn`). Build on these rather than re-deriving from scratch.
 - Keep notation consistent with the JMP. Flag any departure.
-- The JMP uses biblatex (`\textcite`, `\parencite`). This paper uses natbib, so convert to `\citet` and `\citep` when porting text.
+- The JMP and this paper share the same preamble and citation commands, so JMP text can be ported without converting citations. JMP labels use `s:` and `a:` prefixes; relabel to this paper's `sec:` convention when porting.
 - Numbers in the JMP are JMP results. Do not carry them into this paper as its own results.
 
 ## Key literature
@@ -62,16 +62,17 @@ Bib keys in `paper/biblio.bib`:
 ## Confidential data rules (strict)
 
 - Census microdata, and any output that has not passed Census disclosure review, must never be added to this repo, committed, or pasted into a conversation.
-- Never invent, guess, or "fill in" empirical numbers. Mark every missing result with `XX` (no `\todo` macro is defined).
+- Never invent, guess, or "fill in" empirical numbers. Mark every missing result with `XX`. Do not use the preamble's `\todo` macro for results.
 - Any number in the paper must come from disclosure-approved output, and the author adds it by hand.
 - Data file types (`*.dta`, `*.csv`, `*.sas7bdat`, etc.) and the `data/` and `confidential/` folders are gitignored. Do not override this with `git add -f`.
 
 ## Repository layout
 
-- `paper/main.tex`: master file. Sections live in `paper/sections/*.tex` and are pulled in with `\input`.
-- `paper/biblio.bib`: bibliography (natbib, `plainnat`). Cite with `\citet{}` / `\citep{}`.
+- `paper/Paper.tex`: the paper, as one single document (it is a short paper, so there are no separate section files). Its organization follows the JMP: introduction, model, empirical analysis, conclusion, references, appendix.
+- `paper/preamble.tex`: the author's preamble, shared with the JMP. Do not edit it without asking. It defines shortcut macros (for example `\P` for $\mathbb{P}$, `\C` for $\mathbb{C}$, `\vs` for $\varsigma$) and the theorem environments `prop`, `assum`, `lemma`, `cor`, `defi`.
+- `paper/biblio.bib`: bibliography, processed with biblatex and biber (`authoryear` style). Cite with `\textcite{}` (in text) and `\parencite{}` (in parentheses).
 - `paper/figures/`, `paper/tables/`: disclosure-approved figures and tables only.
-- `derivations/`: long or rough derivations. Clean results move into `paper/sections/`.
+- `derivations/`: long or rough derivations. Clean results move into `paper/Paper.tex`.
 - `notes/`: research log and meeting notes, named `YYYY-MM-DD-topic.md`.
 - `literature/`: notes on papers, one file per paper (`authorYEAR.md`). PDFs are gitignored.
 
@@ -80,7 +81,7 @@ Bib keys in `paper/biblio.bib`:
 From `paper/`:
 
 ```
-pdflatex main && bibtex main && pdflatex main && pdflatex main
+pdflatex Paper && biber Paper && pdflatex Paper && pdflatex Paper
 ```
 
 The TeX distribution is BasicTeX, so some packages may be missing. Install them with `sudo tlmgr install <pkg>`.

@@ -41,4 +41,4 @@ literature/*.pdf
 .claude/settings.local.json
 
 # ---- Compiled paper (rebuild from source) ----
-paper/main.pdf
+paper/Paper.pdf

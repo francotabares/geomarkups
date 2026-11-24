@@ -48,6 +48,6 @@ The TeX distribution is BasicTeX, so some packages may be missing. Install them 
 
 ## Git workflow
 
-- Default branch is `main`, remote is `https://github.com/francotabares/geomarkups`.
+- Default branch is `main`, remote is `git@github.com:francotabares/geomarkups.git` (SSH).
 - Write short, descriptive commit messages ("Draft model section: demand system").
 - Before committing, check `git status` to make sure no data or disclosure-sensitive files are staged.

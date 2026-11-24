@@ -1,0 +1,44 @@
+# ---- Confidential data: NEVER commit ----
+# Census Bureau (FSRDC) data and unreleased output stay off GitHub.
+data/
+confidential/
+*.dta
+*.sas7bdat
+*.csv
+*.parquet
+*.xlsx
+
+# ---- LaTeX build files ----
+*.aux
+*.bbl
+*.blg
+*.log
+*.out
+*.toc
+*.lof
+*.lot
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+*.synctex(busy)
+*.nav
+*.snm
+*.vrb
+*.bcf
+*.run.xml
+*.xdv
+paper/build/
+
+# ---- Literature PDFs (copyrighted; keep locally) ----
+literature/*.pdf
+
+# ---- OS / editor ----
+.DS_Store
+.vscode/
+*.swp
+
+# ---- Claude Code personal settings ----
+.claude/settings.local.json
+
+# ---- Compiled paper (rebuild from source) ----
+paper/main.pdf

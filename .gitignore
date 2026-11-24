@@ -42,3 +42,4 @@ literature/*.pdf
 
 # ---- Compiled paper (rebuild from source) ----
 paper/Paper.pdf
+paper/Scratch.pdf

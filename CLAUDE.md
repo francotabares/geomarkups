@@ -70,9 +70,10 @@ Bib keys in `paper/biblio.bib`:
 
 - `paper/Paper.tex`: the paper, as one single document (it is a short paper, so there are no separate section files). Its organization follows the JMP: introduction, model, empirical analysis, conclusion, references, appendix.
 - `paper/preamble.tex`: the author's preamble, shared with the JMP. Do not edit it without asking. It defines shortcut macros (for example `\P` for $\mathbb{P}$, `\C` for $\mathbb{C}$, `\vs` for $\varsigma$) and the theorem environments `prop`, `assum`, `lemma`, `cor`, `defi`.
+- `paper/Scratch.tex`: scratch paper for exploratory notes and derivations, using the same preamble and bibliography as `Paper.tex`. It need not be polished. One `\section` per topic, each entry started with a dated comment, open questions marked `\textbf{Open:}`. When a result is settled, move it to `Paper.tex` and leave a one-line note saying where it went.
 - `paper/biblio.bib`: bibliography, processed with biblatex and biber (`authoryear` style). Cite with `\textcite{}` (in text) and `\parencite{}` (in parentheses).
 - `paper/figures/`, `paper/tables/`: disclosure-approved figures and tables only.
-- `derivations/`: long or rough derivations. Clean results move into `paper/Paper.tex`.
+- `derivations/`: standalone derivations that grow too long for `Scratch.tex`, plus `notation.md`.
 - `notes/`: research log and meeting notes, named `YYYY-MM-DD-topic.md`.
 - `literature/`: notes on papers, one file per paper (`authorYEAR.md`). PDFs are gitignored.
 
@@ -83,6 +84,8 @@ From `paper/`:
 ```
 pdflatex Paper && biber Paper && pdflatex Paper && pdflatex Paper
 ```
+
+The same sequence builds `Scratch.tex`.
 
 The TeX distribution is BasicTeX, so some packages may be missing. Install them with `sudo tlmgr install <pkg>`.
 
@@ -100,3 +103,8 @@ The TeX distribution is BasicTeX, so some packages may be missing. Install them 
 - Default branch is `main`, remote is `git@github.com:francotabares/geomarkups.git` (SSH).
 - Write short, descriptive commit messages ("Draft model section: demand system").
 - Before committing, check `git status` to make sure no data or disclosure-sensitive files are staged.
+- The author edits the paper manually in Overleaf, which syncs with this GitHub repository. Edits can therefore arrive on GitHub from Overleaf at any time.
+  - Run `git pull` before reading or editing any file, so work starts from the latest Overleaf version.
+  - Commit and push finished edits promptly, so the author can pull them into Overleaf before editing the same lines.
+  - If a pull produces a merge conflict, do not resolve it by discarding either side. Show the conflict to the author and ask.
+- Everything in this repository is also visible in Overleaf, which is an external service. This is one more reason the confidential data rules above are strict.

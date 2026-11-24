@@ -45,6 +45,32 @@ Add new symbols here when they are first introduced, with the section where they
 | $\upsilon_{jc}$ | Composite error: measurement error plus sieve approximation error |
 | $\mathcal{M}_c$ | Market-level aggregate markup: sales-weighted harmonic mean of $\mu_{jc}$ |
 
+## Baseline framework (`paper/Scratch.tex`, Section `sec:baseline`)
+
+Industry-indexed versions of the symbols above carry a subscript $n$ (for example $\Upsilon_n$, $\varphi_n$, $\sigma_n$, $\mu_n$, $\mathbb{P}_{nc}$, $\mathbb{D}_{nc}$).
+
+| Symbol | Meaning |
+|---|---|
+| $C$, $N$ | Number of regions; number of industries |
+| $L_c$ | Population of region $c$ |
+| $I_c$ | Per-capita household income in region $c$ (taken as given) |
+| $\theta_n$ | Cobb-Douglas expenditure share of industry $n$, $\sum_n \theta_n = 1$ |
+| $\mathcal{J}_{nc}$ | Finite set of establishments in industry $n$, region $c$ |
+| $y_{jnc}$, $Y_{nc}$ | Per-capita consumption of variety $j$; per-capita industry bundle |
+| $q_{jnc} = L_c y_{jnc}$ | Total output (quantity sold) of establishment $j$ |
+| $\lambda_{nc}$ | Multiplier in the household's lower-tier problem; $\mathbb{D}_{nc} \equiv \lambda_{nc}/Y_{nc}$ |
+| $\mathcal{X}$, $\mathcal{X}^f \subseteq \mathcal{X}$ | Set of inputs; subset of flexible inputs (labor $l \in \mathcal{X}^f$) |
+| $v^x_{jnc}$ | Quantity of input $x$ ($v^l_{jnc} = l_{jnc}$) |
+| $W^x_c$ | Price of input $x$ in region $c$ ($W^l_c = W_c$) |
+| $\beta^x_n$ | Output elasticity of input $x$ in industry $n$ |
+| $\gamma_n \equiv \sum_x \beta^x_n$ | Returns to scale in industry $n$ |
+| $\lambda_{jnc}$ | Marginal cost (multiplier in the cost-minimization problem) |
+| $\alpha^x_{jnc} \equiv W^x_c v^x_{jnc}/(p_{jnc} q_{jnc})$ | Expenditure share of input $x$ in sales |
+
+Departures from the JMP: here $\alpha^x$ uses total sales $p q$ in the denominator, where the JMP writes $p y$. The two are the same object, because the JMP's production function is in total quantities. The JMP's $\nu_{jc}$ (ex-post shock or measurement error) is not yet in the baseline framework.
+
+Macro warning: in `preamble.tex`, `\D` is $\Delta$, not $\mathbb{D}$. Write `\mathbb{D}` in full. `\P` and `\C` are $\mathbb{P}$ and $\mathbb{C}$.
+
 ## Labor market power extension (JMP appendix `a:muestlmp`)
 
 | Symbol | Meaning |

@@ -1,86 +1,91 @@
 # Notation
 
-Notation follows the JMP (`literature/OMPSM_Franco.tex`) unless stated otherwise.
+This paper's notation follows the JMP (`literature/OMPSM_Franco.tex`), with one deliberate departure in the indices (see below).
 Blackboard bold is reserved for indices.
 Add new symbols here when they are first introduced, with the section where they appear.
+Symbols first defined in `paper/Scratch.tex` are marked with the section label.
 
 ## Indices
 
+| Symbol | Meaning | JMP equivalent |
+|---|---|---|
+| $j$ | Establishment | $j$ |
+| $i \in \{1,\dots,I\}$ | Industry | $n$ (sector) |
+| $n \in \{1,\dots,N\}$ | Region (market): county or commuting zone | $a$ (model), $c$ (empirics) |
+| $t$ | Period (year) | not used |
+| $k$ | Polynomial order in the sieve, $k = 1,2,3$ | $k$ |
+
+When porting JMP material, relabel sector $n \to i$ and city $c$ (or $a$) $\to n$.
+
+## Set up and preferences (`sec:setup`, `sec:preferences`)
+
 | Symbol | Meaning |
 |---|---|
-| $j$ | Establishment |
-| $c$ | Market ("city"): county or commuting zone |
-| $n$ | Industry (sector) |
-| $t$ | Year (not used in the JMP; introduced here for the time dimension) |
-| $k$ | Polynomial order in the sieve, $k = 1,2,3$ |
+| $N$, $I$ | Number of regions; number of industries |
+| $L_{nt}$ | Population of region $n$ |
+| $E_{nt}$ | Per-capita household income in region $n$, taken as given and spent entirely on local goods |
+| $\mathcal{J}_{int}$ | Finite set of establishments in industry $i$, region $n$, period $t$ (taken as given) |
+| $U_{nt}$ | Household utility |
+| $\theta_i$ | Cobb-Douglas expenditure share of industry $i$, $\sum_i \theta_i = 1$ |
+| $\Upsilon_i(\cdot)$ | HDIA (Kimball) aggregator of industry $i$: $C^2$, strictly increasing, strictly concave, $\Upsilon_i(0)=0$ |
+| $y_{jint}$, $Y_{int}$ | Per-capita consumption of variety $j$; per-capita industry-$i$ bundle |
+| $p_{jint}$ | Price of establishment $j$ |
+| $\lambda_{int}$ | Multiplier in the household's lower-tier problem |
+| $\mathbb{D}_{int} \equiv \lambda_{int}/Y_{int}$ | Competition price index |
+| $\mathbb{P}_{int}$ | Ideal price index of the industry-$i$ bundle |
+| $\varphi_i(\cdot) \equiv (\Upsilon_i')^{-1}(\cdot)$ | Demand function: $y_{jint}/Y_{int} = \varphi_i(p_{jint}/\mathbb{D}_{int})$ |
+| $q_{jint} = L_{nt} y_{jint}$ | Total output (quantity sold) of establishment $j$ |
+| $\sigma_i(\cdot)$ | Price elasticity of demand as a function of the relative price $p/\mathbb{D}$ |
 
-## Demand
+## Production and markups (`sec:production`, `sec:markups`)
 
 | Symbol | Meaning |
 |---|---|
-| $\Upsilon(\cdot)$ | Kimball (HDIA) aggregator: strictly increasing, concave, $\Upsilon(0)=0$ |
-| $y_{jc}$, $Y_c$ | Per-capita consumption of variety $j$; per-capita local-goods bundle |
-| $p_{jc}$ | Price of establishment $j$ in market $c$ |
-| $\varphi(\cdot) \equiv (\Upsilon')^{-1}(\cdot)$ | Demand function: $y_{jc}/Y_c = \varphi(p_{jc}/\mathbb{D}_c)$ |
-| $\mathbb{D}_c$ | Competition price index (the Lagrange multiplier over $Y_c$) |
-| $\mathbb{P}_c$ | Ideal price index of the local-goods bundle |
-| $\mathbb{C}_c \equiv W_c/\mathbb{D}_c$ | Competition index |
-| $\sigma(\cdot)$ | Price elasticity of demand as a function of the relative price $p/\mathbb{D}$ |
-| $\psi(\cdot)$ | Optimal relative price, $p_{jc}/\mathbb{D}_c = \psi(\mathbb{C}_c/z)$ |
-| $\zeta(\cdot)$ | Inverse of $x\varphi(x)$; maps $s^y_{jc}\,\mathbb{P}_c/\mathbb{D}_c$ to $p_{jc}/\mathbb{D}_c$ |
+| $\omega_{jint}$ | Hicks-neutral productivity |
+| $\mathcal{X}$ | Set of inputs |
+| $\mathcal{X}^f \subseteq \mathcal{X}$ | Flexible inputs, chosen in $t$ after $\omega_{jint}$ is known (labor $l \in \mathcal{X}^f$); the rest are fixed (chosen before $t$) |
+| $v^x_{jint}$ | Quantity of input $x$ ($v^l_{jint} = l_{jint}$) |
+| $W^x_{int}$ | Price of input $x$, specific to industry, region and period ($W^l_{int} = W_{int}$) |
+| $\beta^x_i$ | Output elasticity of input $x$ in industry $i$, constant over time |
+| $\gamma_i \equiv \sum_{x \in \mathcal{X}} \beta^x_i$ | Returns to scale (unrestricted) |
+| $\gamma^f_i \equiv \sum_{x \in \mathcal{X}^f} \beta^x_i$ | Short-run returns to scale (flexible inputs only) |
+| $\lambda_{jint}$ | Short-run marginal cost (multiplier in the cost-minimization problem) |
+| $\mu_{jint} \equiv p_{jint}/\lambda_{jint}$ | Markup |
+| $\mu_i(\cdot)$ | Markup as a function of the relative price, $\sigma_i/(\sigma_i - 1)$ |
+| $\alpha^x_{jint} \equiv W^x_{int} v^x_{jint}/(p_{jint} q_{jint})$ | Expenditure share of input $x$ in true sales |
+| $\nu_{jint}$ | Measurement error in observed sales |
+| $\tilde{R}_{jint} = p_{jint} q_{jint} e^{\nu_{jint}}$ | Observed sales |
+| $\tilde{\alpha}^x_{jint} = \alpha^x_{jint} e^{-\nu_{jint}}$ | Observed expenditure share of input $x$ |
+
+## Estimation (JMP `s:myproc`, `a:muestderiv`; not yet in `Scratch.tex`)
+
+| Symbol | Meaning |
+|---|---|
+| $s^y_{jint}$ | Establishment sales share in its region-industry-period |
+| $\zeta_i(\cdot)$ | Inverse of $x\varphi_i(x)$; maps $s^y_{jint}\,\mathbb{P}_{int}/\mathbb{D}_{int}$ to $p_{jint}/\mathbb{D}_{int}$ |
+| $\overline{p}$ | Choke price: $\varphi_i(\overline{p}) = 0$ |
+| $\varsigma_{k,int}$ | Sieve coefficients: $\varsigma_{k,int} = -\varsigma_k(\mathbb{P}_{int}/\mathbb{D}_{int})^k$ |
+| $\upsilon_{jint}$ | Composite error: measurement error plus sieve approximation error |
+| $\mathcal{M}_{int}$ | Aggregate markup: sales-weighted harmonic mean of $\mu_{jint}$ |
+
+## JMP-only objects (not yet used here)
+
+| Symbol | Meaning |
+|---|---|
+| $\mathbb{C} \equiv W/\mathbb{D}$ | Competition index |
+| $\psi(\cdot)$ | Optimal relative price, $p/\mathbb{D} = \psi(\mathbb{C}/z)$ |
 | $\delta(\cdot)$ | Consumer-surplus ratio (area under demand over sales) |
-| $\overline{p}$ | Choke price: $\varphi(\overline{p}) = 0$ |
+| $\Upsilon^l$, $\varphi^l$, $\zeta^l$, $\mathbb{D}^l$, $\mathbb{W}$, $\varrho$, $s^l$ | Labor market power extension (`a:muestlmp`): labor-supply aggregator and its inverse, wage indices, markdown, wage-bill share |
 
-## Production and estimation
+## Departures from the JMP
 
-| Symbol | Meaning |
-|---|---|
-| $\mu_{jc}$ | Markup (price over marginal cost) |
-| $\beta$ ($\beta_n$) | Labor output elasticity (industry-specific in the multi-sector case) |
-| $\omega_{jc}$ | Hicks-neutral productivity |
-| $\nu_{jc}$ | Ex-post shock or measurement error in output |
-| $\alpha^l_{jc} \equiv W_c l_{jc}/(p_{jc} y_{jc})$ | Labor expenditure share of sales (wage bill over sales) |
-| $s^y_{jc}$ | Establishment sales share in market $c$ |
-| $\varsigma_{k,c}$ | Market-specific sieve coefficients: $\varsigma_{k,c} = -\varsigma_k(\mathbb{P}_c/\mathbb{D}_c)^k$ |
-| $\upsilon_{jc}$ | Composite error: measurement error plus sieve approximation error |
-| $\mathcal{M}_c$ | Market-level aggregate markup: sales-weighted harmonic mean of $\mu_{jc}$ |
+- Indices: regions $n$ and industries $i$ (see above).
+- $\alpha^x$ uses total sales $pq$ in the denominator, where the JMP writes $py$. They are the same object, because the JMP's production function is in total quantities.
+- $\nu$ is measurement error in observed sales only, and input expenditures are measured without error. The JMP treats it as either an ex-post production shock or measurement error.
+- Per-capita income is $E_{nt}$, because $I$ is now the number of industries.
 
-## Baseline framework (`paper/Scratch.tex`, Section `sec:baseline`)
+## Macro warnings and open notation issues
 
-Industry-indexed versions of the symbols above carry a subscript $n$ (for example $\Upsilon_n$, $\varphi_n$, $\sigma_n$, $\mu_n$, $\mathbb{P}_{nc}$, $\mathbb{D}_{nc}$).
-
-| Symbol | Meaning |
-|---|---|
-| $C$, $N$ | Number of regions; number of industries |
-| $L_c$ | Population of region $c$ |
-| $I_c$ | Per-capita household income in region $c$ (taken as given) |
-| $\theta_n$ | Cobb-Douglas expenditure share of industry $n$, $\sum_n \theta_n = 1$ |
-| $\mathcal{J}_{nc}$ | Finite set of establishments in industry $n$, region $c$ |
-| $y_{jnc}$, $Y_{nc}$ | Per-capita consumption of variety $j$; per-capita industry bundle |
-| $q_{jnc} = L_c y_{jnc}$ | Total output (quantity sold) of establishment $j$ |
-| $\lambda_{nc}$ | Multiplier in the household's lower-tier problem; $\mathbb{D}_{nc} \equiv \lambda_{nc}/Y_{nc}$ |
-| $\mathcal{X}$, $\mathcal{X}^f \subseteq \mathcal{X}$ | Set of inputs; subset of flexible inputs (labor $l \in \mathcal{X}^f$) |
-| $v^x_{jnc}$ | Quantity of input $x$ ($v^l_{jnc} = l_{jnc}$) |
-| $W^x_c$ | Price of input $x$ in region $c$ ($W^l_c = W_c$) |
-| $\beta^x_n$ | Output elasticity of input $x$ in industry $n$ |
-| $\gamma_n \equiv \sum_x \beta^x_n$ | Returns to scale in industry $n$ |
-| $\lambda_{jnc}$ | Marginal cost (multiplier in the cost-minimization problem) |
-| $\alpha^x_{jnc} \equiv W^x_c v^x_{jnc}/(p_{jnc} q_{jnc})$ | Expenditure share of input $x$ in sales |
-
-Departures from the JMP: here $\alpha^x$ uses total sales $p q$ in the denominator, where the JMP writes $p y$. The two are the same object, because the JMP's production function is in total quantities. The JMP's $\nu_{jc}$ (ex-post shock or measurement error) is not yet in the baseline framework.
-
-Macro warning: in `preamble.tex`, `\D` is $\Delta$, not $\mathbb{D}$. Write `\mathbb{D}` in full. `\P` and `\C` are $\mathbb{P}$ and $\mathbb{C}$.
-
-## Labor market power extension (JMP appendix `a:muestlmp`)
-
-| Symbol | Meaning |
-|---|---|
-| $\Upsilon^l(\cdot)$, $\varphi^l(\cdot)$, $\zeta^l(\cdot)$ | Labor-supply analogues of $\Upsilon$, $\varphi$, $\zeta$ |
-| $\mathbb{D}^l_c$, $\mathbb{W}_c$ | Wage competition index; ideal wage index |
-| $\varrho_{jc}$ | Markdown (MRPL over wage) |
-| $s^l_{jc}$ | Establishment wage-bill share in market $c$ |
-
-## Open notation issues
-
-- `\varsigma` is used both for the sieve coefficients (Section `s:myproc`) and for Lagrange multipliers in the JMP planner problem (Appendix `a:spprob`). This paper only needs the sieve meaning, but be careful when porting planner results.
+- In `preamble.tex`, `\D` is $\Delta$, not $\mathbb{D}$. Write `\mathbb{D}` in full. `\P` and `\C` are $\mathbb{P}$ and $\mathbb{C}$.
+- `\varsigma` is used both for the sieve coefficients (JMP `s:myproc`) and for Lagrange multipliers in the JMP planner problem (`a:spprob`). This paper only needs the sieve meaning, but be careful when porting planner results.
 - The JMP's Appendix `a:muestderiv` writes $s_{jc}$ without the superscript $y$ in one line. This is a typo for $s^y_{jc}$.

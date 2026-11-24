@@ -20,137 +20,174 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % 2026-11-24: first draft, adapted from the multi-sector appendix of the JMP (a:muext).
+% 2026-11-24: revised. Regions n, industries i, time t; no outside goods; measurement error in observed sales;
+%             fixed inputs and arbitrary returns to scale; input prices specific to region and industry.
 
 \section{Baseline Framework}\label{sec:baseline}
 
 \subsection{Set Up}\label{sec:setup}
 
-There are $C$ regions indexed by $c \in \{1, \dots, C\}$.
-Regions differ in their population, $L_c$.
-There are $N$ industries indexed by $n \in \{1, \dots, N\}$.
-Each industry produces non-traded varieties, so varieties produced in region $c$ are consumed only in region $c$.
-Let $\cJ_{nc}$ denote the finite set of establishments active in industry $n$ and region $c$, indexed by $j$.
+Time is discrete and indexed by $t$.
+There are $N$ regions indexed by $n \in \{1, \dots, N\}$.
+Regions differ in their population, $L_{nt}$.
+There are $I$ industries indexed by $i \in \{1, \dots, I\}$.
+Each industry produces non-traded varieties, so varieties produced in region $n$ are consumed only in region $n$.
+Let $\cJ_{int}$ denote the finite set of establishments active in industry $i$, region $n$, and period $t$, indexed by $j$.
 Each establishment produces a single differentiated variety.
+The set $\cJ_{int}$ is taken as given.
+
+All decisions below are static, so the model is a sequence of period-$t$ equilibria.
+Time enters through changes in populations, incomes, the sets of establishments, productivity, and input prices.
+The only intertemporal element is that some inputs are chosen before period $t$ (see Section~\ref{sec:production}).
 
 \subsection{Preferences}\label{sec:preferences}
 
-Each region is populated by $L_c$ identical households.
-Each household has income $I_c$, which it takes as given.
+Each region is populated by $L_{nt}$ identical households.
+Each household has income $E_{nt}$, which it takes as given and spends entirely on local goods.
 Households have Cobb-Douglas preferences over industry bundles,
 \begin{equation}\label{eq:uppertier}
-	U_c = \prod_{n=1}^{N} \left(\frac{Y_{nc}}{\theta_n}\right)^{\theta_n}, \qquad \sum_{n=1}^{N} \theta_n = 1,
+	U_{nt} = \prod_{i=1}^{I} \left(\frac{Y_{int}}{\theta_i}\right)^{\theta_i}, \qquad \sum_{i=1}^{I} \theta_i = 1,
 \end{equation}
-where $Y_{nc}$ is per-capita consumption of the industry-$n$ bundle in region $c$.
+where $Y_{int}$ is per-capita consumption of the industry-$i$ bundle in region $n$ and period $t$.
 
 Within each industry, households have HDIA preferences over varieties, in the terminology of \textcite{Matsuyama&Ushev17}.
 These are the Kimball preferences of \textcite{Kimball95}.
-The industry bundle $Y_{nc}$ is implicitly defined by
+The industry bundle $Y_{int}$ is implicitly defined by
 \begin{equation}\label{eq:hdia}
-	\sum_{j \in \cJ_{nc}} \Upsilon_n\left(\frac{y_{jnc}}{Y_{nc}}\right) = 1,
+	\sum_{j \in \cJ_{int}} \Upsilon_i\left(\frac{y_{jint}}{Y_{int}}\right) = 1,
 \end{equation}
-where $y_{jnc}$ is per-capita consumption of variety $j$.
+where $y_{jint}$ is per-capita consumption of variety $j$.
 
 \bassu[HDIA aggregator]\label{assum:hdia}
-For each industry $n$, the aggregator $\Upsilon_n(\cdot)$ is twice continuously differentiable, strictly increasing, and strictly concave, with $\Upsilon_n(0) = 0$.
+For each industry $i$, the aggregator $\Upsilon_i(\cdot)$ is twice continuously differentiable, strictly increasing, and strictly concave, with $\Upsilon_i(0) = 0$.
 \eassu
 
-CES is the special case $\Upsilon_n(q) = q^{(\sigma_n - 1)/\sigma_n}$.
+CES is the special case $\Upsilon_i(q) = q^{(\sigma_i - 1)/\sigma_i}$.
 The aggregator is industry specific, so the curvature of demand, and hence markups, can differ across industries.
+The preference parameters $\theta_i$ and $\Upsilon_i$ are constant over time and across regions.
 
 \textbf{Upper tier.}
-Because both tiers are homothetic, each industry bundle has a price index $\P_{nc}$, and the household maximizes \eqref{eq:uppertier} subject to $\sum_n \P_{nc} Y_{nc} = I_c$.
+Because both tiers are homothetic, each industry bundle has a price index $\P_{int}$, and the household maximizes \eqref{eq:uppertier} subject to $\sum_i \P_{int} Y_{int} = E_{nt}$.
 Cobb-Douglas implies constant expenditure shares:
 \begin{equation}\label{eq:indexp}
-	\P_{nc} Y_{nc} = \theta_n I_c.
+	\P_{int} Y_{int} = \theta_i E_{nt}.
 \end{equation}
 
 \textbf{Lower tier.}
-For a given $Y_{nc}$, the household chooses $\{y_{jnc}\}_{j}$ to minimize expenditure $\sum_{j} p_{jnc} y_{jnc}$ subject to \eqref{eq:hdia}.
-With Lagrange multiplier $\lambda_{nc}$, the first-order condition for variety $j$ is
+For a given $Y_{int}$, the household chooses $\{y_{jint}\}_{j}$ to minimize expenditure $\sum_{j} p_{jint} y_{jint}$ subject to \eqref{eq:hdia}.
+With Lagrange multiplier $\lambda_{int}$, the first-order condition for variety $j$ is
 \begin{equation*}
-	p_{jnc} = \frac{\lambda_{nc}}{Y_{nc}} \Upsilon_n'\left(\frac{y_{jnc}}{Y_{nc}}\right).
+	p_{jint} = \frac{\lambda_{int}}{Y_{int}} \Upsilon_i'\left(\frac{y_{jint}}{Y_{int}}\right).
 \end{equation*}
-Define the competition price index $\mathbb{D}_{nc} \equiv \lambda_{nc}/Y_{nc}$ and the inverse marginal aggregator $\vp_n(\cdot) \equiv (\Upsilon_n')^{-1}(\cdot)$.
-Strict concavity of $\Upsilon_n$ makes $\Upsilon_n'$ strictly decreasing, so $\vp_n$ is well defined and strictly decreasing.
+Define the competition price index $\mathbb{D}_{int} \equiv \lambda_{int}/Y_{int}$ and the inverse marginal aggregator $\vp_i(\cdot) \equiv (\Upsilon_i')^{-1}(\cdot)$.
+Strict concavity of $\Upsilon_i$ makes $\Upsilon_i'$ strictly decreasing, so $\vp_i$ is well defined and strictly decreasing.
 The per-capita demand for variety $j$ is then
 \begin{equation}\label{eq:demand}
-	\frac{y_{jnc}}{Y_{nc}} = \vp_n\left(\frac{p_{jnc}}{\mathbb{D}_{nc}}\right).
+	\frac{y_{jint}}{Y_{int}} = \vp_i\left(\frac{p_{jint}}{\mathbb{D}_{int}}\right).
 \end{equation}
 Substituting \eqref{eq:demand} into \eqref{eq:hdia}, the competition price index is implicitly defined by
 \begin{equation}\label{eq:Dindex}
-	\sum_{j \in \cJ_{nc}} \Upsilon_n\left(\vp_n\left(\frac{p_{jnc}}{\mathbb{D}_{nc}}\right)\right) = 1.
+	\sum_{j \in \cJ_{int}} \Upsilon_i\left(\vp_i\left(\frac{p_{jint}}{\mathbb{D}_{int}}\right)\right) = 1.
 \end{equation}
-Equation \eqref{eq:Dindex} pins down $\mathbb{D}_{nc}$ from prices alone, so $\mathbb{D}_{nc}$ does not depend on $Y_{nc}$.
-Since minimized expenditure is $\sum_j p_{jnc} y_{jnc} = \P_{nc} Y_{nc}$, dividing by $Y_{nc}$ and using \eqref{eq:demand} gives the ideal price index
+Equation \eqref{eq:Dindex} pins down $\mathbb{D}_{int}$ from prices alone, so $\mathbb{D}_{int}$ does not depend on $Y_{int}$.
+Since minimized expenditure is $\sum_j p_{jint} y_{jint} = \P_{int} Y_{int}$, dividing by $Y_{int}$ and using \eqref{eq:demand} gives the ideal price index
 \begin{equation}\label{eq:Pindex}
-	\P_{nc} = \sum_{j \in \cJ_{nc}} p_{jnc} \, \vp_n\left(\frac{p_{jnc}}{\mathbb{D}_{nc}}\right).
+	\P_{int} = \sum_{j \in \cJ_{int}} p_{jint} \, \vp_i\left(\frac{p_{jint}}{\mathbb{D}_{int}}\right).
 \end{equation}
-Under CES, $\P_{nc}$ and $\mathbb{D}_{nc}$ are proportional.
-Outside CES they are not, and the ratio $\P_{nc}/\mathbb{D}_{nc}$ will matter for markup estimation.
+Under CES, $\P_{int}$ and $\mathbb{D}_{int}$ are proportional.
+Outside CES they are not, and the ratio $\P_{int}/\mathbb{D}_{int}$ will matter for markup estimation.
 
 \textbf{Market demand.}
-Total demand for variety $j$ is $q_{jnc} = L_c y_{jnc}$.
+Total demand for variety $j$ is $q_{jint} = L_{nt} y_{jint}$.
 Combining \eqref{eq:indexp} and \eqref{eq:demand},
 \begin{equation}\label{eq:marketdemand}
-	q_{jnc} = \frac{\theta_n I_c L_c}{\P_{nc}} \, \vp_n\left(\frac{p_{jnc}}{\mathbb{D}_{nc}}\right).
+	q_{jint} = \frac{\theta_i E_{nt} L_{nt}}{\P_{int}} \, \vp_i\left(\frac{p_{jint}}{\mathbb{D}_{int}}\right).
 \end{equation}
 The price elasticity of demand, holding the price indices fixed, depends only on the relative price:
 \begin{equation}\label{eq:sigma}
-	\s_n\left(\frac{p_{jnc}}{\mathbb{D}_{nc}}\right) \equiv -\frac{\partial \log q_{jnc}}{\partial \log p_{jnc}} = -\frac{\frac{p_{jnc}}{\mathbb{D}_{nc}} \vp_n'\left(\frac{p_{jnc}}{\mathbb{D}_{nc}}\right)}{\vp_n\left(\frac{p_{jnc}}{\mathbb{D}_{nc}}\right)}.
+	\s_i\left(\frac{p_{jint}}{\mathbb{D}_{int}}\right) \equiv -\frac{\partial \log q_{jint}}{\partial \log p_{jint}} = -\frac{\frac{p_{jint}}{\mathbb{D}_{int}} \vp_i'\left(\frac{p_{jint}}{\mathbb{D}_{int}}\right)}{\vp_i\left(\frac{p_{jint}}{\mathbb{D}_{int}}\right)}.
 \end{equation}
 
 \subsection{Production}\label{sec:production}
 
-Establishment $j$ in industry $n$ and region $c$ produces with a Hicks-neutral Cobb-Douglas technology over a set of inputs $\cX$:
+Establishment $j$ in industry $i$, region $n$, and period $t$ produces with a Hicks-neutral Cobb-Douglas technology over a set of inputs $\cX$:
 \begin{equation}\label{eq:prodfn}
-	q_{jnc} = \o_{jnc} \prod_{x \in \cX} \left(v^x_{jnc}\right)^{\b^x_n},
+	q_{jint} = \o_{jint} \prod_{x \in \cX} \left(v^x_{jint}\right)^{\b^x_i},
 \end{equation}
-where $\o_{jnc}$ is establishment productivity, $v^x_{jnc}$ is the quantity of input $x$, and $\b^x_n \geq 0$ is the output elasticity of input $x$, which is common to all establishments in industry $n$.
-An input not used in industry $n$ has $\b^x_n = 0$.
-Returns to scale, $\g_n \equiv \sum_{x \in \cX} \b^x_n$, are not restricted to one.
+where $\o_{jint}$ is establishment productivity, $v^x_{jint}$ is the quantity of input $x$, and $\b^x_i \geq 0$ is the output elasticity of input $x$.
+Output elasticities are common to all establishments in industry $i$ and constant over time.
+An input not used in industry $i$ has $\b^x_i = 0$.
+Returns to scale, $\g_i \equiv \sum_{x \in \cX} \b^x_i$, are not restricted.
 
-Input markets are competitive, and establishments in region $c$ take the price of input $x$, $W^x_c$, as given.
-A subset of inputs $\cX^f \subseteq \cX$ is flexible: these inputs are chosen after $\o_{jnc}$ is known and can be freely adjusted.
-The remaining inputs may be fixed in the short run.
-Labor, $x = l$, is flexible, with $v^l_{jnc} = l_{jnc}$ and $W^l_c = W_c$.
+\textbf{Inputs.}
+Input markets are competitive.
+Establishments in industry $i$ and region $n$ take the price of input $x$ in period $t$, $W^x_{int}$, as given.
+Inputs are of two types.
+A subset $\cX^f \subseteq \cX$ is flexible: these inputs are chosen in period $t$ after $\o_{jint}$ is known, and can be freely adjusted.
+The remaining inputs, $\cX \setminus \cX^f$, are fixed: they are chosen before period $t$ and are given within the period.
+Labor, $x = l$, is flexible, with $v^l_{jint} = l_{jint}$ and $W^l_{int} = W_{int}$.
 
 \textbf{Market structure.}
 Establishments compete under monopolistic competition.
-Each establishment takes the price indices $\P_{nc}$ and $\mathbb{D}_{nc}$, aggregate expenditure $\theta_n I_c L_c$, and input prices as given.
-
-\textbf{Open:} With a finite set $\cJ_{nc}$, an establishment's price does affect $\mathbb{D}_{nc}$ and $\P_{nc}$ through \eqref{eq:Dindex} and \eqref{eq:Pindex}.
-Monopolistic competition assumes establishments ignore this effect.
-The oligopoly extension in the style of \textcite{Atkeson&Burstein08} relaxes this.
+Each establishment takes the price indices $\P_{int}$ and $\mathbb{D}_{int}$, industry expenditure $\theta_i E_{nt} L_{nt}$, and input prices as given.
+With a finite set $\cJ_{int}$, an establishment's price does affect $\mathbb{D}_{int}$ and $\P_{int}$ through \eqref{eq:Dindex} and \eqref{eq:Pindex}.
+Monopolistic competition assumes establishments do not internalize this effect.
+The oligopoly extension in the style of \textcite{Atkeson&Burstein08} will relax this.
 
 \subsection{Markups}\label{sec:markups}
 
 \textbf{Cost minimization.}
-Fix output $q_{jnc}$ and the levels of any non-flexible inputs.
+Fix output $q_{jint}$ and the levels of the fixed inputs.
 For a flexible input $x \in \cX^f$, the first-order condition of cost minimization is
 \begin{equation*}
-	W^x_c = \l_{jnc} \, \b^x_n \frac{q_{jnc}}{v^x_{jnc}},
+	W^x_{int} = \l_{jint} \, \b^x_i \frac{q_{jint}}{v^x_{jint}},
 \end{equation*}
-where $\l_{jnc}$, the multiplier on the output constraint, is marginal cost.
-Define the markup as price over marginal cost, $\m_{jnc} \equiv p_{jnc}/\l_{jnc}$, and the expenditure share of input $x$ in sales as $\a^x_{jnc} \equiv W^x_c v^x_{jnc} / (p_{jnc} q_{jnc})$.
-Multiplying the first-order condition by $v^x_{jnc}/(p_{jnc} q_{jnc})$ and rearranging gives the ratio estimator of \textcite{DeLoecker&Warzynski12}:
+where $\l_{jint}$, the multiplier on the output constraint, is short-run marginal cost.
+Define the markup as price over marginal cost, $\m_{jint} \equiv p_{jint}/\l_{jint}$, and the expenditure share of input $x$ in true sales as $\a^x_{jint} \equiv W^x_{int} v^x_{jint} / (p_{jint} q_{jint})$.
+Multiplying the first-order condition by $v^x_{jint}/(p_{jint} q_{jint})$ and rearranging gives the ratio estimator of \textcite{DeLoecker&Warzynski12}:
 \begin{equation}\label{eq:ratio}
-	\m_{jnc} = \frac{\b^x_n}{\a^x_{jnc}}, \qquad x \in \cX^f.
+	\m_{jint} = \frac{\b^x_i}{\a^x_{jint}}, \qquad x \in \cX^f.
 \end{equation}
-This step uses only cost minimization over a flexible, price-taking input, so it does not depend on the demand system or the market structure.
+This step uses only cost minimization over a flexible, price-taking input.
+It does not depend on the demand system, the market structure, returns to scale, or the fixed inputs.
 
 \textbf{Pricing.}
-Given the cost function, the establishment chooses $p_{jnc}$ to maximize profits subject to \eqref{eq:marketdemand}, taking the price indices as given.
-The first-order condition is the Lerner condition, which holds whether or not returns to scale are constant:
+Given the short-run cost function, the establishment chooses $p_{jint}$ to maximize profits subject to \eqref{eq:marketdemand}, taking the price indices as given.
+The first-order condition is the Lerner condition:
 \begin{equation}\label{eq:lerner}
-	\m_{jnc} = \m_n\left(\frac{p_{jnc}}{\mathbb{D}_{nc}}\right) \equiv \frac{\s_n\left(p_{jnc}/\mathbb{D}_{nc}\right)}{\s_n\left(p_{jnc}/\mathbb{D}_{nc}\right) - 1}.
+	\m_{jint} = \m_i\left(\frac{p_{jint}}{\mathbb{D}_{int}}\right) \equiv \frac{\s_i\left(p_{jint}/\mathbb{D}_{int}\right)}{\s_i\left(p_{jint}/\mathbb{D}_{int}\right) - 1}.
 \end{equation}
-This requires $\s_n > 1$ at the optimum, so establishments operate on the elastic part of their demand curve.
+This requires $\s_i > 1$ at the optimum, so establishments operate on the elastic part of their demand curve.
+The Lerner condition holds whatever the shape of marginal cost, so it does not depend on returns to scale or the fixed inputs either.
 
-\textbf{Open:} With $\g_n \neq 1$, marginal cost depends on output, and the second-order condition needs conditions on both $\Upsilon_n$ and $\g_n$. These are not stated yet.
+\textbf{Open:} Marginal cost varies with output unless short-run returns to scale, $\g^f_i \equiv \sum_{x \in \cX^f} \b^x_i$, equal one.
+The second-order condition for pricing then needs joint conditions on $\Upsilon_i$ and $\g^f_i$.
+These are not stated yet.
 
-Equations \eqref{eq:ratio} and \eqref{eq:lerner} are the two building blocks for markup estimation.
-The first links markups to observables up to $\b^x_n$.
-The second links markups to the demand system through the relative price $p_{jnc}/\mathbb{D}_{nc}$, which is not observed.
+\textbf{Measurement error.}
+Sales are observed with error.
+Observed sales are
+\begin{equation}\label{eq:obssales}
+	\tilde{R}_{jint} = p_{jint} q_{jint} \, e^{\n_{jint}},
+\end{equation}
+where $\n_{jint}$ is measurement error.
+Input expenditures $W^x_{int} v^x_{jint}$ are observed without error.
+The observed expenditure share is $\tilde{\a}^x_{jint} \equiv W^x_{int} v^x_{jint}/\tilde{R}_{jint} = \a^x_{jint} e^{-\n_{jint}}$.
+Substituting into \eqref{eq:ratio},
+\begin{equation}\label{eq:ratioobs}
+	\m_{jint} = \frac{\b^x_i}{\tilde{\a}^x_{jint}} \, e^{-\n_{jint}}, \qquad x \in \cX^f.
+\end{equation}
+Because the error is in measurement only, establishments' choices are unaffected and \eqref{eq:lerner} still holds at the true price.
+
+\textbf{Open:} The sales shares used later are built from observed sales, so they contain $\n_{jint}$ as well.
+This creates a correlation between the regressors and the error in the estimating equation.
+It motivates the lagged-sales-share instruments used in the JMP.
+The assumptions needed on $\n_{jint}$ (mean zero, independence across establishments and over time) are not stated yet.
+
+\textbf{Summary.}
+Equations \eqref{eq:ratioobs} and \eqref{eq:lerner} are the two building blocks for markup estimation.
+The first links markups to observables up to $\b^x_i$ and the measurement error.
+The second links markups to the demand system through the relative price $p_{jint}/\mathbb{D}_{int}$, which is not observed.
 The next step expresses the relative price in terms of observed sales shares, as in Appendix \texttt{a:muestderiv} of the JMP.
 
 

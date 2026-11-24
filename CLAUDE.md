@@ -24,27 +24,27 @@ Prefer derivations that hold in the general case, and say explicitly where a spe
 - **Production.** A general production function in principle. Because of data limits, the baseline is Cobb-Douglas with output elasticities constant within an industry. Labor is the flexible input.
 - **Markets.** A market is a county or a commuting zone. Results use both.
 - **Conduct.** The baseline is monopolistic competition: establishments take the local price indices as given. A planned extension is oligopolistic competition in the style of `Atkeson&Burstein08`, where establishments internalize their effect on the local price indices. This matters most in small markets, where single establishments can have large sales shares.
-- **Estimating equation.** The ratio estimator $\mu_{jnct} = (\beta_n/\alpha^l_{jnct})\,e^{-\nu_{jnct}}$ is combined with the demand system. Markups then become a function of $s^y_{jnct}\,\mathbb{P}_{nct}/\mathbb{D}_{nct}$. A cubic sieve with no constant term (the choke price implies $\mu \to 1$ as $s^y \to 0$) gives the baseline
+- **Estimating equation.** The ratio estimator $\mu_{jint} = (\beta_i/\alpha^l_{jint})\,e^{-\nu_{jint}}$ is combined with the demand system. Markups then become a function of $s^y_{jint}\,\mathbb{P}_{int}/\mathbb{D}_{int}$. A cubic sieve with no constant term (the choke price implies $\mu \to 1$ as $s^y \to 0$) gives the baseline
 
   ```latex
-  \log \alpha_{jnct}^l = \log \beta_n + \varsigma_{1,nct} s^y_{jnct} + \varsigma_{2,nct} (s^y_{jnct})^2 + \varsigma_{3,nct} (s^y_{jnct})^3 + \upsilon_{jnct}
+  \log \alpha_{jint}^l = \log \beta_i + \varsigma_{1,int} s^y_{jint} + \varsigma_{2,int} (s^y_{jint})^2 + \varsigma_{3,int} (s^y_{jint})^3 + \upsilon_{jint}
   ```
 
-  Here $j$ is the establishment, $n$ the industry, $c$ the market and $t$ the year.
-  $\alpha^l_{jnct}$ is the wage bill over sales.
-  $\beta_n$ is the industry-specific labor output elasticity.
-  $s^y_{jnct}$ is the establishment's sales share in its market-industry-year.
-  The $\varsigma_{k,nct}$ are market-industry-year coefficients that absorb $\mathbb{P}_{nct}/\mathbb{D}_{nct}$, the ratio of the ideal price index to the competition price index.
-  Markups are $\hat\mu_{jnct} = \exp(-\sum_k \hat\varsigma_{k,nct} (s^y_{jnct})^k)$.
+  Here $j$ is the establishment, $i$ the industry, $n$ the region (market) and $t$ the year.
+  $\alpha^l_{jint}$ is the wage bill over sales.
+  $\beta_i$ is the industry-specific labor output elasticity.
+  $s^y_{jint}$ is the establishment's sales share in its region-industry-year.
+  The $\varsigma_{k,int}$ are region-industry-year coefficients that absorb $\mathbb{P}_{int}/\mathbb{D}_{int}$, the ratio of the ideal price index to the competition price index.
+  Markups are $\hat\mu_{jint} = \exp(-\sum_k \hat\varsigma_{k,int} (s^y_{jint})^k)$.
   This is the multi-sector version in JMP Appendix `a:muext` with a time index added. The single-market JMP equation is the special case with one industry and one year.
-  Whether $\beta_n$ should also vary over time ($\beta_{nt}$) is an open choice.
+  Whether $\beta_i$ should also vary over time ($\beta_{it}$) is an open choice.
 - Notation is listed in `derivations/notation.md`.
 
 ## Relation to the job market paper
 
 - The JMP is `literature/OMPSM_Franco.tex` ("Output Market Power and Spatial Misallocation"). This paper extends its empirical part: Section "Empirical Analysis" (`s:empanal`) and the appendix "Markup Estimation".
 - The JMP appendix already contains the derivation of the estimating equation (`a:muestderiv`), sieve consistency (`a:mucons`), the multi-sector version (`a:muext`), labor market power (`a:muestlmp`), and the general production function (`a:genprodfn`). Build on these rather than re-deriving from scratch.
-- Keep notation consistent with the JMP. Flag any departure.
+- Keep notation consistent with the JMP, except for one deliberate departure: here regions are indexed by $n \in \{1,\dots,N\}$ and industries by $i \in \{1,\dots,I\}$. The JMP uses $a$ or $c$ for cities and $n$ for sectors. Relabel when porting JMP material. Flag any other departure.
 - The JMP and this paper share the same preamble and citation commands, so JMP text can be ported without converting citations. JMP labels use `s:` and `a:` prefixes; relabel to this paper's `sec:` convention when porting.
 - Numbers in the JMP are JMP results. Do not carry them into this paper as its own results.
 

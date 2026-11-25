@@ -17,7 +17,7 @@ Symbols first defined in `paper/Scratch.tex` are marked with the section label.
 
 When porting JMP material, relabel sector $n \to i$ and city $c$ (or $a$) $\to n$.
 
-## Set up and preferences (`sec:setup`, `sec:preferences`)
+## Set up and preferences (`sec:setup`, `sec:preferences`, with `sec:hdia`, `sec:hsa`, `sec:common`)
 
 | Symbol | Meaning |
 |---|---|
@@ -32,14 +32,17 @@ When porting JMP material, relabel sector $n \to i$ and city $c$ (or $a$) $\to n
 | $\xi_{jint}$ | Quality (taste shifter) of variety $j$; utility depends on $e^{\xi_{jint}} y_{jint}$; costless, not in the production function |
 | $p_{jint}$ | Price of establishment $j$ |
 | $\vartheta_{int}$ | Multiplier in the household's lower-tier problem ($\lambda^W$ in the JMP; $\lambda$ is reserved here for marginal cost) |
-| $\mathbb{D}_{int} \equiv \vartheta_{int}/Y_{int}$ | Competition price index |
+| $\mathbb{D}_{int}$ | Competition price index, the index establishments compete against. HDIA: $\vartheta_{int}/Y_{int}$, defined by `eq:Dindex`. HSA: the single aggregator, defined by `eq:hsaD` ($A(\mathbf{p})$ in Matsuyama and Ushchev) |
 | $\mathbb{P}_{int}$ | Ideal price index of the industry-$i$ bundle |
 | $\varphi_{in}(\cdot) \equiv (\Upsilon_{in}')^{-1}(\cdot)$ | Demand function: $e^{\xi_{jint}} y_{jint}/Y_{int} = \varphi_{in}(\check{p}_{jint})$ |
 | $\check{p}_{jint} \equiv p_{jint} e^{-\xi_{jint}}/\mathbb{D}_{int}$ | Quality-adjusted relative price (`eq:relprice`). Check notation as in Errico and Lashkari; tildes are reserved for variables observed with error |
+| $h_{in}(\cdot)$ | Share function, used for both families. HSA: the budget-share function ($s(\cdot)$ in Matsuyama and Ushchev; renamed to avoid a clash with sales shares). HDIA: $h_{in}(\check{p}) \equiv \check{p}\,\varphi_{in}(\check{p})$ |
+| $H_{int} \equiv \sum_j h_{in}(\check{p}_{jint})$ | Market-level term in the budget share $h_{in}(\check{p}_{jint})/H_{int}$. HDIA: $\mathbb{P}_{int}/\mathbb{D}_{int}$. HSA: 1 |
+| $\gamma_{in}$ | Scale of the CES share function under HSA, $h_{in}(\check{p}) = \gamma_{in}\check{p}^{1-\sigma_{in}}$ (not to be confused with returns to scale $\gamma_i$) |
 | $q_{jint} = L_{nt} y_{jint}$ | Total output (quantity sold) of establishment $j$ |
 | $\sigma_{in}(\cdot)$ | Price elasticity of demand as a function of the quality-adjusted relative price $\check{p}$ |
 
-## Production and markups (`sec:production`, `sec:markups`)
+## Production and markups (`sec:production`)
 
 | Symbol | Meaning |
 |---|---|
@@ -66,20 +69,19 @@ When porting JMP material, relabel sector $n \to i$ and city $c$ (or $a$) $\to n
 | $R_{jint} \equiv p_{jint} q_{jint}$ | True sales |
 | $s^y_{jint}$ | True sales share in its region-industry-period |
 | $\tilde{s}^y_{jint}$ | Observed sales share (built from $\tilde{R}$) |
-| $h_{in}(\check{p}) \equiv \check{p}\,\varphi_{in}(\check{p})$ | Share function: $s^y_{jint} = h_{in}(\check{p}_{jint})\,\mathbb{D}_{int}/\mathbb{P}_{int}$ |
-| $\zeta_{in}(\cdot)$ | Inverse of $h_{in}$; maps $s^y_{jint}\,\mathbb{P}_{int}/\mathbb{D}_{int}$ to $\check{p}_{jint}$ |
-| $\overline{p}_{in} \equiv \Upsilon_{in}'(0)$ | Choke price: $\varphi_{in}(\overline{p}_{in}) = 0$. No restriction on $\varphi_{in}'(\overline{p}_{in})$ |
+| $\zeta_{in}(\cdot)$ | Inverse of $h_{in}$; maps $s^y_{jint} H_{int}$ to $\check{p}_{jint}$ |
+| $\overline{p}_{in}$ | Choke price: $h_{in}(\check{p}) = 0$ for $\check{p} \geq \overline{p}_{in}$. Under HDIA, $\overline{p}_{in} = \Upsilon_{in}'(0)$ |
 | $\underline{p}_{in}$ | Lower end of the elastic interval $(\underline{p}_{in}, \overline{p}_{in})$ where $\sigma_{in} > 1$ |
-| $m_{in}(a) \equiv \log\mu_{in}(\zeta_{in}(a))$ | Log markup as a function of $a = s^y\,\mathbb{P}/\mathbb{D}$; $m_{in}(0) = 0$ |
-| $a_{jint} \equiv s^y_{jint}\,\mathbb{P}_{int}/\mathbb{D}_{int}$ | Argument of $m_{in}$ |
+| $m_{in}(a) \equiv \log\mu_{in}(\zeta_{in}(a))$ | Log markup as a function of $a = s^y H$; $m_{in}(0) = 0$ |
+| $a_{jint} \equiv s^y_{jint} H_{int}$ | Argument of $m_{in}$ |
 | $\bar{e}_{int} \equiv \sum_j s^y_{jint} e^{\nu_{jint}}$ | Sales-weighted mean of $e^{\nu}$ in the market |
 | $\kappa_k \equiv \mathbb{E}[e^{k\nu}]$ | Moments of the measurement error |
 | $K$ | Sieve order (baseline $K=3$) |
 | $\varsigma_{k,in}$ | Region-industry sieve coefficients of $m_{in}$ |
 | $r_{in}(a)$ | Sieve approximation error |
 | $\rho_k$ | Possibly fractional sieve exponents, $\rho_k > 0$ (open idea; the baseline uses $\rho_k = k$) |
-| $\varsigma_{k,int} \equiv -(\varsigma_{k,in}/\kappa_k)(\bar{e}_{int}\mathbb{P}_{int}/\mathbb{D}_{int})^k$ | Market-specific coefficients in the estimating equation |
-| $\Phi_{int} \equiv \bar{e}_{int}\mathbb{P}_{int}/\mathbb{D}_{int}$ | The single market-level shifter behind all $\varsigma_{k,int}$ |
+| $\varsigma_{k,int} \equiv -(\varsigma_{k,in}/\kappa_k)(\bar{e}_{int} H_{int})^k$ | Market-specific coefficients in the estimating equation |
+| $\Phi_{int} \equiv \bar{e}_{int} H_{int}$ | The single market-level shifter behind all $\varsigma_{k,int}$ |
 | $\upsilon_{jint}$ | Composite error: measurement error in shares and sales, plus sieve error |
 | $\mathbf{z}_{jint}$ | Instruments (baseline: lagged observed shares and powers) |
 | $\mathcal{M}_{int}$ | Aggregate markup: sales-weighted harmonic mean of $\mu_{jint}$ (JMP; not yet used here) |
@@ -94,6 +96,8 @@ When porting JMP material, relabel sector $n \to i$ and city $c$ (or $a$) $\to n
 | $\Upsilon^l$, $\varphi^l$, $\zeta^l$, $\mathbb{D}^l$, $\mathbb{W}$, $\varrho$, $s^l$ | Labor market power extension (`a:muestlmp`): labor-supply aggregator and its inverse, wage indices, markdown, wage-bill share |
 
 ## Departures from the JMP
+
+- Two families of preferences, HDIA and HSA, written with a common share function $h_{in}$ and market term $H_{int}$. The JMP has HDIA (Kimball) only. Assumption 1 is the HDIA regularity condition and Assumption 1$'$ its HSA counterpart.
 
 - Indices: regions $n$ and industries $i$ (see above).
 - $\alpha^x$ uses total sales $pq$ in the denominator, where the JMP writes $py$. They are the same object, because the JMP's production function is in total quantities.

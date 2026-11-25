@@ -34,10 +34,10 @@ When porting JMP material, relabel sector $n \to i$ and city $c$ (or $a$) $\to n
 | $\vartheta_{int}$ | Multiplier in the household's lower-tier problem ($\lambda^W$ in the JMP; $\lambda$ is reserved here for marginal cost) |
 | $\mathbb{D}_{int} \equiv \vartheta_{int}/Y_{int}$ | Competition price index |
 | $\mathbb{P}_{int}$ | Ideal price index of the industry-$i$ bundle |
-| $\varphi_i(\cdot) \equiv (\Upsilon_i')^{-1}(\cdot)$ | Demand function: $e^{\xi_{jint}} y_{jint}/Y_{int} = \varphi_i(x_{jint})$ |
-| $x_{jint} \equiv p_{jint} e^{-\xi_{jint}}/\mathbb{D}_{int}$ | Quality-adjusted relative price (`eq:relprice`) |
+| $\varphi_i(\cdot) \equiv (\Upsilon_i')^{-1}(\cdot)$ | Demand function: $e^{\xi_{jint}} y_{jint}/Y_{int} = \varphi_i(\check{p}_{jint})$ |
+| $\check{p}_{jint} \equiv p_{jint} e^{-\xi_{jint}}/\mathbb{D}_{int}$ | Quality-adjusted relative price (`eq:relprice`). Check notation as in Errico and Lashkari; tildes are reserved for variables observed with error |
 | $q_{jint} = L_{nt} y_{jint}$ | Total output (quantity sold) of establishment $j$ |
-| $\sigma_i(\cdot)$ | Price elasticity of demand as a function of the quality-adjusted relative price $x$ |
+| $\sigma_i(\cdot)$ | Price elasticity of demand as a function of the quality-adjusted relative price $\check{p}$ |
 
 ## Production and markups (`sec:production`, `sec:markups`)
 
@@ -66,10 +66,10 @@ When porting JMP material, relabel sector $n \to i$ and city $c$ (or $a$) $\to n
 | $R_{jint} \equiv p_{jint} q_{jint}$ | True sales |
 | $s^y_{jint}$ | True sales share in its region-industry-period |
 | $\tilde{s}^y_{jint}$ | Observed sales share (built from $\tilde{R}$) |
-| $h_i(x) \equiv x\varphi_i(x)$ | Share function: $s^y_{jint} = h_i(x_{jint})\,\mathbb{D}_{int}/\mathbb{P}_{int}$ |
-| $\zeta_i(\cdot)$ | Inverse of $h_i$; maps $s^y_{jint}\,\mathbb{P}_{int}/\mathbb{D}_{int}$ to $x_{jint}$ |
+| $h_i(\check{p}) \equiv \check{p}\,\varphi_i(\check{p})$ | Share function: $s^y_{jint} = h_i(\check{p}_{jint})\,\mathbb{D}_{int}/\mathbb{P}_{int}$ |
+| $\zeta_i(\cdot)$ | Inverse of $h_i$; maps $s^y_{jint}\,\mathbb{P}_{int}/\mathbb{D}_{int}$ to $\check{p}_{jint}$ |
 | $\overline{p}_i \equiv \Upsilon_i'(0)$ | Choke price: $\varphi_i(\overline{p}_i) = 0$. No restriction on $\varphi_i'(\overline{p}_i)$ |
-| $\underline{x}_i$ | Lower end of the elastic interval $(\underline{x}_i, \overline{p}_i)$ where $\sigma_i > 1$ |
+| $\underline{p}_i$ | Lower end of the elastic interval $(\underline{p}_i, \overline{p}_i)$ where $\sigma_i > 1$ |
 | $m_i(a) \equiv \log\mu_i(\zeta_i(a))$ | Log markup as a function of $a = s^y\,\mathbb{P}/\mathbb{D}$; $m_i(0) = 0$ |
 | $a_{jint} \equiv s^y_{jint}\,\mathbb{P}_{int}/\mathbb{D}_{int}$ | Argument of $m_i$ |
 | $\bar{e}_{int} \equiv \sum_j s^y_{jint} e^{\nu_{jint}}$ | Sales-weighted mean of $e^{\nu}$ in the market |

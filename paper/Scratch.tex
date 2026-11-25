@@ -26,6 +26,8 @@
 %             Relative prices are now quality adjusted; the estimating equation is unchanged.
 % 2026-11-25: upper tier generalized from Cobb-Douglas to a weakly separable, strictly increasing U
 %             over industry bundles and a traded bundle. The estimating equation is unchanged.
+% 2026-11-25: notation. Household multiplier is vartheta. Quality-adjusted relative price is \check{p} (was x),
+%             as in Errico and Lashkari. Tildes stay reserved for variables observed with error.
 
 \section{Baseline Framework}\label{sec:baseline}
 
@@ -83,12 +85,12 @@ With Lagrange multiplier $\vartheta_{int}$, the first-order condition for variet
 \end{equation*}
 Define the competition price index $\mathbb{D}_{int} \equiv \vartheta_{int}/Y_{int}$, the inverse marginal aggregator $\vp_i(\cdot) \equiv (\Upsilon_i')^{-1}(\cdot)$, and the quality-adjusted relative price
 \begin{equation}\label{eq:relprice}
-	x_{jint} \equiv \frac{p_{jint} \, e^{-\xi_{jint}}}{\mathbb{D}_{int}}.
+	\check{p}_{jint} \equiv \frac{p_{jint} \, e^{-\xi_{jint}}}{\mathbb{D}_{int}}.
 \end{equation}
 Strict concavity of $\Upsilon_i$ makes $\Upsilon_i'$ strictly decreasing, so $\vp_i$ is well defined and strictly decreasing.
 Dividing the first-order condition by $e^{\xi_{jint}}\mathbb{D}_{int}$ and inverting, the per-capita demand for variety $j$ in quality-adjusted units is
 \begin{equation}\label{eq:demand}
-	\frac{e^{\xi_{jint}} y_{jint}}{Y_{int}} = \vp_i\left(x_{jint}\right).
+	\frac{e^{\xi_{jint}} y_{jint}}{Y_{int}} = \vp_i\left(\check{p}_{jint}\right).
 \end{equation}
 Substituting \eqref{eq:demand} into \eqref{eq:hdia}, the competition price index is implicitly defined by
 \begin{equation}\label{eq:Dindex}
@@ -98,7 +100,7 @@ Equation \eqref{eq:Dindex} pins down $\mathbb{D}_{int}$ from quality-adjusted pr
 The aggregator \eqref{eq:hdia} is homothetic, so minimized expenditure is linear in $Y_{int}$: $\sum_j p_{jint} y_{jint} = \P_{int} Y_{int}$, which defines the ideal price index $\P_{int}$.
 Writing $p_{jint} y_{jint} = (p_{jint} e^{-\xi_{jint}})(e^{\xi_{jint}} y_{jint})$, dividing by $Y_{int}$, and using \eqref{eq:demand} gives the ideal price index
 \begin{equation}\label{eq:Pindex}
-	\P_{int} = \sum_{j \in \cJ_{int}} p_{jint} \, e^{-\xi_{jint}} \, \vp_i\left(x_{jint}\right).
+	\P_{int} = \sum_{j \in \cJ_{int}} p_{jint} \, e^{-\xi_{jint}} \, \vp_i\left(\check{p}_{jint}\right).
 \end{equation}
 Both indices are functions of quality-adjusted prices only.
 Under CES, $\P_{int}$ and $\mathbb{D}_{int}$ are proportional.
@@ -108,15 +110,15 @@ Outside CES they are not, and the ratio $\P_{int}/\mathbb{D}_{int}$ will matter 
 Total demand for variety $j$ is $q_{jint} = L_{nt} y_{jint}$.
 By \eqref{eq:demand},
 \begin{equation}\label{eq:marketdemand}
-	q_{jint} = L_{nt} Y_{int} \, e^{-\xi_{jint}} \, \vp_i\left(x_{jint}\right).
+	q_{jint} = L_{nt} Y_{int} \, e^{-\xi_{jint}} \, \vp_i\left(\check{p}_{jint}\right).
 \end{equation}
 The upper tier $U$ affects demand for a variety only through $Y_{int}$.
-Holding $Y_{int}$, the price indices, and quality fixed, $\partial \log x_{jint}/\partial \log p_{jint} = 1$.
+Holding $Y_{int}$, the price indices, and quality fixed, $\partial \log \check{p}_{jint}/\partial \log p_{jint} = 1$.
 So the price elasticity of demand depends only on the quality-adjusted relative price:
 \begin{equation}\label{eq:sigma}
-	\s_i\left(x_{jint}\right) \equiv -\frac{\partial \log q_{jint}}{\partial \log p_{jint}} = -\frac{x_{jint} \, \vp_i'\left(x_{jint}\right)}{\vp_i\left(x_{jint}\right)}.
+	\s_i\left(\check{p}_{jint}\right) \equiv -\frac{\partial \log q_{jint}}{\partial \log p_{jint}} = -\frac{\check{p}_{jint} \, \vp_i'\left(\check{p}_{jint}\right)}{\vp_i\left(\check{p}_{jint}\right)}.
 \end{equation}
-Quality shifts the level of demand but, given $x_{jint}$, not its elasticity.
+Quality shifts the level of demand but, given $\check{p}_{jint}$, not its elasticity.
 
 \subsection{Production}\label{sec:production}
 
@@ -165,7 +167,7 @@ It does not depend on the demand system, the market structure, returns to scale,
 Given the short-run cost function, the establishment chooses $p_{jint}$ to maximize profits subject to \eqref{eq:marketdemand}, taking the price indices, $Y_{int}$, and its own quality $\xi_{jint}$ as given.
 The first-order condition is the Lerner condition:
 \begin{equation}\label{eq:lerner}
-	\m_{jint} = \m_i\left(x_{jint}\right) \equiv \frac{\s_i\left(x_{jint}\right)}{\s_i\left(x_{jint}\right) - 1}.
+	\m_{jint} = \m_i\left(\check{p}_{jint}\right) \equiv \frac{\s_i\left(\check{p}_{jint}\right)}{\s_i\left(\check{p}_{jint}\right) - 1}.
 \end{equation}
 This requires $\s_i > 1$ at the optimum, so establishments operate on the elastic part of their demand curve.
 The Lerner condition holds whatever the shape of marginal cost, so it does not depend on returns to scale or the fixed inputs either.
@@ -195,8 +197,8 @@ Section~\ref{sec:estequ} states the assumptions on $\n_{jint}$ and works out the
 \textbf{Summary.}
 Equations \eqref{eq:ratioobs} and \eqref{eq:lerner} are the two building blocks for markup estimation.
 The first links markups to observables up to $\b^x_i$ and the measurement error.
-The second links markups to the demand system through the quality-adjusted relative price $x_{jint}$, which is not observed.
-The next step expresses $x_{jint}$ in terms of observed sales shares.
+The second links markups to the demand system through the quality-adjusted relative price $\check{p}_{jint}$, which is not observed.
+The next step expresses $\check{p}_{jint}$ in terms of observed sales shares.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -213,7 +215,7 @@ The next step expresses $x_{jint}$ in terms of observed sales shares.
 \section{Estimating Equation}\label{sec:estequ}
 
 Throughout this section, fix an industry $i$, a region $n$, and a period $t$, and use labor as the flexible input.
-Recall that $x_{jint} = p_{jint} e^{-\xi_{jint}}/\mathbb{D}_{int}$ is the quality-adjusted relative price \eqref{eq:relprice}.
+Recall that $\check{p}_{jint} = p_{jint} e^{-\xi_{jint}}/\mathbb{D}_{int}$ is the quality-adjusted relative price \eqref{eq:relprice}.
 
 \subsection{Markups as a Function of True Sales Shares}\label{sec:mushares}
 
@@ -228,15 +230,15 @@ Using $q_{jint} = L_{nt} y_{jint}$, splitting $p_{jint} y_{jint} = (p_{jint} e^{
 \begin{align}
 	s^y_{jint} &= \frac{p_{jint} y_{jint}}{\P_{int} Y_{int}}
 	= \frac{p_{jint} e^{-\xi_{jint}}}{\mathbb{D}_{int}} \, \frac{e^{\xi_{jint}} y_{jint}}{Y_{int}} \, \frac{\mathbb{D}_{int}}{\P_{int}} \nonumber \\
-	&= h_i\left(x_{jint}\right) \frac{\mathbb{D}_{int}}{\P_{int}}, \qquad h_i(x) \equiv x \, \vp_i(x). \label{eq:sharex}
+	&= h_i\left(\check{p}_{jint}\right) \frac{\mathbb{D}_{int}}{\P_{int}}, \qquad h_i(\check{p}) \equiv \check{p} \, \vp_i(\check{p}). \label{eq:sharex}
 \end{align}
 As a check, summing \eqref{eq:sharex} over $j$ and using \eqref{eq:Pindex} gives $\sum_j s^y_{jint} = 1$.
-Quality cancels: the sales share depends on the establishment only through $x_{jint}$.
+Quality cancels: the sales share depends on the establishment only through $\check{p}_{jint}$.
 
 \textbf{Step 2: inverting the share equation.}
 Differentiating $h_i$ and using the definition of $\s_i$ in \eqref{eq:sigma},
 \begin{equation*}
-	h_i'(x) = \vp_i(x) + x \vp_i'(x) = -\vp_i(x)\left(\s_i(x) - 1\right).
+	h_i'(\check{p}) = \vp_i(\check{p}) + \check{p} \vp_i'(\check{p}) = -\vp_i(\check{p})\left(\s_i(\check{p}) - 1\right).
 \end{equation*}
 So $h_i$ is strictly decreasing wherever demand is elastic and positive.
 To invert it on the whole set of prices that establishments choose, I need that set to lie in one interval where demand is elastic.
@@ -245,23 +247,23 @@ To invert it on the whole set of prices that establishments choose, I need that 
 For each industry $i$:
 \begin{enumerate}[(i)]
 	\item There is a finite choke price: $\overline{p}_i \equiv \Upsilon_i'(0) < \infty$, so that $\vp_i(\overline{p}_i) = 0$.
-	\item There is $\underline{x}_i < \overline{p}_i$ such that $\s_i(x) > 1$ for all $x \in (\underline{x}_i, \overline{p}_i)$, and all equilibrium quality-adjusted relative prices $x_{jint}$ lie in this interval.
-	\item $\s_i(x)$ has a limit, possibly infinite, as $x \uparrow \overline{p}_i$.
+	\item There is $\underline{p}_i < \overline{p}_i$ such that $\s_i(\check{p}) > 1$ for all $\check{p} \in (\underline{p}_i, \overline{p}_i)$, and all equilibrium quality-adjusted relative prices $\check{p}_{jint}$ lie in this interval.
+	\item $\s_i(\check{p})$ has a limit, possibly infinite, as $\check{p} \uparrow \overline{p}_i$.
 \end{enumerate}
 \eassu
 
 Under Marshall's second law of demand ($\s_i$ increasing), part (iii) holds, and part (ii) holds as long as demand is elastic at some price.
 The \textcite{Klenow&Willis16} form satisfies all three parts.
-Its choke price is $\frac{\overline{\s}-1}{\overline{\s}} e^{1/\e}$, and $\s(x) = \overline{\s} \, q^{-\e/\overline{\s}}$ with $q = \vp(x)$, which is increasing in $x$.
+Its choke price is $\frac{\overline{\s}-1}{\overline{\s}} e^{1/\e}$, and $\s(\check{p}) = \overline{\s} \, q^{-\e/\overline{\s}}$ with $q = \vp(\check{p})$, which is increasing in $\check{p}$.
 The assumption puts no restriction on the slope of demand at the choke price.
 This matters: under Klenow-Willis, $\vp'(\overline{p}) = 0$ when $\e < \overline{\s}$ and $\vp'(\overline{p}) = -\infty$ when $\e > \overline{\s}$.
 Relative to the JMP's Assumption \texttt{a3}, which only imposes the choke price, parts (ii) and (iii) are additions.
 
-Under Assumption~\ref{assum:choke}, $h_i$ is strictly decreasing on $(\underline{x}_i, \overline{p}_i)$, with $h_i(x) \to 0$ as $x \to \overline{p}_i$.
+Under Assumption~\ref{assum:choke}, $h_i$ is strictly decreasing on $(\underline{p}_i, \overline{p}_i)$, with $h_i(\check{p}) \to 0$ as $\check{p} \to \overline{p}_i$.
 Let $\zeta_i(\cdot)$ denote its inverse.
 Then \eqref{eq:sharex} gives
 \begin{equation}\label{eq:relpriceshare}
-	x_{jint} = \zeta_i\left(s^y_{jint} \, \frac{\P_{int}}{\mathbb{D}_{int}}\right).
+	\check{p}_{jint} = \zeta_i\left(s^y_{jint} \, \frac{\P_{int}}{\mathbb{D}_{int}}\right).
 \end{equation}
 
 \textbf{Step 3: markups as a function of shares.}
@@ -273,23 +275,23 @@ The function $m_i$ is industry specific but common to all regions and periods.
 All regional and time variation in the mapping from shares to markups goes through one scalar per market, $\P_{int}/\mathbb{D}_{int}$.
 
 Quality does not appear in \eqref{eq:mushare}.
-Both the sales share \eqref{eq:sharex} and the markup \eqref{eq:lerner} depend on the establishment only through $x_{jint}$.
-A high-quality establishment and a low-cost establishment with the same $x_{jint}$ have the same share and the same markup.
+Both the sales share \eqref{eq:sharex} and the markup \eqref{eq:lerner} depend on the establishment only through $\check{p}_{jint}$.
+A high-quality establishment and a low-cost establishment with the same $\check{p}_{jint}$ have the same share and the same markup.
 So the sales share is a sufficient statistic for the markup, whether share differences come from productivity or from quality.
 Quality enters only through the price indices, and those are absorbed by the market-specific coefficients below.
 
 \textbf{Step 4: no constant term.}
 As $a \to 0$, $\zeta_i(a) \to \overline{p}_i$.
-I show that $\s_i(x) \to \infty$ as $x \uparrow \overline{p}_i$.
-Fix $x_0 > 0$ in the elastic interval.
-Since $\s_i(u) = -d\log\vp_i(u)/d\log u$, integrating between $x_0$ and $x < \overline{p}_i$ gives
+I show that $\s_i(\check{p}) \to \infty$ as $\check{p} \uparrow \overline{p}_i$.
+Fix $\check{p}_0 > 0$ in the elastic interval.
+Since $\s_i(u) = -d\log\vp_i(u)/d\log u$, integrating between $\check{p}_0$ and $\check{p} < \overline{p}_i$ gives
 \begin{equation*}
-	\log \vp_i(x) = \log \vp_i(x_0) - \int_{x_0}^{x} \frac{\s_i(u)}{u} \, du.
+	\log \vp_i(\check{p}) = \log \vp_i(\check{p}_0) - \int_{\check{p}_0}^{\check{p}} \frac{\s_i(u)}{u} \, du.
 \end{equation*}
-As $x \uparrow \overline{p}_i$, the left side goes to $-\infty$, because $\vp_i$ is continuous and $\vp_i(\overline{p}_i) = 0$.
-So $\int_{x_0}^{\overline{p}_i} \s_i(u)/u \, du = \infty$.
-The interval of integration is bounded and $1/u \leq 1/x_0$, so $\s_i$ must be unbounded near $\overline{p}_i$.
-By part (iii) of Assumption~\ref{assum:choke} the limit exists, so it is infinite, and $\m_i(x) = \s_i(x)/(\s_i(x)-1) \to 1$.
+As $\check{p} \uparrow \overline{p}_i$, the left side goes to $-\infty$, because $\vp_i$ is continuous and $\vp_i(\overline{p}_i) = 0$.
+So $\int_{\check{p}_0}^{\overline{p}_i} \s_i(u)/u \, du = \infty$.
+The interval of integration is bounded and $1/u \leq 1/\check{p}_0$, so $\s_i$ must be unbounded near $\overline{p}_i$.
+By part (iii) of Assumption~\ref{assum:choke} the limit exists, so it is infinite, and $\m_i(\check{p}) = \s_i(\check{p})/(\s_i(\check{p})-1) \to 1$.
 Hence
 \begin{equation}\label{eq:noconst}
 	\lim_{a \to 0} m_i(a) = 0.
@@ -299,7 +301,7 @@ This is what separates the markup level from the output elasticity $\b^l_i$ belo
 The result needs only a finite choke price and the existence of the limit.
 
 \textbf{Open:} Equation \eqref{eq:noconst} says nothing about how fast $m_i$ goes to zero, and $m_i$ need not be smooth at zero.
-Under Klenow-Willis, $\log \m = -\log(1 - q^{\e/\overline{\s}}/\overline{\s})$ and $a = x q \approx \overline{p}\, q$ for small $q$, so
+Under Klenow-Willis, $\log \m = -\log(1 - q^{\e/\overline{\s}}/\overline{\s})$ and $a = \check{p} q \approx \overline{p}\, q$ for small $q$, so
 \begin{equation*}
 	m(a) \approx \frac{1}{\overline{\s}} \left(\frac{a}{\overline{p}}\right)^{\e/\overline{\s}} \qquad \text{as } a \to 0.
 \end{equation*}

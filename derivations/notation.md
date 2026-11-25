@@ -23,10 +23,10 @@ When porting JMP material, relabel sector $n \to i$ and city $c$ (or $a$) $\to n
 |---|---|
 | $N$, $I$ | Number of regions; number of industries |
 | $L_{nt}$ | Population of region $n$ |
-| $E_{nt}$ | Per-capita household income in region $n$, taken as given and spent entirely on local goods |
 | $\mathcal{J}_{int}$ | Finite set of establishments in industry $i$, region $n$, period $t$ (taken as given) |
 | $U_{nt}$ | Household utility |
-| $\theta_i$ | Cobb-Douglas expenditure share of industry $i$, $\sum_i \theta_i = 1$ |
+| $U(Y_{1nt},\dots,Y_{Int},Y^T_{nt})$ | Upper-tier utility: weakly separable across industries, strictly increasing in each argument; otherwise unrestricted |
+| $Y^T_{nt}$ | Bundle of traded goods (not modeled) |
 | $\Upsilon_i(\cdot)$ | HDIA (Kimball) aggregator of industry $i$: continuous on $[0,\infty)$, $C^2$ on $(0,\infty)$, strictly increasing, strictly concave, $\Upsilon_i(0)=0$ |
 | $y_{jint}$, $Y_{int}$ | Per-capita consumption of variety $j$; per-capita industry-$i$ bundle |
 | $\xi_{jint}$ | Quality (taste shifter) of variety $j$; utility depends on $e^{\xi_{jint}} y_{jint}$; costless, not in the production function |
@@ -98,7 +98,7 @@ When porting JMP material, relabel sector $n \to i$ and city $c$ (or $a$) $\to n
 - Indices: regions $n$ and industries $i$ (see above).
 - $\alpha^x$ uses total sales $pq$ in the denominator, where the JMP writes $py$. They are the same object, because the JMP's production function is in total quantities.
 - $\nu$ is measurement error in observed sales only, and input expenditures are measured without error. The JMP treats it as either an ex-post production shock or measurement error.
-- Per-capita income is $E_{nt}$, because $I$ is now the number of industries.
+- The upper tier is a general weakly separable $U$ with a traded bundle, where the JMP uses Cobb-Douglas over local goods, housing and a traded good.
 
 ## Macro warnings and open notation issues
 

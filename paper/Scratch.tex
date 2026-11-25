@@ -24,6 +24,8 @@
 %             fixed inputs and arbitrary returns to scale; input prices specific to region and industry.
 % 2026-11-25: added quality (taste) shifters xi_{jint} on the demand side. Quality is costless.
 %             Relative prices are now quality adjusted; the estimating equation is unchanged.
+% 2026-11-25: upper tier generalized from Cobb-Douglas to a weakly separable, strictly increasing U
+%             over industry bundles and a traded bundle. The estimating equation is unchanged.
 
 \section{Baseline Framework}\label{sec:baseline}
 
@@ -45,12 +47,12 @@ The only intertemporal element is that some inputs are chosen before period $t$ 
 \subsection{Preferences}\label{sec:preferences}
 
 Each region is populated by $L_{nt}$ identical households.
-Each household has income $E_{nt}$, which it takes as given and spends entirely on local goods.
-Households have Cobb-Douglas preferences over industry bundles,
+Household preferences are weakly separable across industries:
 \begin{equation}\label{eq:uppertier}
-	U_{nt} = \prod_{i=1}^{I} \left(\frac{Y_{int}}{\theta_i}\right)^{\theta_i}, \qquad \sum_{i=1}^{I} \theta_i = 1,
+	U_{nt} = U\left(Y_{1nt}, \dots, Y_{Int}, Y^T_{nt}\right),
 \end{equation}
-where $Y_{int}$ is per-capita consumption of the industry-$i$ bundle in region $n$ and period $t$.
+where $Y_{int}$ is per-capita consumption of the industry-$i$ bundle of non-traded varieties in region $n$ and period $t$, and $Y^T_{nt}$ is a bundle of traded goods, which is not modeled.
+The function $U$ is strictly increasing in each of its arguments.
 
 Within each industry, households have HDIA preferences over varieties, in the terminology of \textcite{Matsuyama&Ushev17}.
 These are the Kimball preferences of \textcite{Kimball95}.
@@ -70,17 +72,11 @@ For each industry $i$, the aggregator $\Upsilon_i(\cdot)$ is continuous on $[0,\
 
 CES is the special case $\Upsilon_i(q) = q^{(\sigma_i - 1)/\sigma_i}$.
 The aggregator is industry specific, so the curvature of demand, and hence markups, can differ across industries.
-The preference parameters $\theta_i$ and $\Upsilon_i$ are constant over time and across regions.
+The aggregators $\Upsilon_i$ are constant over time and across regions.
 
-\textbf{Upper tier.}
-Because both tiers are homothetic, each industry bundle has a price index $\P_{int}$, and the household maximizes \eqref{eq:uppertier} subject to $\sum_i \P_{int} Y_{int} = E_{nt}$.
-Cobb-Douglas implies constant expenditure shares:
-\begin{equation}\label{eq:indexp}
-	\P_{int} Y_{int} = \theta_i E_{nt}.
-\end{equation}
-
-\textbf{Lower tier.}
-For a given $Y_{int}$, the household chooses $\{y_{jint}\}_{j}$ to minimize expenditure $\sum_{j} p_{jint} y_{jint}$ subject to \eqref{eq:hdia}.
+\textbf{Demand for varieties.}
+Because $U$ is strictly increasing in $Y_{int}$, the household obtains its chosen $Y_{int}$ at minimum cost.
+For a given $Y_{int}$, it chooses $\{y_{jint}\}_{j}$ to minimize expenditure $\sum_{j} p_{jint} y_{jint}$ subject to \eqref{eq:hdia}.
 With Lagrange multiplier $\lambda_{int}$, the first-order condition for variety $j$ is
 \begin{equation*}
 	p_{jint} = \frac{\lambda_{int}}{Y_{int}} \, e^{\xi_{jint}} \, \Upsilon_i'\left(\frac{e^{\xi_{jint}} y_{jint}}{Y_{int}}\right).
@@ -99,7 +95,7 @@ Substituting \eqref{eq:demand} into \eqref{eq:hdia}, the competition price index
 	\sum_{j \in \cJ_{int}} \Upsilon_i\left(\vp_i\left(\frac{p_{jint} \, e^{-\xi_{jint}}}{\mathbb{D}_{int}}\right)\right) = 1.
 \end{equation}
 Equation \eqref{eq:Dindex} pins down $\mathbb{D}_{int}$ from quality-adjusted prices $p_{jint} e^{-\xi_{jint}}$ alone, so $\mathbb{D}_{int}$ does not depend on $Y_{int}$.
-Minimized expenditure is $\sum_j p_{jint} y_{jint} = \P_{int} Y_{int}$.
+The aggregator \eqref{eq:hdia} is homothetic, so minimized expenditure is linear in $Y_{int}$: $\sum_j p_{jint} y_{jint} = \P_{int} Y_{int}$, which defines the ideal price index $\P_{int}$.
 Writing $p_{jint} y_{jint} = (p_{jint} e^{-\xi_{jint}})(e^{\xi_{jint}} y_{jint})$, dividing by $Y_{int}$, and using \eqref{eq:demand} gives the ideal price index
 \begin{equation}\label{eq:Pindex}
 	\P_{int} = \sum_{j \in \cJ_{int}} p_{jint} \, e^{-\xi_{jint}} \, \vp_i\left(x_{jint}\right).
@@ -110,11 +106,12 @@ Outside CES they are not, and the ratio $\P_{int}/\mathbb{D}_{int}$ will matter 
 
 \textbf{Market demand.}
 Total demand for variety $j$ is $q_{jint} = L_{nt} y_{jint}$.
-Combining \eqref{eq:indexp} and \eqref{eq:demand},
+By \eqref{eq:demand},
 \begin{equation}\label{eq:marketdemand}
-	q_{jint} = \frac{\theta_i E_{nt} L_{nt}}{\P_{int}} \, e^{-\xi_{jint}} \, \vp_i\left(x_{jint}\right).
+	q_{jint} = L_{nt} Y_{int} \, e^{-\xi_{jint}} \, \vp_i\left(x_{jint}\right).
 \end{equation}
-Holding the price indices and quality fixed, $\partial \log x_{jint}/\partial \log p_{jint} = 1$.
+The upper tier $U$ affects demand for a variety only through $Y_{int}$.
+Holding $Y_{int}$, the price indices, and quality fixed, $\partial \log x_{jint}/\partial \log p_{jint} = 1$.
 So the price elasticity of demand depends only on the quality-adjusted relative price:
 \begin{equation}\label{eq:sigma}
 	\s_i\left(x_{jint}\right) \equiv -\frac{\partial \log q_{jint}}{\partial \log p_{jint}} = -\frac{x_{jint} \, \vp_i'\left(x_{jint}\right)}{\vp_i\left(x_{jint}\right)}.
@@ -142,9 +139,9 @@ Labor, $x = l$, is flexible, with $v^l_{jint} = l_{jint}$ and $W^l_{int} = W_{in
 
 \textbf{Market structure.}
 Establishments compete under monopolistic competition.
-Each establishment takes the price indices $\P_{int}$ and $\mathbb{D}_{int}$, industry expenditure $\theta_i E_{nt} L_{nt}$, and input prices as given.
-With a finite set $\cJ_{int}$, an establishment's price does affect $\mathbb{D}_{int}$ and $\P_{int}$ through \eqref{eq:Dindex} and \eqref{eq:Pindex}.
-Monopolistic competition assumes establishments do not internalize this effect.
+Each establishment takes the price indices $\P_{int}$ and $\mathbb{D}_{int}$, the industry bundle $Y_{int}$, and input prices as given.
+With a finite set $\cJ_{int}$, an establishment's price does affect $\mathbb{D}_{int}$ and $\P_{int}$ through \eqref{eq:Dindex} and \eqref{eq:Pindex}, and through $\P_{int}$ it affects $Y_{int}$.
+Monopolistic competition assumes establishments do not internalize these effects.
 The oligopoly extension in the style of \textcite{Atkeson&Burstein08} will relax this.
 
 \subsection{Markups}\label{sec:markups}
@@ -165,7 +162,7 @@ This step uses only cost minimization over a flexible, price-taking input.
 It does not depend on the demand system, the market structure, returns to scale, or the fixed inputs.
 
 \textbf{Pricing.}
-Given the short-run cost function, the establishment chooses $p_{jint}$ to maximize profits subject to \eqref{eq:marketdemand}, taking the price indices and its own quality $\xi_{jint}$ as given.
+Given the short-run cost function, the establishment chooses $p_{jint}$ to maximize profits subject to \eqref{eq:marketdemand}, taking the price indices, $Y_{int}$, and its own quality $\xi_{jint}$ as given.
 The first-order condition is the Lerner condition:
 \begin{equation}\label{eq:lerner}
 	\m_{jint} = \m_i\left(x_{jint}\right) \equiv \frac{\s_i\left(x_{jint}\right)}{\s_i\left(x_{jint}\right) - 1}.
@@ -226,7 +223,7 @@ The true sales share of establishment $j$ in its region-industry-period is
 \begin{equation}\label{eq:share}
 	s^y_{jint} \equiv \frac{R_{jint}}{\sum_{j' \in \cJ_{int}} R_{j'int}}.
 \end{equation}
-Total sales in the market equal total expenditure, $\sum_{j'} R_{j'int} = \P_{int} Y_{int} L_{nt}$, by \eqref{eq:indexp} and the definition of $\P_{int}$.
+Total sales in the market equal total expenditure, $\sum_{j'} R_{j'int} = \P_{int} Y_{int} L_{nt}$, by the definition of $\P_{int}$.
 Using $q_{jint} = L_{nt} y_{jint}$, splitting $p_{jint} y_{jint} = (p_{jint} e^{-\xi_{jint}})(e^{\xi_{jint}} y_{jint})$, and using the demand curve \eqref{eq:demand},
 \begin{align}
 	s^y_{jint} &= \frac{p_{jint} y_{jint}}{\P_{int} Y_{int}}

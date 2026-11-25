@@ -22,6 +22,8 @@
 % 2026-11-24: first draft, adapted from the multi-sector appendix of the JMP (a:muext).
 % 2026-11-24: revised. Regions n, industries i, time t; no outside goods; measurement error in observed sales;
 %             fixed inputs and arbitrary returns to scale; input prices specific to region and industry.
+% 2026-11-25: added quality (taste) shifters xi_{jint} on the demand side. Quality is costless.
+%             Relative prices are now quality adjusted; the estimating equation is unchanged.
 
 \section{Baseline Framework}\label{sec:baseline}
 
@@ -37,7 +39,7 @@ Each establishment produces a single differentiated variety.
 The set $\cJ_{int}$ is taken as given.
 
 All decisions below are static, so the model is a sequence of period-$t$ equilibria.
-Time enters through changes in populations, incomes, the sets of establishments, productivity, and input prices.
+Time enters through changes in populations, incomes, the sets of establishments, productivity, quality, and input prices.
 The only intertemporal element is that some inputs are chosen before period $t$ (see Section~\ref{sec:production}).
 
 \subsection{Preferences}\label{sec:preferences}
@@ -54,9 +56,13 @@ Within each industry, households have HDIA preferences over varieties, in the te
 These are the Kimball preferences of \textcite{Kimball95}.
 The industry bundle $Y_{int}$ is implicitly defined by
 \begin{equation}\label{eq:hdia}
-	\sum_{j \in \cJ_{int}} \Upsilon_i\left(\frac{y_{jint}}{Y_{int}}\right) = 1,
+	\sum_{j \in \cJ_{int}} \Upsilon_i\left(\frac{e^{\xi_{jint}} y_{jint}}{Y_{int}}\right) = 1,
 \end{equation}
-where $y_{jint}$ is per-capita consumption of variety $j$.
+where $y_{jint}$ is per-capita consumption of variety $j$ and $\xi_{jint}$ is its quality, or taste shifter.
+Households derive utility from quality-adjusted consumption, $e^{\xi_{jint}} y_{jint}$.
+Quality is a pure preference shifter.
+It is not costly to produce and does not enter the production function.
+Without quality differences ($\xi_{jint} \equiv 0$), \eqref{eq:hdia} is the standard Kimball aggregator.
 
 \bassu[HDIA aggregator]\label{assum:hdia}
 For each industry $i$, the aggregator $\Upsilon_i(\cdot)$ is twice continuously differentiable, strictly increasing, and strictly concave, with $\Upsilon_i(0) = 0$.
@@ -77,23 +83,28 @@ Cobb-Douglas implies constant expenditure shares:
 For a given $Y_{int}$, the household chooses $\{y_{jint}\}_{j}$ to minimize expenditure $\sum_{j} p_{jint} y_{jint}$ subject to \eqref{eq:hdia}.
 With Lagrange multiplier $\lambda_{int}$, the first-order condition for variety $j$ is
 \begin{equation*}
-	p_{jint} = \frac{\lambda_{int}}{Y_{int}} \Upsilon_i'\left(\frac{y_{jint}}{Y_{int}}\right).
+	p_{jint} = \frac{\lambda_{int}}{Y_{int}} \, e^{\xi_{jint}} \, \Upsilon_i'\left(\frac{e^{\xi_{jint}} y_{jint}}{Y_{int}}\right).
 \end{equation*}
-Define the competition price index $\mathbb{D}_{int} \equiv \lambda_{int}/Y_{int}$ and the inverse marginal aggregator $\vp_i(\cdot) \equiv (\Upsilon_i')^{-1}(\cdot)$.
+Define the competition price index $\mathbb{D}_{int} \equiv \lambda_{int}/Y_{int}$, the inverse marginal aggregator $\vp_i(\cdot) \equiv (\Upsilon_i')^{-1}(\cdot)$, and the quality-adjusted relative price
+\begin{equation}\label{eq:relprice}
+	x_{jint} \equiv \frac{p_{jint} \, e^{-\xi_{jint}}}{\mathbb{D}_{int}}.
+\end{equation}
 Strict concavity of $\Upsilon_i$ makes $\Upsilon_i'$ strictly decreasing, so $\vp_i$ is well defined and strictly decreasing.
-The per-capita demand for variety $j$ is then
+Dividing the first-order condition by $e^{\xi_{jint}}\mathbb{D}_{int}$ and inverting, the per-capita demand for variety $j$ in quality-adjusted units is
 \begin{equation}\label{eq:demand}
-	\frac{y_{jint}}{Y_{int}} = \vp_i\left(\frac{p_{jint}}{\mathbb{D}_{int}}\right).
+	\frac{e^{\xi_{jint}} y_{jint}}{Y_{int}} = \vp_i\left(x_{jint}\right).
 \end{equation}
 Substituting \eqref{eq:demand} into \eqref{eq:hdia}, the competition price index is implicitly defined by
 \begin{equation}\label{eq:Dindex}
-	\sum_{j \in \cJ_{int}} \Upsilon_i\left(\vp_i\left(\frac{p_{jint}}{\mathbb{D}_{int}}\right)\right) = 1.
+	\sum_{j \in \cJ_{int}} \Upsilon_i\left(\vp_i\left(\frac{p_{jint} \, e^{-\xi_{jint}}}{\mathbb{D}_{int}}\right)\right) = 1.
 \end{equation}
-Equation \eqref{eq:Dindex} pins down $\mathbb{D}_{int}$ from prices alone, so $\mathbb{D}_{int}$ does not depend on $Y_{int}$.
-Since minimized expenditure is $\sum_j p_{jint} y_{jint} = \P_{int} Y_{int}$, dividing by $Y_{int}$ and using \eqref{eq:demand} gives the ideal price index
+Equation \eqref{eq:Dindex} pins down $\mathbb{D}_{int}$ from quality-adjusted prices $p_{jint} e^{-\xi_{jint}}$ alone, so $\mathbb{D}_{int}$ does not depend on $Y_{int}$.
+Minimized expenditure is $\sum_j p_{jint} y_{jint} = \P_{int} Y_{int}$.
+Writing $p_{jint} y_{jint} = (p_{jint} e^{-\xi_{jint}})(e^{\xi_{jint}} y_{jint})$, dividing by $Y_{int}$, and using \eqref{eq:demand} gives the ideal price index
 \begin{equation}\label{eq:Pindex}
-	\P_{int} = \sum_{j \in \cJ_{int}} p_{jint} \, \vp_i\left(\frac{p_{jint}}{\mathbb{D}_{int}}\right).
+	\P_{int} = \sum_{j \in \cJ_{int}} p_{jint} \, e^{-\xi_{jint}} \, \vp_i\left(x_{jint}\right).
 \end{equation}
+Both indices are functions of quality-adjusted prices only.
 Under CES, $\P_{int}$ and $\mathbb{D}_{int}$ are proportional.
 Outside CES they are not, and the ratio $\P_{int}/\mathbb{D}_{int}$ will matter for markup estimation.
 
@@ -101,12 +112,14 @@ Outside CES they are not, and the ratio $\P_{int}/\mathbb{D}_{int}$ will matter 
 Total demand for variety $j$ is $q_{jint} = L_{nt} y_{jint}$.
 Combining \eqref{eq:indexp} and \eqref{eq:demand},
 \begin{equation}\label{eq:marketdemand}
-	q_{jint} = \frac{\theta_i E_{nt} L_{nt}}{\P_{int}} \, \vp_i\left(\frac{p_{jint}}{\mathbb{D}_{int}}\right).
+	q_{jint} = \frac{\theta_i E_{nt} L_{nt}}{\P_{int}} \, e^{-\xi_{jint}} \, \vp_i\left(x_{jint}\right).
 \end{equation}
-The price elasticity of demand, holding the price indices fixed, depends only on the relative price:
+Holding the price indices and quality fixed, $\partial \log x_{jint}/\partial \log p_{jint} = 1$.
+So the price elasticity of demand depends only on the quality-adjusted relative price:
 \begin{equation}\label{eq:sigma}
-	\s_i\left(\frac{p_{jint}}{\mathbb{D}_{int}}\right) \equiv -\frac{\partial \log q_{jint}}{\partial \log p_{jint}} = -\frac{\frac{p_{jint}}{\mathbb{D}_{int}} \vp_i'\left(\frac{p_{jint}}{\mathbb{D}_{int}}\right)}{\vp_i\left(\frac{p_{jint}}{\mathbb{D}_{int}}\right)}.
+	\s_i\left(x_{jint}\right) \equiv -\frac{\partial \log q_{jint}}{\partial \log p_{jint}} = -\frac{x_{jint} \, \vp_i'\left(x_{jint}\right)}{\vp_i\left(x_{jint}\right)}.
 \end{equation}
+Quality shifts the level of demand but, given $x_{jint}$, not its elasticity.
 
 \subsection{Production}\label{sec:production}
 
@@ -152,10 +165,10 @@ This step uses only cost minimization over a flexible, price-taking input.
 It does not depend on the demand system, the market structure, returns to scale, or the fixed inputs.
 
 \textbf{Pricing.}
-Given the short-run cost function, the establishment chooses $p_{jint}$ to maximize profits subject to \eqref{eq:marketdemand}, taking the price indices as given.
+Given the short-run cost function, the establishment chooses $p_{jint}$ to maximize profits subject to \eqref{eq:marketdemand}, taking the price indices and its own quality $\xi_{jint}$ as given.
 The first-order condition is the Lerner condition:
 \begin{equation}\label{eq:lerner}
-	\m_{jint} = \m_i\left(\frac{p_{jint}}{\mathbb{D}_{int}}\right) \equiv \frac{\s_i\left(p_{jint}/\mathbb{D}_{int}\right)}{\s_i\left(p_{jint}/\mathbb{D}_{int}\right) - 1}.
+	\m_{jint} = \m_i\left(x_{jint}\right) \equiv \frac{\s_i\left(x_{jint}\right)}{\s_i\left(x_{jint}\right) - 1}.
 \end{equation}
 This requires $\s_i > 1$ at the optimum, so establishments operate on the elastic part of their demand curve.
 The Lerner condition holds whatever the shape of marginal cost, so it does not depend on returns to scale or the fixed inputs either.
@@ -185,8 +198,8 @@ Section~\ref{sec:estequ} states the assumptions on $\n_{jint}$ and works out the
 \textbf{Summary.}
 Equations \eqref{eq:ratioobs} and \eqref{eq:lerner} are the two building blocks for markup estimation.
 The first links markups to observables up to $\b^x_i$ and the measurement error.
-The second links markups to the demand system through the relative price $p_{jint}/\mathbb{D}_{int}$, which is not observed.
-The next step expresses the relative price in terms of observed sales shares.
+The second links markups to the demand system through the quality-adjusted relative price $x_{jint}$, which is not observed.
+The next step expresses $x_{jint}$ in terms of observed sales shares.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -199,7 +212,7 @@ The next step expresses the relative price in terms of observed sales shares.
 \section{Estimating Equation}\label{sec:estequ}
 
 Throughout this section, fix an industry $i$, a region $n$, and a period $t$, and use labor as the flexible input.
-Write $x_{jint} \equiv p_{jint}/\mathbb{D}_{int}$ for the relative price.
+Recall that $x_{jint} = p_{jint} e^{-\xi_{jint}}/\mathbb{D}_{int}$ is the quality-adjusted relative price \eqref{eq:relprice}.
 
 \subsection{Markups as a Function of True Sales Shares}\label{sec:mushares}
 
@@ -210,13 +223,14 @@ The true sales share of establishment $j$ in its region-industry-period is
 	s^y_{jint} \equiv \frac{R_{jint}}{\sum_{j' \in \cJ_{int}} R_{j'int}}.
 \end{equation}
 Total sales in the market equal total expenditure, $\sum_{j'} R_{j'int} = \P_{int} Y_{int} L_{nt}$, by \eqref{eq:indexp} and the definition of $\P_{int}$.
-Using $q_{jint} = L_{nt} y_{jint}$ and the demand curve \eqref{eq:demand},
+Using $q_{jint} = L_{nt} y_{jint}$, splitting $p_{jint} y_{jint} = (p_{jint} e^{-\xi_{jint}})(e^{\xi_{jint}} y_{jint})$, and using the demand curve \eqref{eq:demand},
 \begin{align}
 	s^y_{jint} &= \frac{p_{jint} y_{jint}}{\P_{int} Y_{int}}
-	= \frac{p_{jint}}{\mathbb{D}_{int}} \, \frac{y_{jint}}{Y_{int}} \, \frac{\mathbb{D}_{int}}{\P_{int}} \nonumber \\
+	= \frac{p_{jint} e^{-\xi_{jint}}}{\mathbb{D}_{int}} \, \frac{e^{\xi_{jint}} y_{jint}}{Y_{int}} \, \frac{\mathbb{D}_{int}}{\P_{int}} \nonumber \\
 	&= h_i\left(x_{jint}\right) \frac{\mathbb{D}_{int}}{\P_{int}}, \qquad h_i(x) \equiv x \, \vp_i(x). \label{eq:sharex}
 \end{align}
 As a check, summing \eqref{eq:sharex} over $j$ and using \eqref{eq:Pindex} gives $\sum_j s^y_{jint} = 1$.
+Quality cancels: the sales share depends on the establishment only through $x_{jint}$.
 
 \textbf{Step 2: inverting the share equation.}
 Differentiating $h_i$ and using the definition of $\s_i$ in \eqref{eq:sigma},
@@ -230,7 +244,7 @@ To invert it on the whole set of prices that establishments choose, I need that 
 For each industry $i$:
 \begin{enumerate}[(i)]
 	\item There is a choke price $\overline{p}_i < \infty$ with $\vp_i(\overline{p}_i) = 0$ and $\vp_i'(\overline{p}_i) \in (-\infty, 0)$.
-	\item There is $\underline{x}_i < \overline{p}_i$ such that $\s_i(x) > 1$ for all $x \in (\underline{x}_i, \overline{p}_i)$, and all equilibrium relative prices lie in this interval.
+	\item There is $\underline{x}_i < \overline{p}_i$ such that $\s_i(x) > 1$ for all $x \in (\underline{x}_i, \overline{p}_i)$, and all equilibrium quality-adjusted relative prices $x_{jint}$ lie in this interval.
 \end{enumerate}
 \eassu
 
@@ -252,6 +266,12 @@ Substituting \eqref{eq:relpriceshare} into the Lerner condition \eqref{eq:lerner
 \end{equation}
 The function $m_i$ is industry specific but common to all regions and periods.
 All regional and time variation in the mapping from shares to markups goes through one scalar per market, $\P_{int}/\mathbb{D}_{int}$.
+
+Quality does not appear in \eqref{eq:mushare}.
+Both the sales share \eqref{eq:sharex} and the markup \eqref{eq:lerner} depend on the establishment only through $x_{jint}$.
+A high-quality establishment and a low-cost establishment with the same $x_{jint}$ have the same share and the same markup.
+So the sales share is a sufficient statistic for the markup, whether share differences come from productivity or from quality.
+Quality enters only through the price indices, and those are absorbed by the market-specific coefficients below.
 
 \textbf{Step 4: no constant term.}
 As $a \to 0$, $\zeta_i(a) \to \overline{p}_i$.
@@ -280,7 +300,7 @@ The establishment-level term $e^{-\n_{jint}}$ is classical, multiplicative error
 
 \bassu[Measurement error]\label{assum:me}
 The measurement error $\n_{jint}$ is i.i.d.\ across establishments and periods, with $\E[\n_{jint}] = 0$ and $\kappa_k \equiv \E[e^{k \n_{jint}}] < \infty$ for $k = 1, \dots, K$.
-It is independent of productivity, fixed inputs, input prices, the sets of establishments, and so of all true prices, quantities, and shares, in every period.
+It is independent of productivity, quality, fixed inputs, input prices, the sets of establishments, and so of all true prices, quantities, and shares, in every period.
 \eassu
 
 The normalization $\E[\n_{jint}] = 0$ pins down the level of $\b^l_i$.

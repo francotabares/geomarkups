@@ -29,13 +29,15 @@ When porting JMP material, relabel sector $n \to i$ and city $c$ (or $a$) $\to n
 | $\theta_i$ | Cobb-Douglas expenditure share of industry $i$, $\sum_i \theta_i = 1$ |
 | $\Upsilon_i(\cdot)$ | HDIA (Kimball) aggregator of industry $i$: $C^2$, strictly increasing, strictly concave, $\Upsilon_i(0)=0$ |
 | $y_{jint}$, $Y_{int}$ | Per-capita consumption of variety $j$; per-capita industry-$i$ bundle |
+| $\xi_{jint}$ | Quality (taste shifter) of variety $j$; utility depends on $e^{\xi_{jint}} y_{jint}$; costless, not in the production function |
 | $p_{jint}$ | Price of establishment $j$ |
 | $\lambda_{int}$ | Multiplier in the household's lower-tier problem |
 | $\mathbb{D}_{int} \equiv \lambda_{int}/Y_{int}$ | Competition price index |
 | $\mathbb{P}_{int}$ | Ideal price index of the industry-$i$ bundle |
-| $\varphi_i(\cdot) \equiv (\Upsilon_i')^{-1}(\cdot)$ | Demand function: $y_{jint}/Y_{int} = \varphi_i(p_{jint}/\mathbb{D}_{int})$ |
+| $\varphi_i(\cdot) \equiv (\Upsilon_i')^{-1}(\cdot)$ | Demand function: $e^{\xi_{jint}} y_{jint}/Y_{int} = \varphi_i(x_{jint})$ |
+| $x_{jint} \equiv p_{jint} e^{-\xi_{jint}}/\mathbb{D}_{int}$ | Quality-adjusted relative price (`eq:relprice`) |
 | $q_{jint} = L_{nt} y_{jint}$ | Total output (quantity sold) of establishment $j$ |
-| $\sigma_i(\cdot)$ | Price elasticity of demand as a function of the relative price $p/\mathbb{D}$ |
+| $\sigma_i(\cdot)$ | Price elasticity of demand as a function of the quality-adjusted relative price $x$ |
 
 ## Production and markups (`sec:production`, `sec:markups`)
 
@@ -51,7 +53,7 @@ When porting JMP material, relabel sector $n \to i$ and city $c$ (or $a$) $\to n
 | $\gamma^f_i \equiv \sum_{x \in \mathcal{X}^f} \beta^x_i$ | Short-run returns to scale (flexible inputs only) |
 | $\lambda_{jint}$ | Short-run marginal cost (multiplier in the cost-minimization problem) |
 | $\mu_{jint} \equiv p_{jint}/\lambda_{jint}$ | Markup |
-| $\mu_i(\cdot)$ | Markup as a function of the relative price, $\sigma_i/(\sigma_i - 1)$ |
+| $\mu_i(\cdot)$ | Markup as a function of the quality-adjusted relative price, $\sigma_i/(\sigma_i - 1)$ |
 | $\alpha^x_{jint} \equiv W^x_{int} v^x_{jint}/(p_{jint} q_{jint})$ | Expenditure share of input $x$ in true sales |
 | $\nu_{jint}$ | Measurement error in observed sales |
 | $\tilde{R}_{jint} = p_{jint} q_{jint} e^{\nu_{jint}}$ | Observed sales |
@@ -61,7 +63,6 @@ When porting JMP material, relabel sector $n \to i$ and city $c$ (or $a$) $\to n
 
 | Symbol | Meaning |
 |---|---|
-| $x_{jint} \equiv p_{jint}/\mathbb{D}_{int}$ | Relative price |
 | $R_{jint} \equiv p_{jint} q_{jint}$ | True sales |
 | $s^y_{jint}$ | True sales share in its region-industry-period |
 | $\tilde{s}^y_{jint}$ | Observed sales share (built from $\tilde{R}$) |

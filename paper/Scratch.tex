@@ -3,6 +3,8 @@
 
 % Assumption 1' (the HSA counterpart of Assumption 1). Unnumbered so that the later assumptions keep their numbers.
 \theoremstyle{plain} \newtheorem*{assumhsa}{Assumption 1$'$}
+% Assumption 1'' (the HIIA counterpart).
+\theoremstyle{plain} \newtheorem*{assumhiia}{Assumption 1$''$}
 
 \title{\textbf{Geographic Markups: Notes and Derivations}}
 \author{Santiago Franco}
@@ -44,6 +46,8 @@
 % 2026-11-25: correction. With market-specific coefficients the realized ebar cancels from the composite error,
 %             so the moment condition is exact. An earlier note called it approximate in concentrated markets;
 %             that applies only when coefficients are pooled across markets.
+% 2026-11-25: added the third Matsuyama-Ushchev class, HIIA. Same estimating equation; the market term H_{int} varies
+%             across markets as under HDIA. Checked by simulation (shares, elasticities, markup as a function of s*H).
 
 \begin{document}
 \maketitle
@@ -87,9 +91,9 @@ Quality is a pure preference shifter.
 It is not costly to produce and does not enter the production function.
 Because preferences over varieties are homothetic, the bundle $Y_{int}$ has an ideal price index $\P_{int}$, the cost of one unit of the bundle, so that $\sum_{j} p_{jint} y_{jint} = \P_{int} Y_{int}$.
 
-I consider two families of homothetic preferences over varieties, both from \textcite{Matsuyama&Ushev17}: homothetic with direct implicit additivity (HDIA) and homothetic with a single aggregator (HSA).
-The two families overlap only at CES.
-In both, preferences are specific to the industry and the region, and constant over time.
+I consider the three families of homothetic preferences over varieties of \textcite{Matsuyama&Ushev17}: homothetic with direct implicit additivity (HDIA), homothetic with a single aggregator (HSA), and homothetic with indirect implicit additivity (HIIA).
+Any two of the three overlap only at CES.
+In all three, preferences are specific to the industry and the region, and constant over time.
 
 \subsubsection{HDIA}\label{sec:hdia}
 
@@ -149,24 +153,50 @@ CES is the special case $h_{in}(\check{p}) = \gamma_{in}\, \check{p}^{\,1-\sigma
 I use the same symbols $\mathbb{D}_{int}$ and $\check{p}_{jint}$ as under HDIA because they play the same role: $\mathbb{D}_{int}$ is the index against which establishments compete.
 As under HDIA, $\mathbb{D}_{int}$ is not proportional to the ideal price index $\P_{int}$ outside CES.
 
+\subsubsection{HIIA}\label{sec:hiia}
+
+Under HIIA, the ideal price index $\P_{int}$ is implicitly defined by
+\begin{equation}\label{eq:hiia}
+	\sum_{j \in \cJ_{int}} \theta_{in}\left(\frac{p_{jint} \, e^{-\xi_{jint}}}{\P_{int}}\right) = 1.
+\end{equation}
+
+\begin{assumhiia}[HIIA aggregator]
+For each industry $i$ and region $n$, the function $\theta_{in}: (0,\infty) \to [0,\infty)$ is continuously differentiable.
+Wherever $\theta_{in}$ is positive, it is twice continuously differentiable with $\theta_{in}' < 0$ and $\theta_{in}'' > 0$.
+\end{assumhiia}
+
+Assumption~1$''$ is the case of \textcite{Matsuyama&Ushev17} in which varieties are gross substitutes.
+CES is the special case $\theta_{in}(\check{p}) = \gamma_{in}\, \check{p}^{\,1-\sigma_{in}}$, with $\gamma_{in} > 0$ and $\sigma_{in} > 1$.
+
+Under HIIA the index against which establishments compete is the ideal price index itself, so I set $\mathbb{D}_{int} = \P_{int}$ and the quality-adjusted relative price \eqref{eq:relprice} is $\check{p}_{jint} = p_{jint} e^{-\xi_{jint}}/\P_{int}$.
+Appendix~\ref{sec:app-hiia} shows that the share of variety $j$ in industry spending is
+\begin{equation}\label{eq:hiiashare}
+	\frac{p_{jint} y_{jint}}{\P_{int} Y_{int}} = \frac{-\check{p}_{jint} \, \theta_{in}'\left(\check{p}_{jint}\right)}{\sum_{j' \in \cJ_{int}} -\check{p}_{j'int} \, \theta_{in}'\left(\check{p}_{j'int}\right)}.
+\end{equation}
+The denominator is a second market-level term.
+Outside CES it is not a function of $\P_{int}$ alone.
+
 \subsubsection{Common Structure}\label{sec:common}
 
-Both families share two properties, and the rest of the analysis uses only these.
+The three families share two properties, and the rest of the analysis uses only these.
 Under HDIA, define $h_{in}(\check{p}) \equiv \check{p} \, \vp_{in}(\check{p})$.
 Under HSA, $h_{in}$ is the budget-share function.
-I refer to $h_{in}$ as the share function in both cases.
+Under HIIA, define $h_{in}(\check{p}) \equiv -\check{p} \, \theta_{in}'(\check{p})$.
+I refer to $h_{in}$ as the share function in all three cases.
 
 \textbf{Budget shares.}
-Appendix~\ref{sec:app-demand} and Appendix~\ref{sec:app-hsa} show that, in both families, the share of variety $j$ in industry spending is
+Appendices~\ref{sec:app-demand}, \ref{sec:app-hsa}, and \ref{sec:app-hiia} show that, in all three families, the share of variety $j$ in industry spending is
 \begin{equation}\label{eq:budgetshare}
 	\frac{p_{jint} y_{jint}}{\P_{int} Y_{int}} = \frac{h_{in}\left(\check{p}_{jint}\right)}{H_{int}},
 	\qquad
 	H_{int} \equiv \sum_{j' \in \cJ_{int}} h_{in}\left(\check{p}_{j'int}\right).
 \end{equation}
-The market-level term $H_{int}$ is where the two families differ:
+The market-level term $H_{int}$ is where the families differ:
 \begin{equation}\label{eq:Hterm}
 	H_{int} = \frac{\P_{int}}{\mathbb{D}_{int}} \quad \text{under HDIA}, \qquad H_{int} = 1 \quad \text{under HSA}.
 \end{equation}
+Under HIIA, $H_{int}$ is the denominator of \eqref{eq:hiiashare}.
+It varies across markets and has no simpler form.
 
 \textbf{Market demand and elasticity.}
 Total demand for variety $j$ is $q_{jint} = L_{nt} y_{jint}$.
@@ -175,11 +205,12 @@ By \eqref{eq:budgetshare},
 	q_{jint} = \frac{L_{nt} \P_{int} Y_{int}}{H_{int}} \, \frac{h_{in}\left(\check{p}_{jint}\right)}{p_{jint}}.
 \end{equation}
 The upper tier $U$ affects demand for a variety only through $Y_{int}$.
-Holding $Y_{int}$, the price indices $\P_{int}$ and $\mathbb{D}_{int}$, and quality fixed, the price elasticity of demand depends only on the quality-adjusted relative price:
+Holding $Y_{int}$, the market-level terms $\P_{int}$, $\mathbb{D}_{int}$, and $H_{int}$, and quality fixed, the price elasticity of demand depends only on the quality-adjusted relative price:
 \begin{equation}\label{eq:sigma}
 	\s_{in}\left(\check{p}_{jint}\right) \equiv -\frac{\partial \log q_{jint}}{\partial \log p_{jint}} = 1 - \frac{\check{p}_{jint} \, h_{in}'\left(\check{p}_{jint}\right)}{h_{in}\left(\check{p}_{jint}\right)}.
 \end{equation}
 Under HDIA this equals $-\check{p}\,\vp_{in}'(\check{p})/\vp_{in}(\check{p})$.
+Under HIIA it equals $-\check{p}\,\theta_{in}''(\check{p})/\theta_{in}'(\check{p})$.
 Quality shifts the level of demand but, given $\check{p}_{jint}$, not its elasticity.
 
 \subsection{Production and Markups}\label{sec:production}
@@ -203,8 +234,8 @@ Labor, $x = l$, is flexible, with $v^l_{jint} = l_{jint}$ and $W^l_{int} = W_{in
 
 \textbf{Market structure.}
 Establishments compete under monopolistic competition.
-Each establishment takes the price indices $\P_{int}$ and $\mathbb{D}_{int}$, the industry bundle $Y_{int}$, and input prices as given.
-With a finite set $\cJ_{int}$, an establishment's price does affect $\mathbb{D}_{int}$ and $\P_{int}$, and through $\P_{int}$ it affects $Y_{int}$.
+Each establishment takes the market-level terms $\P_{int}$, $\mathbb{D}_{int}$, and $H_{int}$, the industry bundle $Y_{int}$, and input prices as given.
+With a finite set $\cJ_{int}$, an establishment's price does affect the market-level terms, and through $\P_{int}$ it affects $Y_{int}$.
 Monopolistic competition assumes establishments do not internalize these effects.
 The oligopoly extension in the style of \textcite{Atkeson&Burstein08} will relax this.
 
@@ -219,14 +250,14 @@ This result uses only cost minimization over a flexible, price-taking input.
 It does not depend on the demand system, the market structure, returns to scale, or the fixed inputs.
 
 \textbf{Pricing.}
-The establishment chooses $p_{jint}$ to maximize profits subject to \eqref{eq:marketdemand}, taking the price indices, $Y_{int}$, and its own quality $\xi_{jint}$ as given.
+The establishment chooses $p_{jint}$ to maximize profits subject to \eqref{eq:marketdemand}, taking the market-level terms, $Y_{int}$, and its own quality $\xi_{jint}$ as given.
 Appendix~\ref{sec:app-pricing} shows that the first-order condition is the Lerner condition:
 \begin{equation}\label{eq:lerner}
 	\m_{jint} = \m_{in}\left(\check{p}_{jint}\right) \equiv \frac{\s_{in}\left(\check{p}_{jint}\right)}{\s_{in}\left(\check{p}_{jint}\right) - 1}.
 \end{equation}
 This requires $\s_{in} > 1$ at the optimum, so establishments operate on the elastic part of their demand curve.
 The Lerner condition holds whatever the shape of marginal cost, so it does not depend on returns to scale or the fixed inputs either.
-It holds in both families of preferences, with the elasticity given by \eqref{eq:sigma}.
+It holds in all three families of preferences, with the elasticity given by \eqref{eq:sigma}.
 
 \textbf{Measurement error.}
 Sales are observed with error.
@@ -257,7 +288,7 @@ The next section expresses $\check{p}_{jint}$ in terms of observed sales shares.
 \section{Estimating Equation}\label{sec:estequ}
 
 Throughout this section, fix an industry $i$, a region $n$, and a period $t$, and use labor as the flexible input.
-The analysis applies to both families of preferences.
+The analysis applies to all three families of preferences.
 It uses only the share function $h_{in}$, the elasticity $\s_{in}$, and the market-level term $H_{int}$ of Section~\ref{sec:common}.
 
 \subsection{Markups as a Function of True Sales Shares}\label{sec:mushares}
@@ -282,12 +313,13 @@ For each industry $i$ and region $n$:
 \end{enumerate}
 \eassu
 
-This is the one place where the two families differ in what has to be assumed.
+This is the one place where the families differ in what has to be assumed.
 \begin{itemize}
 	\item \textbf{HDIA.} Part (i) is equivalent to $\Upsilon_{in}'(0) < \infty$, with $\overline{p}_{in} = \Upsilon_{in}'(0)$. Part (ii) is a restriction, because Assumption~\ref{assum:hdia} allows demand to be inelastic at low prices. The \textcite{Klenow&Willis16} form satisfies all three parts.
 	\item \textbf{HSA.} Part (i) is a direct restriction on the budget-share function. Part (ii) holds automatically with $\underline{p}_{in} = 0$, because Assumption~1$'$ gives $h_{in}' < 0$ and so $\s_{in} > 1$ at every price below the choke price.
+	\item \textbf{HIIA.} Part (i) is equivalent to $\theta_{in}(\check{p}) = 0$ for $\check{p} \geq \overline{p}_{in}$. Because $\theta_{in}$ is continuously differentiable, $\theta_{in}'(\overline{p}_{in}) = 0$, so demand goes to zero continuously at the choke price. Part (ii) is a restriction, as under HDIA: $\s_{in} = -\check{p}\,\theta_{in}''/\theta_{in}'$ is positive but need not exceed one.
 \end{itemize}
-In both families, part (iii) holds under Marshall's second law of demand ($\s_{in}$ increasing).
+In all three families, part (iii) holds under Marshall's second law of demand ($\s_{in}$ increasing).
 Relative to the JMP's Assumption \texttt{a3}, which only imposes the choke price, parts (ii) and (iii) are additions.
 
 Appendix~\ref{sec:app-shares} shows that $h_{in}$ is strictly decreasing on the elastic interval.
@@ -299,13 +331,14 @@ Inverting \eqref{eq:sharex} and substituting into the Lerner condition \eqref{eq
 The function $m_{in}$ is specific to the industry and the region but common to all periods.
 Within a region-industry, all variation over time in the mapping from shares to markups goes through one scalar per period, $H_{int}$.
 Under HDIA this scalar is $\P_{int}/\mathbb{D}_{int}$.
+Under HIIA it is the second market-level term in \eqref{eq:hiiashare}.
 Under HSA it is one, and the markup is a function of the sales share alone.
 
 Quality does not appear in \eqref{eq:mushare}.
 Both the sales share \eqref{eq:sharex} and the markup \eqref{eq:lerner} depend on the establishment only through $\check{p}_{jint}$.
 A high-quality establishment and a low-cost establishment with the same $\check{p}_{jint}$ have the same share and the same markup.
 So the sales share is a sufficient statistic for the markup, whether share differences come from productivity or from quality.
-Quality enters only through the price indices, and those are absorbed by the market-specific coefficients below.
+Quality enters only through the market-level terms, and those are absorbed by the market-specific coefficients below.
 
 Appendix~\ref{sec:app-noconst} shows that the demand elasticity becomes infinite at the choke price, so that
 \begin{equation}\label{eq:noconst}
@@ -361,16 +394,16 @@ with composite error
 where $a_{jint} \equiv s^y_{jint} H_{int}$.
 The baseline is $K = 3$, which gives the JMP's estimating equation written in observed shares.
 
-\textbf{The two families.}
-The estimating equation \eqref{eq:estequ} is the same under HDIA and HSA.
+\textbf{The three families.}
+The estimating equation \eqref{eq:estequ} is the same under HDIA, HSA, and HIIA.
 The families differ only in what moves the coefficients $\vs_{k,int}$ across markets.
 \begin{itemize}
-	\item \textbf{HDIA.} $H_{int} = \P_{int}/\mathbb{D}_{int}$, so the coefficients vary across regions and over time with the local price indices. This is true even if the aggregator were common to all regions.
+	\item \textbf{HDIA and HIIA.} $H_{int}$ varies across regions and over time with local prices (under HDIA, $H_{int} = \P_{int}/\mathbb{D}_{int}$). So the coefficients vary across regions and over time. This is true even if preferences were common to all regions.
 	\item \textbf{HSA.} $H_{int} = 1$, so $\vs_{k,int} = -(\vs_{k,in}/\kappa_k)\, \bar{e}_{int}^{\,k}$. Within a region-industry, the coefficients vary over time only through the measurement-error term $\bar{e}_{int}$.
 	\item \textbf{HSA with a common share function.} If the share function is also common to all regions, $h_{in} = h_i$, then $\vs_{k,in} = \vs_{k,i}$ and the estimating equation has the same coefficients in all regions and periods of the industry, up to $\bar{e}_{int}$.
 \end{itemize}
 The term $\bar{e}_{int}$ converges to the constant $\kappa_1$ as the market becomes unconcentrated, so in markets with many small establishments the last two statements hold without qualification (see Appendix~\ref{sec:app-common}).
-The baseline specification leaves the coefficients unrestricted across regions, industries, and periods, so it is valid under both families.
+The baseline specification leaves the coefficients unrestricted across regions, industries, and periods, so it is valid under all three families.
 
 \subsection{Identification}\label{sec:ident}
 
@@ -517,6 +550,42 @@ Holding $Y_{int}$, the price indices, and quality fixed, $\partial \log \check{p
 which is \eqref{eq:sigma}.
 By Assumption~1$'$, $\s_{in}(\check{p}) > 1$ wherever $h_{in}(\check{p}) > 0$.
 
+\subsection{Demand under HIIA}\label{sec:app-hiia}
+
+\textbf{Price index.}
+Under HIIA the ideal price index $\P_{int}$ is defined by \eqref{eq:hiia}.
+This is the definition of \textcite{Matsuyama&Ushev17}, written in terms of quality-adjusted prices $p_{jint} e^{-\xi_{jint}}$.
+In their notation, good $j$ has its own function $z \mapsto \theta_{in}(z e^{-\xi_{jint}})$, which is decreasing and convex whenever $\theta_{in}$ is.
+By Assumption~1$''$, the left side of \eqref{eq:hiia} is increasing in $\P_{int}$, and strictly so whenever some variety has $\theta_{in} > 0$, so \eqref{eq:hiia} pins down $\P_{int}$ whenever a solution exists.
+Scaling all prices and $\P_{int}$ by the same factor leaves \eqref{eq:hiia} unchanged, so $\P_{int}$ is homogeneous of degree one in prices.
+
+\textbf{Budget shares.}
+Spending on the bundle is $\P_{int} Y_{int}$, so by Shephard's lemma the budget share of variety $j$ is $\partial \log \P_{int}/\partial \log p_{jint}$.
+Write $\check{p}_{jint} = p_{jint} e^{-\xi_{jint}}/\P_{int}$.
+Differentiating \eqref{eq:hiia} with respect to $\log p_{jint}$,
+\begin{equation*}
+	\check{p}_{jint}\,\theta_{in}'\left(\check{p}_{jint}\right) - \left[\sum_{j'} \check{p}_{j'int}\,\theta_{in}'\left(\check{p}_{j'int}\right)\right] \frac{\partial \log \P_{int}}{\partial \log p_{jint}} = 0.
+\end{equation*}
+Solving for the derivative,
+\begin{equation*}
+	\frac{p_{jint} y_{jint}}{\P_{int} Y_{int}} = \frac{\partial \log \P_{int}}{\partial \log p_{jint}} = \frac{\check{p}_{jint}\,\theta_{in}'\left(\check{p}_{jint}\right)}{\sum_{j'} \check{p}_{j'int}\,\theta_{in}'\left(\check{p}_{j'int}\right)},
+\end{equation*}
+which is \eqref{eq:hiiashare}.
+With $h_{in}(\check{p}) \equiv -\check{p}\,\theta_{in}'(\check{p})$, this is \eqref{eq:budgetshare} with $H_{int} = \sum_{j'} h_{in}(\check{p}_{j'int})$.
+Quality cancels: the budget share depends on the establishment only through $\check{p}_{jint}$.
+
+\textbf{The term $H_{int}$.}
+In the notation of \textcite{Matsuyama&Ushev17}, demand under HIIA depends on a second price aggregator, $C(\mathbf{p}) \equiv \sum_k p_k \theta_k'(p_k/P(\mathbf{p}))$, and $H_{int} = -C/\P_{int}$.
+They show that $C$ is proportional to the ideal price index only under CES.
+So outside CES, $H_{int}$ varies with the configuration of prices in the market.
+
+\textbf{Elasticity.}
+Substituting $\mathbb{D}_{int} = \P_{int}$ into \eqref{eq:marketdemand} gives $q_{jint} = (L_{nt} \P_{int} Y_{int}/H_{int}) \, h_{in}(\check{p}_{jint})/p_{jint}$.
+Holding $Y_{int}$, $\P_{int}$, $H_{int}$, and quality fixed, $\partial \log \check{p}_{jint}/\partial \log p_{jint} = 1$, so $-\partial \log q_{jint}/\partial \log p_{jint} = 1 - \check{p}\, h_{in}'(\check{p})/h_{in}(\check{p})$, which is \eqref{eq:sigma}.
+Since $\log h_{in}(\check{p}) = \log \check{p} + \log(-\theta_{in}'(\check{p}))$, this equals $-\check{p}\,\theta_{in}''(\check{p})/\theta_{in}'(\check{p})$.
+It is positive by Assumption~1$''$ but need not exceed one.
+An establishment's demand depends on two market-level terms, $\P_{int}$ and $H_{int}$, but only $\P_{int}$ affects its elasticity, because $H_{int}$ enters multiplicatively.
+
 \subsection{Cost Minimization and the Ratio Estimator}\label{sec:app-cost}
 
 Fix output $q_{jint}$ and the levels of the fixed inputs.
@@ -547,7 +616,7 @@ Dividing by $q_{jint}$ and using the definition of $\s_{in}$ in \eqref{eq:sigma}
 	\frac{\l_{jint}}{p_{jint}} = \frac{\s_{in}\left(\check{p}_{jint}\right) - 1}{\s_{in}\left(\check{p}_{jint}\right)},
 \end{equation*}
 which is the Lerner condition \eqref{eq:lerner}.
-The derivation does not use the shape of $\mathcal{C}_{jint}$, and it is the same in both families.
+The derivation does not use the shape of $\mathcal{C}_{jint}$, and it is the same in all three families.
 
 \textbf{Open:} Marginal cost varies with output unless short-run returns to scale, $\g^f_i \equiv \sum_{x \in \cX^f} \b^x_i$, equal one.
 The second-order condition for pricing then needs joint conditions on the share function $h_{in}$ and $\g^f_i$.
@@ -560,7 +629,7 @@ These are not stated yet.
 
 \section{Derivations for the Estimating Equation}\label{sec:app-estimation}
 
-The derivations in this appendix use only the common structure of Section~\ref{sec:common}, so they apply to both families.
+The derivations in this appendix use only the common structure of Section~\ref{sec:common}, so they apply to all three families.
 
 \subsection{Sales Shares and Relative Prices}\label{sec:app-shares}
 
@@ -613,6 +682,15 @@ This matters: under Klenow-Willis, $\vp'(\overline{p}) = 0$ when $\e < \overline
 In its symmetric form the share function is $h(\check{p}) = \gamma \max\{\log(\overline{p}/\check{p}), 0\}$ with $\gamma > 0$.
 Then $\s(\check{p}) = 1 + 1/\log(\overline{p}/\check{p})$, which is increasing and goes to infinity at the choke price, so Assumption~\ref{assum:choke} holds.
 Since $\s - 1 = \gamma/h$, the markup is $\m = 1 + h/\gamma$, and the markup function is $m(a) = \log(1 + a/\gamma)$.
+
+\textbf{HIIA example.}
+Let $\theta(\check{p}) = \gamma \left(\max\{\log(\overline{p}/\check{p}), 0\}\right)^2$ with $\gamma > 0$.
+Below the choke price, $\theta' = -2\gamma \log(\overline{p}/\check{p})/\check{p} < 0$ and $\theta'' = 2\gamma\left(1 + \log(\overline{p}/\check{p})\right)/\check{p}^2 > 0$, and $\theta'(\overline{p}) = 0$, so Assumption~1$''$ holds.
+The share function is $h(\check{p}) = 2\gamma \log(\overline{p}/\check{p})$, the translog share function again.
+So $\s(\check{p}) = 1 + 1/\log(\overline{p}/\check{p})$ and $m(a) = \log(1 + a/(2\gamma))$, and Assumption~\ref{assum:choke} holds.
+The difference from the HSA example is that here $a = s^y H_{int}$ with $H_{int} \neq 1$.
+A second example, $\theta(\check{p}) = \gamma \left(\max\{\overline{p} - \check{p}, 0\}\right)^2$, has $\s(\check{p}) = \check{p}/(\overline{p} - \check{p})$, which exceeds one only for $\check{p} > \overline{p}/2$.
+It shows that part (ii) of Assumption~\ref{assum:choke} is a restriction under HIIA.
 
 \subsection{The Estimating Equation}\label{sec:app-estequ}
 
@@ -710,12 +788,12 @@ A common $\b^l_i$ across regions and periods is a testable restriction, not a re
 \textbf{Restrictions implied by each family.}
 By \eqref{eq:coefs}, within a region-industry all variation over time in the $K$ coefficients comes from one scalar, $\Phi_{int} \equiv \bar{e}_{int} H_{int}$.
 For example, $\vs_{2,int}/\vs_{1,int}^2 = -(\vs_{2,in}/\vs_{1,in}^2)(\kappa_1^2/\kappa_2)$ is constant over time within a region-industry.
-This holds in both families.
+This holds in all three families.
 \begin{itemize}
-	\item Under HDIA, $\Phi_{int} = \bar{e}_{int}\P_{int}/\mathbb{D}_{int}$ moves with the price indices. The coefficients themselves vary over time, and only ratios such as the one above are constant.
+	\item Under HDIA and HIIA, $\Phi_{int} = \bar{e}_{int} H_{int}$ moves with local prices (under HDIA, $H_{int} = \P_{int}/\mathbb{D}_{int}$). The coefficients themselves vary over time, and only ratios such as the one above are constant.
 	\item Under HSA, $\Phi_{int} = \bar{e}_{int}$. The coefficients themselves are constant over time within a region-industry, up to $\bar{e}_{int}$. With a common share function $h_i$ they are also equal across regions.
 \end{itemize}
-So variation over time in the estimated coefficients within a region-industry, beyond what $\bar{e}_{int}$ can explain, is evidence for HDIA against HSA.
+So variation over time in the estimated coefficients within a region-industry, beyond what $\bar{e}_{int}$ can explain, is evidence against HSA and in favor of HDIA or HIIA.
 The baseline does not impose any of these restrictions.
 
 \textbf{The term $\bar{e}_{int}$.}
@@ -730,8 +808,8 @@ It also needs sales shares to be measured against total sales in the market.
 With market-specific coefficients, an error in the coverage of the market rescales all shares and is absorbed by the coefficients.
 With common coefficients it is not.
 
-\textbf{Pooling under HDIA.}
-Under HDIA, imposing common coefficients across markets or periods is not valid, even with a common aggregator.
+\textbf{Pooling under HDIA and HIIA.}
+Under HDIA and HIIA, imposing common coefficients across markets or periods is not valid, even with common preferences.
 The term $H_{int} = \sum_{j} h_{in}(\check{p}_{jint})$ varies across markets and depends on the distribution of shares, so it is correlated with the regressors.
 
 \textbf{Several flexible inputs.}
@@ -749,11 +827,8 @@ The demand elasticity becomes
 \end{equation*}
 This contains a market-level term, $\sum_{j'} (\s_{j'} - 1)s_{j'}$, so the markup is no longer a function of the sales share alone.
 
-\textbf{Open:} Work out the oligopoly case for both families.
+\textbf{Open:} Work out the oligopoly case for the three families.
 Under HSA the market-level term above would have to be absorbed by market-specific coefficients, as $\P_{int}/\mathbb{D}_{int}$ is under HDIA.
-
-\textbf{Open:} The third class of \textcite{Matsuyama&Ushev17}, homothetic with indirect implicit additivity (HIIA), is not covered yet.
-It is expected to fit the common structure of Section~\ref{sec:common} with $H_{int} \neq 1$.
 
 \subsection{Measurement Error}\label{sec:app-me}
 

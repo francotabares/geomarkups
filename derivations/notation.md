@@ -17,7 +17,7 @@ Symbols first defined in `paper/Scratch.tex` are marked with the section label.
 
 When porting JMP material, relabel sector $n \to i$ and city $c$ (or $a$) $\to n$.
 
-## Set up and preferences (`sec:setup`, `sec:preferences`, with `sec:hdia`, `sec:hsa`, `sec:common`)
+## Set up and preferences (`sec:setup`, `sec:preferences`, with `sec:hdia`, `sec:hsa`, `sec:hiia`, `sec:common`)
 
 | Symbol | Meaning |
 |---|---|
@@ -32,13 +32,14 @@ When porting JMP material, relabel sector $n \to i$ and city $c$ (or $a$) $\to n
 | $\xi_{jint}$ | Quality (taste shifter) of variety $j$; utility depends on $e^{\xi_{jint}} y_{jint}$; costless, not in the production function |
 | $p_{jint}$ | Price of establishment $j$ |
 | $\vartheta_{int}$ | Multiplier in the household's lower-tier problem ($\lambda^W$ in the JMP; $\lambda$ is reserved here for marginal cost) |
-| $\mathbb{D}_{int}$ | Competition price index, the index establishments compete against. HDIA: $\vartheta_{int}/Y_{int}$, defined by `eq:Dindex`. HSA: the single aggregator, defined by `eq:hsaD` ($A(\mathbf{p})$ in Matsuyama and Ushchev) |
+| $\mathbb{D}_{int}$ | Competition price index, the index establishments compete against. HDIA: $\vartheta_{int}/Y_{int}$, defined by `eq:Dindex`. HSA: the single aggregator, defined by `eq:hsaD` ($A(\mathbf{p})$ in Matsuyama and Ushchev). HIIA: the ideal price index itself, $\mathbb{D}_{int} = \mathbb{P}_{int}$ |
 | $\mathbb{P}_{int}$ | Ideal price index of the industry-$i$ bundle |
 | $\varphi_{in}(\cdot) \equiv (\Upsilon_{in}')^{-1}(\cdot)$ | Demand function: $e^{\xi_{jint}} y_{jint}/Y_{int} = \varphi_{in}(\check{p}_{jint})$ |
 | $\check{p}_{jint} \equiv p_{jint} e^{-\xi_{jint}}/\mathbb{D}_{int}$ | Quality-adjusted relative price (`eq:relprice`). Check notation as in Errico and Lashkari; tildes are reserved for variables observed with error |
-| $h_{in}(\cdot)$ | Share function, used for both families. HSA: the budget-share function ($s(\cdot)$ in Matsuyama and Ushchev; renamed to avoid a clash with sales shares). HDIA: $h_{in}(\check{p}) \equiv \check{p}\,\varphi_{in}(\check{p})$ |
-| $H_{int} \equiv \sum_j h_{in}(\check{p}_{jint})$ | Market-level term in the budget share $h_{in}(\check{p}_{jint})/H_{int}$. HDIA: $\mathbb{P}_{int}/\mathbb{D}_{int}$. HSA: 1 |
-| $\gamma_{in}$ | Scale of the CES share function under HSA, $h_{in}(\check{p}) = \gamma_{in}\check{p}^{1-\sigma_{in}}$ (not to be confused with returns to scale $\gamma_i$) |
+| $h_{in}(\cdot)$ | Share function, used for both families. HSA: the budget-share function ($s(\cdot)$ in Matsuyama and Ushchev; renamed to avoid a clash with sales shares). HDIA: $h_{in}(\check{p}) \equiv \check{p}\,\varphi_{in}(\check{p})$. HIIA: $h_{in}(\check{p}) \equiv -\check{p}\,\theta_{in}'(\check{p})$ |
+| $H_{int} \equiv \sum_j h_{in}(\check{p}_{jint})$ | Market-level term in the budget share $h_{in}(\check{p}_{jint})/H_{int}$. HDIA: $\mathbb{P}_{int}/\mathbb{D}_{int}$. HSA: 1. HIIA: no simpler form ($-C/P$ in Matsuyama and Ushchev's notation) |
+| $\theta_{in}(\cdot)$ | HIIA function defining the ideal price index, $\sum_j \theta_{in}(p_{jint}e^{-\xi_{jint}}/\mathbb{P}_{int}) = 1$ (`eq:hiia`): continuously differentiable, and decreasing and convex where positive |
+| $\gamma_{in}$ | Scale of the CES case under HSA, $h_{in}(\check{p}) = \gamma_{in}\check{p}^{1-\sigma_{in}}$, and under HIIA, $\theta_{in}(\check{p}) = \gamma_{in}\check{p}^{1-\sigma_{in}}$ (not to be confused with returns to scale $\gamma_i$) |
 | $q_{jint} = L_{nt} y_{jint}$ | Total output (quantity sold) of establishment $j$ |
 | $\sigma_{in}(\cdot)$ | Price elasticity of demand as a function of the quality-adjusted relative price $\check{p}$ |
 
@@ -97,7 +98,7 @@ When porting JMP material, relabel sector $n \to i$ and city $c$ (or $a$) $\to n
 
 ## Departures from the JMP
 
-- Two families of preferences, HDIA and HSA, written with a common share function $h_{in}$ and market term $H_{int}$. The JMP has HDIA (Kimball) only. Assumption 1 is the HDIA regularity condition and Assumption 1$'$ its HSA counterpart.
+- Three families of preferences, HDIA, HSA and HIIA, written with a common share function $h_{in}$ and market term $H_{int}$. The JMP has HDIA (Kimball) only. Assumption 1 is the HDIA regularity condition, Assumption 1$'$ its HSA counterpart, and Assumption 1$''$ its HIIA counterpart.
 
 - Indices: regions $n$ and industries $i$ (see above).
 - $\alpha^x$ uses total sales $pq$ in the denominator, where the JMP writes $py$. They are the same object, because the JMP's production function is in total quantities.

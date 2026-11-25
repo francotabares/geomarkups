@@ -31,8 +31,8 @@ When porting JMP material, relabel sector $n \to i$ and city $c$ (or $a$) $\to n
 | $y_{jint}$, $Y_{int}$ | Per-capita consumption of variety $j$; per-capita industry-$i$ bundle |
 | $\xi_{jint}$ | Quality (taste shifter) of variety $j$; utility depends on $e^{\xi_{jint}} y_{jint}$; costless, not in the production function |
 | $p_{jint}$ | Price of establishment $j$ |
-| $\lambda_{int}$ | Multiplier in the household's lower-tier problem |
-| $\mathbb{D}_{int} \equiv \lambda_{int}/Y_{int}$ | Competition price index |
+| $\vartheta_{int}$ | Multiplier in the household's lower-tier problem ($\lambda^W$ in the JMP; $\lambda$ is reserved here for marginal cost) |
+| $\mathbb{D}_{int} \equiv \vartheta_{int}/Y_{int}$ | Competition price index |
 | $\mathbb{P}_{int}$ | Ideal price index of the industry-$i$ bundle |
 | $\varphi_i(\cdot) \equiv (\Upsilon_i')^{-1}(\cdot)$ | Demand function: $e^{\xi_{jint}} y_{jint}/Y_{int} = \varphi_i(x_{jint})$ |
 | $x_{jint} \equiv p_{jint} e^{-\xi_{jint}}/\mathbb{D}_{int}$ | Quality-adjusted relative price (`eq:relprice`) |

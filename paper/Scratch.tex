@@ -41,6 +41,9 @@
 %             Sections after Preferences are written once for both families.
 %             HSA derivation checked independently (algebra, simulation, and against Matsuyama-Ushchev 2017).
 %             The third Matsuyama-Ushchev class, HIIA, is left out for now and will be nested later.
+% 2026-11-25: correction. With market-specific coefficients the realized ebar cancels from the composite error,
+%             so the moment condition is exact. An earlier note called it approximate in concentrated markets;
+%             that applies only when coefficients are pooled across markets.
 
 \begin{document}
 \maketitle
@@ -333,7 +336,8 @@ It is independent of productivity, quality, fixed inputs, input prices, the sets
 
 The normalization $\E[\n_{jint}] = 0$ pins down the level of $\b^l_i$.
 Note that $\kappa_k \neq 1$ in general, even with mean-zero errors.
-I treat $\bar{e}_{int}$ as a market-level constant (see Appendix~\ref{sec:app-me}).
+The term $\bar{e}_{int}$ is a market-level number, the same for all establishments in the market.
+It is absorbed by the market-specific coefficients below.
 
 \subsection{The Estimating Equation}\label{sec:estequation}
 
@@ -627,18 +631,25 @@ Adding and subtracting $\sum_k \vs_{k,int} (\tilde{s}^y_{jint})^k$ gives the est
 
 \subsection{Moment Condition}\label{sec:app-moment}
 
-Condition on the market, so that $\bar{e}_{int}$ and $H_{int}$ are constants.
-I show that the first term of \eqref{eq:compositeerror} has mean zero given $\mathbf{z}_{jint}$.
-By \eqref{eq:sharetrue}, $(\tilde{s}^y_{jint})^k = (s^y_{jint})^k e^{k\n_{jint}} \bar{e}_{int}^{-k}$, so
+The coefficients $\vs_{k,int}$ in \eqref{eq:coefs} are numbers specific to the market.
+They depend on the realized $\bar{e}_{int}$ and on $H_{int}$, which are the same for all establishments in the market.
+I show that the composite error \eqref{eq:compositeerror}, evaluated at these coefficients, has mean zero given $\mathbf{z}_{jint}$.
+By \eqref{eq:sharetrue}, $(\tilde{s}^y_{jint})^k = (s^y_{jint})^k e^{k\n_{jint}} \bar{e}_{int}^{-k}$.
+Using this and the definition \eqref{eq:coefs},
+\begin{align*}
+	\vs_{k,int} \left(\tilde{s}^y_{jint}\right)^k \left(\kappa_k e^{-k\n_{jint}} - 1\right)
+	&= \vs_{k,int} \, \bar{e}_{int}^{-k} \left(s^y_{jint}\right)^k \left(\kappa_k - e^{k\n_{jint}}\right) \\
+	&= -\frac{\vs_{k,in}}{\kappa_k} \, H_{int}^k \left(s^y_{jint}\right)^k \left(\kappa_k - e^{k\n_{jint}}\right).
+\end{align*}
+The realized $\bar{e}_{int}$ cancels, so the composite error does not depend on it.
+Because $\n_{jint}$ is independent of $(s^y_{jint}, H_{int}, \mathbf{z}_{jint})$, and $\E[e^{k\n_{jint}}] = \kappa_k$,
 \begin{equation*}
-	\left(\tilde{s}^y_{jint}\right)^k \left(\kappa_k e^{-k\n_{jint}} - 1\right) = \bar{e}_{int}^{-k} \left(s^y_{jint}\right)^k \left(\kappa_k - e^{k\n_{jint}}\right).
+	\E\left[H_{int}^k \left(s^y_{jint}\right)^k \left(\kappa_k - e^{k\n_{jint}}\right) \,\middle|\, \mathbf{z}_{jint}\right] = \E\left[H_{int}^k \left(s^y_{jint}\right)^k \,\middle|\, \mathbf{z}_{jint}\right] \left(\kappa_k - \kappa_k\right) = 0.
 \end{equation*}
-Because $\n_{jint}$ is independent of $(s^y_{jint}, \mathbf{z}_{jint})$, and $\E[e^{k\n_{jint}}] = \kappa_k$,
-\begin{equation*}
-	\E\left[\left(s^y_{jint}\right)^k \left(\kappa_k - e^{k\n_{jint}}\right) \,\middle|\, \mathbf{z}_{jint}\right] = \E\left[\left(s^y_{jint}\right)^k \,\middle|\, \mathbf{z}_{jint}\right] \left(\kappa_k - \kappa_k\right) = 0.
-\end{equation*}
-The second term has $\E[\n_{jint} \mid \mathbf{z}_{jint}] = 0$ by the same independence.
+The second term of \eqref{eq:compositeerror} has $\E[\n_{jint} \mid \mathbf{z}_{jint}] = 0$ by the same independence.
 Only the sieve error remains, which gives \eqref{eq:moment}.
+So IV within a market recovers that market's coefficients $\vs_{k,int}$, whatever the realized value of $\bar{e}_{int}$.
+No assumption on $\bar{e}_{int}$ is needed when the coefficients are market specific.
 
 \subsection{Recovering Markups}\label{sec:app-recovermu}
 
@@ -748,7 +759,7 @@ It is expected to fit the common structure of Section~\ref{sec:common} with $H_{
 
 \textbf{Open:}
 \begin{itemize}
-	\item I treat $\bar{e}_{int}$ as a market-level constant, independent of each $\n_{jint}$. This is exact in the limit of many establishments with small shares, where $\bar{e}_{int} \to \kappa_1$. In markets with few establishments, $\bar{e}_{int}$ depends on $\n_{jint}$ through $j$'s own weight $s^y_{jint}$, and the moment condition in Appendix~\ref{sec:app-moment} is only approximate.
+	\item With market-specific coefficients, $\bar{e}_{int}$ raises no issue: it is absorbed by the coefficients and cancels from the composite error (Appendix~\ref{sec:app-moment}). It matters only when coefficients are restricted to be equal across markets or periods, as in the HSA pooling case of Appendix~\ref{sec:app-common}. Then $\bar{e}_{int}$ differs across markets, and it depends on the measurement errors of the market's own establishments, so the restriction holds only approximately in concentrated markets.
 	\item Persistent measurement error (for example, an establishment-level fixed component) would invalidate lagged shares as instruments.
 	\item Lagged shares exist only for establishments active in $t-1$. Under Assumption~\ref{assum:me}, survival does not depend on $\n$, so the moment condition still holds in the sample of survivors. Survival may depend on productivity, though, so the estimation sample is selected toward more productive establishments.
 	\item Aggregate markups, such as the sales-weighted harmonic mean, are nonlinear in $\hat{\m}_{jint}$ and weight by observed sales. The establishment-level noise in \eqref{eq:muhat} may bias them. One option is to use the fitted values of the shares from the first stage in place of $\tilde{s}^y_{jint}$ in \eqref{eq:muhat}.

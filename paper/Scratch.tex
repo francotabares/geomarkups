@@ -31,6 +31,8 @@
 % 2026-11-25: notation. Household multiplier is vartheta. Quality-adjusted relative price is \check{p} (was x),
 %             as in Errico and Lashkari. Tildes stay reserved for variables observed with error.
 % 2026-11-25: reorganized into main text (baseline results) and appendix (derivations, discussion, open issues).
+% 2026-11-25: the HDIA aggregator is now specific to the industry and the region, Upsilon_{in}, and constant over time.
+%             The estimating equation is unchanged: its coefficients were already market specific.
 
 \begin{document}
 \maketitle
@@ -71,7 +73,7 @@ Within each industry, households have HDIA preferences over varieties, in the te
 These are the Kimball preferences of \textcite{Kimball95}.
 The industry bundle $Y_{int}$ is implicitly defined by
 \begin{equation}\label{eq:hdia}
-	\sum_{j \in \cJ_{int}} \Upsilon_i\left(\frac{e^{\xi_{jint}} y_{jint}}{Y_{int}}\right) = 1,
+	\sum_{j \in \cJ_{int}} \Upsilon_{in}\left(\frac{e^{\xi_{jint}} y_{jint}}{Y_{int}}\right) = 1,
 \end{equation}
 where $y_{jint}$ is per-capita consumption of variety $j$ and $\xi_{jint}$ is its quality, or taste shifter.
 Households derive utility from quality-adjusted consumption, $e^{\xi_{jint}} y_{jint}$.
@@ -80,30 +82,30 @@ It is not costly to produce and does not enter the production function.
 Without quality differences ($\xi_{jint} \equiv 0$), \eqref{eq:hdia} is the standard Kimball aggregator.
 
 \bassu[HDIA aggregator]\label{assum:hdia}
-For each industry $i$, the aggregator $\Upsilon_i(\cdot)$ is continuous on $[0,\infty)$, twice continuously differentiable on $(0,\infty)$, strictly increasing, and strictly concave, with $\Upsilon_i(0) = 0$.
+For each industry $i$ and region $n$, the aggregator $\Upsilon_{in}(\cdot)$ is continuous on $[0,\infty)$, twice continuously differentiable on $(0,\infty)$, strictly increasing, and strictly concave, with $\Upsilon_{in}(0) = 0$.
 \eassu
 
-CES is the special case $\Upsilon_i(q) = q^{(\sigma_i - 1)/\sigma_i}$.
-The aggregator is industry specific, so the curvature of demand, and hence markups, can differ across industries.
-The aggregators $\Upsilon_i$ are constant over time and across regions.
+CES is the special case $\Upsilon_{in}(q) = q^{(\sigma_{in} - 1)/\sigma_{in}}$.
+The aggregator is specific to the industry and the region, so the curvature of demand can differ across industries and across regions.
+It is constant over time.
 
 \textbf{Demand for varieties.}
 Because $U$ is strictly increasing in $Y_{int}$, the household obtains its chosen $Y_{int}$ at minimum cost.
 Appendix~\ref{sec:app-demand} shows that the per-capita demand for variety $j$, in quality-adjusted units, is
 \begin{equation}\label{eq:demand}
-	\frac{e^{\xi_{jint}} y_{jint}}{Y_{int}} = \vp_i\left(\check{p}_{jint}\right),
+	\frac{e^{\xi_{jint}} y_{jint}}{Y_{int}} = \vp_{in}\left(\check{p}_{jint}\right),
 \end{equation}
-where $\vp_i(\cdot) \equiv (\Upsilon_i')^{-1}(\cdot)$ is strictly decreasing and $\check{p}_{jint}$ is the quality-adjusted relative price,
+where $\vp_{in}(\cdot) \equiv (\Upsilon_{in}')^{-1}(\cdot)$ is strictly decreasing and $\check{p}_{jint}$ is the quality-adjusted relative price,
 \begin{equation}\label{eq:relprice}
 	\check{p}_{jint} \equiv \frac{p_{jint} \, e^{-\xi_{jint}}}{\mathbb{D}_{int}}.
 \end{equation}
 Here $p_{jint}$ is the price of variety $j$ and $\mathbb{D}_{int}$ is the competition price index, implicitly defined by
 \begin{equation}\label{eq:Dindex}
-	\sum_{j \in \cJ_{int}} \Upsilon_i\left(\vp_i\left(\frac{p_{jint} \, e^{-\xi_{jint}}}{\mathbb{D}_{int}}\right)\right) = 1.
+	\sum_{j \in \cJ_{int}} \Upsilon_{in}\left(\vp_{in}\left(\frac{p_{jint} \, e^{-\xi_{jint}}}{\mathbb{D}_{int}}\right)\right) = 1.
 \end{equation}
 The ideal price index $\P_{int}$, the cost of one unit of the bundle $Y_{int}$, is
 \begin{equation}\label{eq:Pindex}
-	\P_{int} = \sum_{j \in \cJ_{int}} p_{jint} \, e^{-\xi_{jint}} \, \vp_i\left(\check{p}_{jint}\right).
+	\P_{int} = \sum_{j \in \cJ_{int}} p_{jint} \, e^{-\xi_{jint}} \, \vp_{in}\left(\check{p}_{jint}\right).
 \end{equation}
 Both indices are functions of quality-adjusted prices only.
 Under CES, $\P_{int}$ and $\mathbb{D}_{int}$ are proportional.
@@ -113,12 +115,12 @@ Outside CES they are not, and the ratio $\P_{int}/\mathbb{D}_{int}$ will matter 
 Total demand for variety $j$ is $q_{jint} = L_{nt} y_{jint}$.
 By \eqref{eq:demand},
 \begin{equation}\label{eq:marketdemand}
-	q_{jint} = L_{nt} Y_{int} \, e^{-\xi_{jint}} \, \vp_i\left(\check{p}_{jint}\right).
+	q_{jint} = L_{nt} Y_{int} \, e^{-\xi_{jint}} \, \vp_{in}\left(\check{p}_{jint}\right).
 \end{equation}
 The upper tier $U$ affects demand for a variety only through $Y_{int}$.
 Holding $Y_{int}$, the price indices, and quality fixed, the price elasticity of demand depends only on the quality-adjusted relative price:
 \begin{equation}\label{eq:sigma}
-	\s_i\left(\check{p}_{jint}\right) \equiv -\frac{\partial \log q_{jint}}{\partial \log p_{jint}} = -\frac{\check{p}_{jint} \, \vp_i'\left(\check{p}_{jint}\right)}{\vp_i\left(\check{p}_{jint}\right)}.
+	\s_{in}\left(\check{p}_{jint}\right) \equiv -\frac{\partial \log q_{jint}}{\partial \log p_{jint}} = -\frac{\check{p}_{jint} \, \vp_{in}'\left(\check{p}_{jint}\right)}{\vp_{in}\left(\check{p}_{jint}\right)}.
 \end{equation}
 Quality shifts the level of demand but, given $\check{p}_{jint}$, not its elasticity.
 
@@ -164,9 +166,9 @@ It does not depend on the demand system, the market structure, returns to scale,
 The establishment chooses $p_{jint}$ to maximize profits subject to \eqref{eq:marketdemand}, taking the price indices, $Y_{int}$, and its own quality $\xi_{jint}$ as given.
 Appendix~\ref{sec:app-pricing} shows that the first-order condition is the Lerner condition:
 \begin{equation}\label{eq:lerner}
-	\m_{jint} = \m_i\left(\check{p}_{jint}\right) \equiv \frac{\s_i\left(\check{p}_{jint}\right)}{\s_i\left(\check{p}_{jint}\right) - 1}.
+	\m_{jint} = \m_{in}\left(\check{p}_{jint}\right) \equiv \frac{\s_{in}\left(\check{p}_{jint}\right)}{\s_{in}\left(\check{p}_{jint}\right) - 1}.
 \end{equation}
-This requires $\s_i > 1$ at the optimum, so establishments operate on the elastic part of their demand curve.
+This requires $\s_{in} > 1$ at the optimum, so establishments operate on the elastic part of their demand curve.
 The Lerner condition holds whatever the shape of marginal cost, so it does not depend on returns to scale or the fixed inputs either.
 
 \textbf{Measurement error.}
@@ -209,30 +211,30 @@ The true sales share of establishment $j$ in its region-industry-period is
 To map sales shares into markups, I impose the following on the demand system.
 
 \bassu[Choke price and elastic region]\label{assum:choke}
-For each industry $i$:
+For each industry $i$ and region $n$:
 \begin{enumerate}[(i)]
-	\item There is a finite choke price: $\overline{p}_i \equiv \Upsilon_i'(0) < \infty$, so that $\vp_i(\overline{p}_i) = 0$.
-	\item There is $\underline{p}_i < \overline{p}_i$ such that $\s_i(\check{p}) > 1$ for all $\check{p} \in (\underline{p}_i, \overline{p}_i)$, and all equilibrium quality-adjusted relative prices $\check{p}_{jint}$ lie in this interval.
-	\item $\s_i(\check{p})$ has a limit, possibly infinite, as $\check{p} \uparrow \overline{p}_i$.
+	\item There is a finite choke price: $\overline{p}_{in} \equiv \Upsilon_{in}'(0) < \infty$, so that $\vp_{in}(\overline{p}_{in}) = 0$.
+	\item There is $\underline{p}_{in} < \overline{p}_{in}$ such that $\s_{in}(\check{p}) > 1$ for all $\check{p} \in (\underline{p}_{in}, \overline{p}_{in})$, and all equilibrium quality-adjusted relative prices $\check{p}_{jint}$ lie in this interval.
+	\item $\s_{in}(\check{p})$ has a limit, possibly infinite, as $\check{p} \uparrow \overline{p}_{in}$.
 \end{enumerate}
 \eassu
 
-Under Marshall's second law of demand ($\s_i$ increasing), part (iii) holds, and part (ii) holds as long as demand is elastic at some price.
+Under Marshall's second law of demand ($\s_{in}$ increasing), part (iii) holds, and part (ii) holds as long as demand is elastic at some price.
 The \textcite{Klenow&Willis16} form satisfies all three parts.
 Relative to the JMP's Assumption \texttt{a3}, which only imposes the choke price, parts (ii) and (iii) are additions.
 
 Appendix~\ref{sec:app-shares} shows that the sales share depends on the establishment only through its quality-adjusted relative price,
 \begin{equation}\label{eq:sharex}
-	s^y_{jint} = h_i\left(\check{p}_{jint}\right) \frac{\mathbb{D}_{int}}{\P_{int}}, \qquad h_i(\check{p}) \equiv \check{p} \, \vp_i(\check{p}),
+	s^y_{jint} = h_{in}\left(\check{p}_{jint}\right) \frac{\mathbb{D}_{int}}{\P_{int}}, \qquad h_{in}(\check{p}) \equiv \check{p} \, \vp_{in}(\check{p}),
 \end{equation}
-and that $h_i$ is strictly decreasing on the elastic interval.
-Let $\zeta_i(\cdot)$ denote the inverse of $h_i$.
+and that $h_{in}$ is strictly decreasing on the elastic interval.
+Let $\zeta_{in}(\cdot)$ denote the inverse of $h_{in}$.
 Inverting \eqref{eq:sharex} and substituting into the Lerner condition \eqref{eq:lerner} gives the log markup as a function of the sales share:
 \begin{equation}\label{eq:mushare}
-	\log \m_{jint} = m_i\left(s^y_{jint} \, \frac{\P_{int}}{\mathbb{D}_{int}}\right), \qquad m_i(a) \equiv \log \m_i\left(\zeta_i(a)\right).
+	\log \m_{jint} = m_{in}\left(s^y_{jint} \, \frac{\P_{int}}{\mathbb{D}_{int}}\right), \qquad m_{in}(a) \equiv \log \m_{in}\left(\zeta_{in}(a)\right).
 \end{equation}
-The function $m_i$ is industry specific but common to all regions and periods.
-All regional and time variation in the mapping from shares to markups goes through one scalar per market, $\P_{int}/\mathbb{D}_{int}$.
+The function $m_{in}$ is specific to the industry and the region but common to all periods.
+Within a region-industry, all variation over time in the mapping from shares to markups goes through one scalar per period, $\P_{int}/\mathbb{D}_{int}$.
 
 Quality does not appear in \eqref{eq:mushare}.
 Both the sales share \eqref{eq:sharex} and the markup \eqref{eq:lerner} depend on the establishment only through $\check{p}_{jint}$.
@@ -242,7 +244,7 @@ Quality enters only through the price indices, and those are absorbed by the mar
 
 Appendix~\ref{sec:app-noconst} shows that the demand elasticity becomes infinite at the choke price, so that
 \begin{equation}\label{eq:noconst}
-	\lim_{a \to 0} m_i(a) = 0.
+	\lim_{a \to 0} m_{in}(a) = 0.
 \end{equation}
 Establishments with vanishing sales shares charge no markup.
 This is what separates the markup level from the output elasticity $\b^l_i$ below.
@@ -273,14 +275,14 @@ I treat $\bar{e}_{int}$ as a market-level constant (see Appendix~\ref{sec:app-me
 
 \subsection{The Estimating Equation}\label{sec:estequation}
 
-Approximate $m_i$ by a polynomial of order $K$ with no constant term, as \eqref{eq:noconst} requires:
+Approximate $m_{in}$ by a polynomial of order $K$ with no constant term, as \eqref{eq:noconst} requires:
 \begin{equation}\label{eq:sieve}
-	m_i(a) = \sum_{k=1}^{K} \vs_{k,i} \, a^k + r_{i}(a),
+	m_{in}(a) = \sum_{k=1}^{K} \vs_{k,in} \, a^k + r_{in}(a),
 \end{equation}
-where $r_i(a)$ is the approximation error, which vanishes as $K$ grows.
+where $r_{in}(a)$ is the approximation error, which vanishes as $K$ grows.
 Define the market-specific coefficients
 \begin{equation}\label{eq:coefs}
-	\vs_{k,int} \equiv -\frac{\vs_{k,i}}{\kappa_k} \left(\bar{e}_{int} \, \frac{\P_{int}}{\mathbb{D}_{int}}\right)^k, \qquad k = 1, \dots, K.
+	\vs_{k,int} \equiv -\frac{\vs_{k,in}}{\kappa_k} \left(\bar{e}_{int} \, \frac{\P_{int}}{\mathbb{D}_{int}}\right)^k, \qquad k = 1, \dots, K.
 \end{equation}
 Appendix~\ref{sec:app-estequ} combines the ratio estimator \eqref{eq:ratioobs}, the markup function \eqref{eq:mushare}, the approximation \eqref{eq:sieve}, and the share equation \eqref{eq:sharetrue} to obtain the estimating equation in observed variables:
 \begin{equation}\label{eq:estequ}
@@ -288,7 +290,7 @@ Appendix~\ref{sec:app-estequ} combines the ratio estimator \eqref{eq:ratioobs}, 
 \end{equation}
 with composite error
 \begin{equation}\label{eq:compositeerror}
-	\upsilon_{jint} \equiv \sum_{k=1}^{K} \vs_{k,int} \left(\tilde{s}^y_{jint}\right)^k \left(\kappa_k e^{-k\n_{jint}} - 1\right) - \n_{jint} - r_i\left(a_{jint}\right),
+	\upsilon_{jint} \equiv \sum_{k=1}^{K} \vs_{k,int} \left(\tilde{s}^y_{jint}\right)^k \left(\kappa_k e^{-k\n_{jint}} - 1\right) - \n_{jint} - r_{in}\left(a_{jint}\right),
 \end{equation}
 where $a_{jint} \equiv s^y_{jint}\P_{int}/\mathbb{D}_{int}$.
 The baseline is $K = 3$, which gives the JMP's estimating equation written in observed shares.
@@ -308,7 +310,7 @@ They are correlated with $s^y_{jint}$ to the extent that productivity and fixed 
 \textbf{Moment condition.}
 Appendix~\ref{sec:app-moment} shows that, under Assumption~\ref{assum:me},
 \begin{equation}\label{eq:moment}
-	\E\left[\upsilon_{jint} \,\middle|\, \mathbf{z}_{jint}\right] = -\E\left[r_i(a_{jint}) \,\middle|\, \mathbf{z}_{jint}\right],
+	\E\left[\upsilon_{jint} \,\middle|\, \mathbf{z}_{jint}\right] = -\E\left[r_{in}(a_{jint}) \,\middle|\, \mathbf{z}_{jint}\right],
 \end{equation}
 which vanishes as $K$ grows.
 So \eqref{eq:estequ} can be estimated by IV, with $\log \b^l_i$ common to all markets in industry $i$ and $\vs_{k,int}$ specific to each market.
@@ -355,14 +357,14 @@ It is noisy at the establishment level, because the measurement error does not a
 For a given $Y_{int}$, the household chooses $\{y_{jint}\}_{j}$ to minimize expenditure $\sum_{j} p_{jint} y_{jint}$ subject to \eqref{eq:hdia}.
 With Lagrange multiplier $\vartheta_{int}$, the first-order condition for variety $j$ is
 \begin{equation*}
-	p_{jint} = \frac{\vartheta_{int}}{Y_{int}} \, e^{\xi_{jint}} \, \Upsilon_i'\left(\frac{e^{\xi_{jint}} y_{jint}}{Y_{int}}\right).
+	p_{jint} = \frac{\vartheta_{int}}{Y_{int}} \, e^{\xi_{jint}} \, \Upsilon_{in}'\left(\frac{e^{\xi_{jint}} y_{jint}}{Y_{int}}\right).
 \end{equation*}
 Define the competition price index $\mathbb{D}_{int} \equiv \vartheta_{int}/Y_{int}$ and the quality-adjusted relative price $\check{p}_{jint} \equiv p_{jint} e^{-\xi_{jint}}/\mathbb{D}_{int}$, as in \eqref{eq:relprice}.
 Dividing the first-order condition by $e^{\xi_{jint}}\mathbb{D}_{int}$,
 \begin{equation*}
-	\check{p}_{jint} = \Upsilon_i'\left(\frac{e^{\xi_{jint}} y_{jint}}{Y_{int}}\right).
+	\check{p}_{jint} = \Upsilon_{in}'\left(\frac{e^{\xi_{jint}} y_{jint}}{Y_{int}}\right).
 \end{equation*}
-Strict concavity of $\Upsilon_i$ makes $\Upsilon_i'$ strictly decreasing, so its inverse $\vp_i(\cdot) \equiv (\Upsilon_i')^{-1}(\cdot)$ is well defined and strictly decreasing.
+Strict concavity of $\Upsilon_{in}$ makes $\Upsilon_{in}'$ strictly decreasing, so its inverse $\vp_{in}(\cdot) \equiv (\Upsilon_{in}')^{-1}(\cdot)$ is well defined and strictly decreasing.
 Inverting gives the demand curve \eqref{eq:demand}.
 
 \textbf{Competition price index.}
@@ -375,7 +377,7 @@ The aggregator \eqref{eq:hdia} is homothetic, so minimized expenditure is linear
 Writing $p_{jint} y_{jint} = (p_{jint} e^{-\xi_{jint}})(e^{\xi_{jint}} y_{jint})$, dividing by $Y_{int}$, and using \eqref{eq:demand} gives \eqref{eq:Pindex}.
 
 \textbf{CES.}
-With $\Upsilon_i(q) = q^{(\s_i-1)/\s_i}$, \eqref{eq:Dindex} and \eqref{eq:Pindex} give $\P_{int} = \frac{\s_i - 1}{\s_i} \mathbb{D}_{int}$, so the two indices are proportional.
+With $\Upsilon_{in}(q) = q^{(\s_{in}-1)/\s_{in}}$, \eqref{eq:Dindex} and \eqref{eq:Pindex} give $\P_{int} = \frac{\s_{in} - 1}{\s_{in}} \mathbb{D}_{int}$, so the two indices are proportional.
 
 \textbf{Elasticity.}
 In \eqref{eq:marketdemand}, holding $Y_{int}$, the price indices, and quality fixed, $\partial \log \check{p}_{jint}/\partial \log p_{jint} = 1$.
@@ -404,17 +406,17 @@ The first-order condition is
 \begin{equation*}
 	q_{jint} + \left(p_{jint} - \l_{jint}\right) \frac{\partial q_{jint}}{\partial p_{jint}} = 0.
 \end{equation*}
-Dividing by $q_{jint}$ and using the definition of $\s_i$ in \eqref{eq:sigma},
+Dividing by $q_{jint}$ and using the definition of $\s_{in}$ in \eqref{eq:sigma},
 \begin{equation*}
-	1 - \left(1 - \frac{\l_{jint}}{p_{jint}}\right) \s_i\left(\check{p}_{jint}\right) = 0
+	1 - \left(1 - \frac{\l_{jint}}{p_{jint}}\right) \s_{in}\left(\check{p}_{jint}\right) = 0
 	\quad \Longrightarrow \quad
-	\frac{\l_{jint}}{p_{jint}} = \frac{\s_i\left(\check{p}_{jint}\right) - 1}{\s_i\left(\check{p}_{jint}\right)},
+	\frac{\l_{jint}}{p_{jint}} = \frac{\s_{in}\left(\check{p}_{jint}\right) - 1}{\s_{in}\left(\check{p}_{jint}\right)},
 \end{equation*}
 which is the Lerner condition \eqref{eq:lerner}.
 The derivation does not use the shape of $\mathcal{C}_{jint}$.
 
 \textbf{Open:} Marginal cost varies with output unless short-run returns to scale, $\g^f_i \equiv \sum_{x \in \cX^f} \b^x_i$, equal one.
-The second-order condition for pricing then needs joint conditions on $\Upsilon_i$ and $\g^f_i$.
+The second-order condition for pricing then needs joint conditions on $\Upsilon_{in}$ and $\g^f_i$.
 These are not stated yet.
 
 
@@ -432,38 +434,38 @@ Using $q_{jint} = L_{nt} y_{jint}$, splitting $p_{jint} y_{jint} = (p_{jint} e^{
 \begin{align*}
 	s^y_{jint} &= \frac{p_{jint} y_{jint}}{\P_{int} Y_{int}}
 	= \frac{p_{jint} e^{-\xi_{jint}}}{\mathbb{D}_{int}} \, \frac{e^{\xi_{jint}} y_{jint}}{Y_{int}} \, \frac{\mathbb{D}_{int}}{\P_{int}} \\
-	&= \check{p}_{jint} \, \vp_i\left(\check{p}_{jint}\right) \frac{\mathbb{D}_{int}}{\P_{int}},
+	&= \check{p}_{jint} \, \vp_{in}\left(\check{p}_{jint}\right) \frac{\mathbb{D}_{int}}{\P_{int}},
 \end{align*}
 which is \eqref{eq:sharex}.
 As a check, summing over $j$ and using \eqref{eq:Pindex} gives $\sum_j s^y_{jint} = 1$.
 Quality cancels: the sales share depends on the establishment only through $\check{p}_{jint}$.
 
 \textbf{Inverting the share equation.}
-Differentiating $h_i$ and using the definition of $\s_i$ in \eqref{eq:sigma},
+Differentiating $h_{in}$ and using the definition of $\s_{in}$ in \eqref{eq:sigma},
 \begin{equation*}
-	h_i'(\check{p}) = \vp_i(\check{p}) + \check{p} \vp_i'(\check{p}) = -\vp_i(\check{p})\left(\s_i(\check{p}) - 1\right).
+	h_{in}'(\check{p}) = \vp_{in}(\check{p}) + \check{p} \vp_{in}'(\check{p}) = -\vp_{in}(\check{p})\left(\s_{in}(\check{p}) - 1\right).
 \end{equation*}
-So $h_i$ is strictly decreasing wherever demand is elastic and positive.
-Under Assumption~\ref{assum:choke}, all equilibrium relative prices lie in $(\underline{p}_i, \overline{p}_i)$, and $h_i$ is strictly decreasing there, with $h_i(\check{p}) \to 0$ as $\check{p} \to \overline{p}_i$.
-Its inverse $\zeta_i(\cdot)$ is therefore well defined, and \eqref{eq:sharex} gives
+So $h_{in}$ is strictly decreasing wherever demand is elastic and positive.
+Under Assumption~\ref{assum:choke}, all equilibrium relative prices lie in $(\underline{p}_{in}, \overline{p}_{in})$, and $h_{in}$ is strictly decreasing there, with $h_{in}(\check{p}) \to 0$ as $\check{p} \to \overline{p}_{in}$.
+Its inverse $\zeta_{in}(\cdot)$ is therefore well defined, and \eqref{eq:sharex} gives
 \begin{equation}\label{eq:relpriceshare}
-	\check{p}_{jint} = \zeta_i\left(s^y_{jint} \, \frac{\P_{int}}{\mathbb{D}_{int}}\right).
+	\check{p}_{jint} = \zeta_{in}\left(s^y_{jint} \, \frac{\P_{int}}{\mathbb{D}_{int}}\right).
 \end{equation}
 Substituting \eqref{eq:relpriceshare} into the Lerner condition \eqref{eq:lerner} gives \eqref{eq:mushare}.
 
 \subsection{No Constant Term}\label{sec:app-noconst}
 
-As $a \to 0$, $\zeta_i(a) \to \overline{p}_i$.
-I show that $\s_i(\check{p}) \to \infty$ as $\check{p} \uparrow \overline{p}_i$.
+As $a \to 0$, $\zeta_{in}(a) \to \overline{p}_{in}$.
+I show that $\s_{in}(\check{p}) \to \infty$ as $\check{p} \uparrow \overline{p}_{in}$.
 Fix $\check{p}_0 > 0$ in the elastic interval.
-Since $\s_i(u) = -d\log\vp_i(u)/d\log u$, integrating between $\check{p}_0$ and $\check{p} < \overline{p}_i$ gives
+Since $\s_{in}(u) = -d\log\vp_{in}(u)/d\log u$, integrating between $\check{p}_0$ and $\check{p} < \overline{p}_{in}$ gives
 \begin{equation*}
-	\log \vp_i(\check{p}) = \log \vp_i(\check{p}_0) - \int_{\check{p}_0}^{\check{p}} \frac{\s_i(u)}{u} \, du.
+	\log \vp_{in}(\check{p}) = \log \vp_{in}(\check{p}_0) - \int_{\check{p}_0}^{\check{p}} \frac{\s_{in}(u)}{u} \, du.
 \end{equation*}
-As $\check{p} \uparrow \overline{p}_i$, the left side goes to $-\infty$, because $\vp_i$ is continuous and $\vp_i(\overline{p}_i) = 0$.
-So $\int_{\check{p}_0}^{\overline{p}_i} \s_i(u)/u \, du = \infty$.
-The interval of integration is bounded and $1/u \leq 1/\check{p}_0$, so $\s_i$ must be unbounded near $\overline{p}_i$.
-By part (iii) of Assumption~\ref{assum:choke} the limit exists, so it is infinite, and $\m_i(\check{p}) = \s_i(\check{p})/(\s_i(\check{p})-1) \to 1$.
+As $\check{p} \uparrow \overline{p}_{in}$, the left side goes to $-\infty$, because $\vp_{in}$ is continuous and $\vp_{in}(\overline{p}_{in}) = 0$.
+So $\int_{\check{p}_0}^{\overline{p}_{in}} \s_{in}(u)/u \, du = \infty$.
+The interval of integration is bounded and $1/u \leq 1/\check{p}_0$, so $\s_{in}$ must be unbounded near $\overline{p}_{in}$.
+By part (iii) of Assumption~\ref{assum:choke} the limit exists, so it is infinite, and $\m_{in}(\check{p}) = \s_{in}(\check{p})/(\s_{in}(\check{p})-1) \to 1$.
 This gives \eqref{eq:noconst}.
 The result needs only a finite choke price and the existence of the limit.
 
@@ -477,14 +479,14 @@ This matters: under Klenow-Willis, $\vp'(\overline{p}) = 0$ when $\e < \overline
 
 Taking logs of the ratio estimator \eqref{eq:ratioobs} with $x = l$, and using \eqref{eq:mushare} and \eqref{eq:sieve},
 \begin{equation*}
-	\log \tilde{\a}^l_{jint} = \log \b^l_i - \sum_{k=1}^{K} \vs_{k,i} \left(\frac{\P_{int}}{\mathbb{D}_{int}}\right)^k \left(s^y_{jint}\right)^k - r_i\left(a_{jint}\right) - \n_{jint},
+	\log \tilde{\a}^l_{jint} = \log \b^l_i - \sum_{k=1}^{K} \vs_{k,in} \left(\frac{\P_{int}}{\mathbb{D}_{int}}\right)^k \left(s^y_{jint}\right)^k - r_{in}\left(a_{jint}\right) - \n_{jint},
 \end{equation*}
 where $a_{jint} \equiv s^y_{jint}\P_{int}/\mathbb{D}_{int}$.
 The true share is not observed.
 Using \eqref{eq:sharetrue}, $(s^y_{jint})^k = (\tilde{s}^y_{jint})^k \, \bar{e}_{int}^k \, e^{-k\n_{jint}}$.
 With the coefficients $\vs_{k,int}$ defined in \eqref{eq:coefs}, each term of the sum becomes
 \begin{equation*}
-	-\vs_{k,i} \left(\frac{\P_{int}}{\mathbb{D}_{int}}\right)^k \left(s^y_{jint}\right)^k = \vs_{k,int} \, \kappa_k \, e^{-k\n_{jint}} \left(\tilde{s}^y_{jint}\right)^k.
+	-\vs_{k,in} \left(\frac{\P_{int}}{\mathbb{D}_{int}}\right)^k \left(s^y_{jint}\right)^k = \vs_{k,int} \, \kappa_k \, e^{-k\n_{jint}} \left(\tilde{s}^y_{jint}\right)^k.
 \end{equation*}
 Adding and subtracting $\sum_k \vs_{k,int} (\tilde{s}^y_{jint})^k$ gives the estimating equation \eqref{eq:estequ} with the composite error \eqref{eq:compositeerror}.
 
@@ -507,7 +509,7 @@ Only the sieve error remains, which gives \eqref{eq:moment}.
 
 At the true coefficients, and using \eqref{eq:coefs} and \eqref{eq:sharetrue},
 \begin{equation*}
-	-\sum_{k=1}^{K} \vs_{k,int} \left(\tilde{s}^y_{jint}\right)^k = \sum_{k=1}^{K} \vs_{k,i} \left(\frac{\P_{int}}{\mathbb{D}_{int}}\right)^k \left(s^y_{jint}\right)^k \, \frac{e^{k\n_{jint}}}{\kappa_k}.
+	-\sum_{k=1}^{K} \vs_{k,int} \left(\tilde{s}^y_{jint}\right)^k = \sum_{k=1}^{K} \vs_{k,in} \left(\frac{\P_{int}}{\mathbb{D}_{int}}\right)^k \left(s^y_{jint}\right)^k \, \frac{e^{k\n_{jint}}}{\kappa_k}.
 \end{equation*}
 Each term equals the corresponding term of the true log markup times $e^{k\n_{jint}}/\kappa_k$, which has mean one and is independent of the true share.
 So \eqref{eq:muhat} is unbiased for the log markup conditional on the true share, up to the sieve error.
@@ -521,47 +523,49 @@ So \eqref{eq:muhat} is unbiased for the log markup conditional on the true share
 
 \subsection{The Markup Function Near Zero}\label{sec:app-shape}
 
-Equation \eqref{eq:noconst} says nothing about how fast $m_i$ goes to zero, and $m_i$ need not be smooth at zero.
+Equation \eqref{eq:noconst} says nothing about how fast $m_{in}$ goes to zero, and $m_{in}$ need not be smooth at zero.
 Under Klenow-Willis, $\log \m = -\log(1 - q^{\e/\overline{\s}}/\overline{\s})$ and $a = \check{p} q \approx \overline{p}\, q$ for small $q$, so
 \begin{equation*}
 	m(a) \approx \frac{1}{\overline{\s}} \left(\frac{a}{\overline{p}}\right)^{\e/\overline{\s}} \qquad \text{as } a \to 0.
 \end{equation*}
 When $\e/\overline{\s} < 1$, which is the usual calibration, $m$ has an infinite slope at zero.
-A polynomial in integer powers of the share then fits $m_i$ poorly for small shares.
+A polynomial in integer powers of the share then fits $m_{in}$ poorly for small shares.
 These are the establishments that pin down $\b^l_i$ (see Appendix~\ref{sec:app-level}).
 
 \textbf{Open:} The basis need not be integer powers.
 For any exponents $\rho_1 < \dots < \rho_K$ with $\rho_k > 0$, the basis $\{a^{\rho_k}\}$ has no constant term, and $(s \, \P/\mathbb{D})^{\rho_k}$ still factors into a market term times $s^{\rho_k}$.
 The derivations in Appendix~\ref{sec:app-estimation} go through with $k$ replaced by $\rho_k$ and $\kappa_k$ by $\E[e^{\rho_k \n}]$.
-Fractional powers (for example $\rho_k = k/2$) would handle the infinite slope of $m_i$ at zero.
+Fractional powers (for example $\rho_k = k/2$) would handle the infinite slope of $m_{in}$ at zero.
 
 \subsection{Identification of the Level of Markups}\label{sec:app-level}
 
 The restriction \eqref{eq:noconst} separates $\b^l_i$ from the level of markups only through establishments with shares near zero.
 Suppose the support of $a_{jint}$ is $[a_{\min}, a_{\max}]$ with $a_{\min} > 0$.
-For any constant $c$, the function $(m_i(a) + c)/a$ is continuous on this support, so it can be approximated uniformly by a polynomial $P(a)$.
-Then $a P(a)$, a polynomial with no constant term, approximates $m_i(a) + c$.
-So as $K$ grows, $(\log\b^l_i, m_i)$ and $(\log\b^l_i + c, m_i + c)$ fit equally well, and the level is not identified.
+For any constant $c$, the function $(m_{in}(a) + c)/a$ is continuous on this support, so it can be approximated uniformly by a polynomial $P(a)$.
+Then $a P(a)$, a polynomial with no constant term, approximates $m_{in}(a) + c$.
+So as $K$ grows, $(\log\b^l_i, m_{in})$ and $(\log\b^l_i + c, m_{in} + c)$ fit equally well, and the level is not identified.
 With fixed $K$, the level is identified only by extrapolating the polynomial to zero.
 Identification of the level therefore needs establishments with shares arbitrarily close to zero.
 
 \textbf{Open:} The JMP's consistency argument (Appendix \texttt{a:mucons}) takes $s^y \P/\mathbb{D}$ to be bounded away from zero.
 That conflicts with identification of the level, which needs shares near zero.
-The argument needs to be redone on a support that includes zero, where $m_i$ may not be smooth.
+The argument needs to be redone on a support that includes zero, where $m_{in}$ may not be smooth.
 
 \subsection{Restrictions Across Markets}\label{sec:app-common}
 
 \textbf{What must be common across markets.}
 Equation \eqref{eq:estequ} is identified within a single market $(i,n,t)$: the intercept gives $\b^l_i$ and the slopes give that market's markup function.
-So with unrestricted market-specific coefficients, the derivation also holds if the aggregator differs by region and period, $\Upsilon_{int}$.
-A common $\Upsilon_i$ is needed only for the cross-market restrictions below.
-A common $\b^l_i$ across regions and periods is likewise a testable restriction, not a requirement.
+This is why the aggregator can differ across regions without changing the estimating equation: the coefficients $\vs_{k,int}$ are market specific in any case.
+For the same reason, the derivation would also hold if the aggregator differed by period, $\Upsilon_{int}$.
+A common $\b^l_i$ across regions and periods is a testable restriction, not a requirement.
 
-\textbf{Cross-market restrictions.}
-Equation \eqref{eq:coefs} implies restrictions across markets.
-Within industry $i$, all market variation in the $K$ coefficients comes from one scalar, $\Phi_{int} \equiv \bar{e}_{int}\P_{int}/\mathbb{D}_{int}$.
-For example, $\vs_{2,int}/\vs_{1,int}^2 = -(\vs_{2,i}/\vs_{1,i}^2)(\kappa_1^2/\kappa_2)$ is constant across regions and periods.
-This can be tested, or imposed to estimate one parameter per market in place of $K$.
+\textbf{Restrictions over time.}
+Equation \eqref{eq:coefs} implies restrictions across periods within a region-industry.
+Because $\Upsilon_{in}$ is constant over time, all variation over time in the $K$ coefficients comes from one scalar, $\Phi_{int} \equiv \bar{e}_{int}\P_{int}/\mathbb{D}_{int}$.
+For example, $\vs_{2,int}/\vs_{1,int}^2 = -(\vs_{2,in}/\vs_{1,in}^2)(\kappa_1^2/\kappa_2)$ is constant over time within a region-industry.
+This can be tested, or imposed to estimate one parameter per period in place of $K$.
+If the aggregator is also common across regions, $\Upsilon_i$, the same restrictions hold across regions.
+The baseline does not impose any of these restrictions.
 
 \textbf{Several flexible inputs.}
 With more than one flexible input, \eqref{eq:estequ} holds for each, with the same markup.

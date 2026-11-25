@@ -27,17 +27,17 @@ When porting JMP material, relabel sector $n \to i$ and city $c$ (or $a$) $\to n
 | $U_{nt}$ | Household utility |
 | $U(Y_{1nt},\dots,Y_{Int},Y^T_{nt})$ | Upper-tier utility: weakly separable across industries, strictly increasing in each argument; otherwise unrestricted |
 | $Y^T_{nt}$ | Bundle of traded goods (not modeled) |
-| $\Upsilon_i(\cdot)$ | HDIA (Kimball) aggregator of industry $i$: continuous on $[0,\infty)$, $C^2$ on $(0,\infty)$, strictly increasing, strictly concave, $\Upsilon_i(0)=0$ |
+| $\Upsilon_{in}(\cdot)$ | HDIA (Kimball) aggregator of industry $i$ in region $n$, constant over time: continuous on $[0,\infty)$, $C^2$ on $(0,\infty)$, strictly increasing, strictly concave, $\Upsilon_{in}(0)=0$ |
 | $y_{jint}$, $Y_{int}$ | Per-capita consumption of variety $j$; per-capita industry-$i$ bundle |
 | $\xi_{jint}$ | Quality (taste shifter) of variety $j$; utility depends on $e^{\xi_{jint}} y_{jint}$; costless, not in the production function |
 | $p_{jint}$ | Price of establishment $j$ |
 | $\vartheta_{int}$ | Multiplier in the household's lower-tier problem ($\lambda^W$ in the JMP; $\lambda$ is reserved here for marginal cost) |
 | $\mathbb{D}_{int} \equiv \vartheta_{int}/Y_{int}$ | Competition price index |
 | $\mathbb{P}_{int}$ | Ideal price index of the industry-$i$ bundle |
-| $\varphi_i(\cdot) \equiv (\Upsilon_i')^{-1}(\cdot)$ | Demand function: $e^{\xi_{jint}} y_{jint}/Y_{int} = \varphi_i(\check{p}_{jint})$ |
+| $\varphi_{in}(\cdot) \equiv (\Upsilon_{in}')^{-1}(\cdot)$ | Demand function: $e^{\xi_{jint}} y_{jint}/Y_{int} = \varphi_{in}(\check{p}_{jint})$ |
 | $\check{p}_{jint} \equiv p_{jint} e^{-\xi_{jint}}/\mathbb{D}_{int}$ | Quality-adjusted relative price (`eq:relprice`). Check notation as in Errico and Lashkari; tildes are reserved for variables observed with error |
 | $q_{jint} = L_{nt} y_{jint}$ | Total output (quantity sold) of establishment $j$ |
-| $\sigma_i(\cdot)$ | Price elasticity of demand as a function of the quality-adjusted relative price $\check{p}$ |
+| $\sigma_{in}(\cdot)$ | Price elasticity of demand as a function of the quality-adjusted relative price $\check{p}$ |
 
 ## Production and markups (`sec:production`, `sec:markups`)
 
@@ -53,7 +53,7 @@ When porting JMP material, relabel sector $n \to i$ and city $c$ (or $a$) $\to n
 | $\gamma^f_i \equiv \sum_{x \in \mathcal{X}^f} \beta^x_i$ | Short-run returns to scale (flexible inputs only) |
 | $\lambda_{jint}$ | Short-run marginal cost (multiplier in the cost-minimization problem) |
 | $\mu_{jint} \equiv p_{jint}/\lambda_{jint}$ | Markup |
-| $\mu_i(\cdot)$ | Markup as a function of the quality-adjusted relative price, $\sigma_i/(\sigma_i - 1)$ |
+| $\mu_{in}(\cdot)$ | Markup as a function of the quality-adjusted relative price, $\sigma_{in}/(\sigma_{in} - 1)$ |
 | $\alpha^x_{jint} \equiv W^x_{int} v^x_{jint}/(p_{jint} q_{jint})$ | Expenditure share of input $x$ in true sales |
 | $\nu_{jint}$ | Measurement error in observed sales |
 | $\tilde{R}_{jint} = p_{jint} q_{jint} e^{\nu_{jint}}$ | Observed sales |
@@ -66,19 +66,19 @@ When porting JMP material, relabel sector $n \to i$ and city $c$ (or $a$) $\to n
 | $R_{jint} \equiv p_{jint} q_{jint}$ | True sales |
 | $s^y_{jint}$ | True sales share in its region-industry-period |
 | $\tilde{s}^y_{jint}$ | Observed sales share (built from $\tilde{R}$) |
-| $h_i(\check{p}) \equiv \check{p}\,\varphi_i(\check{p})$ | Share function: $s^y_{jint} = h_i(\check{p}_{jint})\,\mathbb{D}_{int}/\mathbb{P}_{int}$ |
-| $\zeta_i(\cdot)$ | Inverse of $h_i$; maps $s^y_{jint}\,\mathbb{P}_{int}/\mathbb{D}_{int}$ to $\check{p}_{jint}$ |
-| $\overline{p}_i \equiv \Upsilon_i'(0)$ | Choke price: $\varphi_i(\overline{p}_i) = 0$. No restriction on $\varphi_i'(\overline{p}_i)$ |
-| $\underline{p}_i$ | Lower end of the elastic interval $(\underline{p}_i, \overline{p}_i)$ where $\sigma_i > 1$ |
-| $m_i(a) \equiv \log\mu_i(\zeta_i(a))$ | Log markup as a function of $a = s^y\,\mathbb{P}/\mathbb{D}$; $m_i(0) = 0$ |
-| $a_{jint} \equiv s^y_{jint}\,\mathbb{P}_{int}/\mathbb{D}_{int}$ | Argument of $m_i$ |
+| $h_{in}(\check{p}) \equiv \check{p}\,\varphi_{in}(\check{p})$ | Share function: $s^y_{jint} = h_{in}(\check{p}_{jint})\,\mathbb{D}_{int}/\mathbb{P}_{int}$ |
+| $\zeta_{in}(\cdot)$ | Inverse of $h_{in}$; maps $s^y_{jint}\,\mathbb{P}_{int}/\mathbb{D}_{int}$ to $\check{p}_{jint}$ |
+| $\overline{p}_{in} \equiv \Upsilon_{in}'(0)$ | Choke price: $\varphi_{in}(\overline{p}_{in}) = 0$. No restriction on $\varphi_{in}'(\overline{p}_{in})$ |
+| $\underline{p}_{in}$ | Lower end of the elastic interval $(\underline{p}_{in}, \overline{p}_{in})$ where $\sigma_{in} > 1$ |
+| $m_{in}(a) \equiv \log\mu_{in}(\zeta_{in}(a))$ | Log markup as a function of $a = s^y\,\mathbb{P}/\mathbb{D}$; $m_{in}(0) = 0$ |
+| $a_{jint} \equiv s^y_{jint}\,\mathbb{P}_{int}/\mathbb{D}_{int}$ | Argument of $m_{in}$ |
 | $\bar{e}_{int} \equiv \sum_j s^y_{jint} e^{\nu_{jint}}$ | Sales-weighted mean of $e^{\nu}$ in the market |
 | $\kappa_k \equiv \mathbb{E}[e^{k\nu}]$ | Moments of the measurement error |
 | $K$ | Sieve order (baseline $K=3$) |
-| $\varsigma_{k,i}$ | Industry-level sieve coefficients of $m_i$ |
-| $r_i(a)$ | Sieve approximation error |
+| $\varsigma_{k,in}$ | Region-industry sieve coefficients of $m_{in}$ |
+| $r_{in}(a)$ | Sieve approximation error |
 | $\rho_k$ | Possibly fractional sieve exponents, $\rho_k > 0$ (open idea; the baseline uses $\rho_k = k$) |
-| $\varsigma_{k,int} \equiv -(\varsigma_{k,i}/\kappa_k)(\bar{e}_{int}\mathbb{P}_{int}/\mathbb{D}_{int})^k$ | Market-specific coefficients in the estimating equation |
+| $\varsigma_{k,int} \equiv -(\varsigma_{k,in}/\kappa_k)(\bar{e}_{int}\mathbb{P}_{int}/\mathbb{D}_{int})^k$ | Market-specific coefficients in the estimating equation |
 | $\Phi_{int} \equiv \bar{e}_{int}\mathbb{P}_{int}/\mathbb{D}_{int}$ | The single market-level shifter behind all $\varsigma_{k,int}$ |
 | $\upsilon_{jint}$ | Composite error: measurement error in shares and sales, plus sieve error |
 | $\mathbf{z}_{jint}$ | Instruments (baseline: lagged observed shares and powers) |

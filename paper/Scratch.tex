@@ -65,7 +65,7 @@ It is not costly to produce and does not enter the production function.
 Without quality differences ($\xi_{jint} \equiv 0$), \eqref{eq:hdia} is the standard Kimball aggregator.
 
 \bassu[HDIA aggregator]\label{assum:hdia}
-For each industry $i$, the aggregator $\Upsilon_i(\cdot)$ is twice continuously differentiable, strictly increasing, and strictly concave, with $\Upsilon_i(0) = 0$.
+For each industry $i$, the aggregator $\Upsilon_i(\cdot)$ is continuous on $[0,\infty)$, twice continuously differentiable on $(0,\infty)$, strictly increasing, and strictly concave, with $\Upsilon_i(0) = 0$.
 \eassu
 
 CES is the special case $\Upsilon_i(q) = q^{(\sigma_i - 1)/\sigma_i}$.
@@ -208,6 +208,10 @@ The next step expresses $x_{jint}$ in terms of observed sales shares.
 
 % 2026-11-24: first draft. Follows JMP Appendix a:muestderiv, extended to industries, time,
 %             and measurement error in observed sales.
+% 2026-11-25: full check of the derivations (algebra by hand; IV argument and Klenow-Willis limits numerically).
+%             Correction: the choke-price assumption no longer restricts the slope of demand at the choke price.
+%             The earlier version required varphi'(pbar) in (-infty,0), which Klenow-Willis violates unless eps = sigma-bar.
+%             Added open points on the shape of m_i near zero and on identification of the markup level.
 
 \section{Estimating Equation}\label{sec:estequ}
 
@@ -243,14 +247,18 @@ To invert it on the whole set of prices that establishments choose, I need that 
 \bassu[Choke price and elastic region]\label{assum:choke}
 For each industry $i$:
 \begin{enumerate}[(i)]
-	\item There is a choke price $\overline{p}_i < \infty$ with $\vp_i(\overline{p}_i) = 0$ and $\vp_i'(\overline{p}_i) \in (-\infty, 0)$.
+	\item There is a finite choke price: $\overline{p}_i \equiv \Upsilon_i'(0) < \infty$, so that $\vp_i(\overline{p}_i) = 0$.
 	\item There is $\underline{x}_i < \overline{p}_i$ such that $\s_i(x) > 1$ for all $x \in (\underline{x}_i, \overline{p}_i)$, and all equilibrium quality-adjusted relative prices $x_{jint}$ lie in this interval.
+	\item $\s_i(x)$ has a limit, possibly infinite, as $x \uparrow \overline{p}_i$.
 \end{enumerate}
 \eassu
 
-Part (i) holds when $\Upsilon_i''(0)$ is finite, since $\vp_i'(\overline{p}_i) = 1/\Upsilon_i''(0)$.
-Part (ii) holds, for example, under Marshall's second law of demand ($\s_i$ increasing).
-\textbf{Open:} Check that the \textcite{Klenow&Willis16} form satisfies (i). The JMP's Assumption \texttt{a3} only imposes the choke price, so (i)'s condition on $\vp_i'$ and (ii) are additions.
+Under Marshall's second law of demand ($\s_i$ increasing), part (iii) holds, and part (ii) holds as long as demand is elastic at some price.
+The \textcite{Klenow&Willis16} form satisfies all three parts.
+Its choke price is $\frac{\overline{\s}-1}{\overline{\s}} e^{1/\e}$, and $\s(x) = \overline{\s} \, q^{-\e/\overline{\s}}$ with $q = \vp(x)$, which is increasing in $x$.
+The assumption puts no restriction on the slope of demand at the choke price.
+This matters: under Klenow-Willis, $\vp'(\overline{p}) = 0$ when $\e < \overline{\s}$ and $\vp'(\overline{p}) = -\infty$ when $\e > \overline{\s}$.
+Relative to the JMP's Assumption \texttt{a3}, which only imposes the choke price, parts (ii) and (iii) are additions.
 
 Under Assumption~\ref{assum:choke}, $h_i$ is strictly decreasing on $(\underline{x}_i, \overline{p}_i)$, with $h_i(x) \to 0$ as $x \to \overline{p}_i$.
 Let $\zeta_i(\cdot)$ denote its inverse.
@@ -275,13 +283,32 @@ Quality enters only through the price indices, and those are absorbed by the mar
 
 \textbf{Step 4: no constant term.}
 As $a \to 0$, $\zeta_i(a) \to \overline{p}_i$.
-At the choke price, $\s_i(x) = -x\vp_i'(x)/\vp_i(x)$ has a numerator that tends to $-\overline{p}_i \vp_i'(\overline{p}_i) \in (0, \infty)$ and a denominator that tends to $0^+$, so $\s_i \to \infty$ and $\m_i \to 1$.
+I show that $\s_i(x) \to \infty$ as $x \uparrow \overline{p}_i$.
+Fix $x_0 > 0$ in the elastic interval.
+Since $\s_i(u) = -d\log\vp_i(u)/d\log u$, integrating between $x_0$ and $x < \overline{p}_i$ gives
+\begin{equation*}
+	\log \vp_i(x) = \log \vp_i(x_0) - \int_{x_0}^{x} \frac{\s_i(u)}{u} \, du.
+\end{equation*}
+As $x \uparrow \overline{p}_i$, the left side goes to $-\infty$, because $\vp_i$ is continuous and $\vp_i(\overline{p}_i) = 0$.
+So $\int_{x_0}^{\overline{p}_i} \s_i(u)/u \, du = \infty$.
+The interval of integration is bounded and $1/u \leq 1/x_0$, so $\s_i$ must be unbounded near $\overline{p}_i$.
+By part (iii) of Assumption~\ref{assum:choke} the limit exists, so it is infinite, and $\m_i(x) = \s_i(x)/(\s_i(x)-1) \to 1$.
 Hence
 \begin{equation}\label{eq:noconst}
 	\lim_{a \to 0} m_i(a) = 0.
 \end{equation}
 Establishments with vanishing sales shares charge no markup.
 This is what separates the markup level from the output elasticity $\b^l_i$ below.
+The result needs only a finite choke price and the existence of the limit.
+
+\textbf{Open:} Equation \eqref{eq:noconst} says nothing about how fast $m_i$ goes to zero, and $m_i$ need not be smooth at zero.
+Under Klenow-Willis, $\log \m = -\log(1 - q^{\e/\overline{\s}}/\overline{\s})$ and $a = x q \approx \overline{p}\, q$ for small $q$, so
+\begin{equation*}
+	m(a) \approx \frac{1}{\overline{\s}} \left(\frac{a}{\overline{p}}\right)^{\e/\overline{\s}} \qquad \text{as } a \to 0.
+\end{equation*}
+When $\e/\overline{\s} < 1$, which is the usual calibration, $m$ has an infinite slope at zero.
+A polynomial in integer powers of the share then fits $m_i$ poorly for small shares.
+These are the establishments that pin down $\b^l_i$ (see Section~\ref{sec:ident}).
 
 \subsection{Measurement Error in Sales Shares}\label{sec:mesales}
 
@@ -318,6 +345,11 @@ Approximate $m_i$ by a polynomial of order $K$ with no constant term, as \eqref{
 	m_i(a) = \sum_{k=1}^{K} \vs_{k,i} \, a^k + r_{i}(a),
 \end{equation}
 where $r_i(a)$ is the approximation error, which vanishes as $K$ grows.
+
+\textbf{Open:} The basis need not be integer powers.
+For any exponents $\rho_1 < \dots < \rho_K$ with $\rho_k > 0$, the basis $\{a^{\rho_k}\}$ has no constant term, and $(s \, \P/\mathbb{D})^{\rho_k}$ still factors into a market term times $s^{\rho_k}$.
+Everything below goes through with $k$ replaced by $\rho_k$ and $\kappa_k$ by $\E[e^{\rho_k \n}]$.
+Fractional powers (for example $\rho_k = k/2$) would handle the infinite slope of $m_i$ at zero noted above.
 
 \textbf{Step 6: substitute into the ratio estimator.}
 Taking logs of \eqref{eq:ratioobs} with $x = l$, and using \eqref{eq:mushare} and \eqref{eq:sieve},
@@ -373,8 +405,24 @@ which vanishes as $K$ grows.
 So \eqref{eq:estequ} can be estimated by IV, with $\log \b^l_i$ common to all markets in industry $i$ and $\vs_{k,int}$ specific to each market.
 Dividing by $\kappa_k$ in \eqref{eq:coefs} is what makes this work: it is exactly the rescaling that undoes the bias from using $\tilde{s}^y$ in place of $s^y$, term by term.
 
+\textbf{What identifies the level of markups.}
+The restriction \eqref{eq:noconst} separates $\b^l_i$ from the level of markups only through establishments with shares near zero.
+Suppose the support of $a_{jint}$ is $[a_{\min}, a_{\max}]$ with $a_{\min} > 0$.
+For any constant $c$, the function $(m_i(a) + c)/a$ is continuous on this support, so it can be approximated uniformly by a polynomial $P(a)$.
+Then $a P(a)$, a polynomial with no constant term, approximates $m_i(a) + c$.
+So as $K$ grows, $(\log\b^l_i, m_i)$ and $(\log\b^l_i + c, m_i + c)$ fit equally well, and the level is not identified.
+With fixed $K$, the level is identified only by extrapolating the polynomial to zero.
+Identification of the level therefore needs establishments with shares arbitrarily close to zero.
+
+\textbf{What must be common across markets.}
+Equation \eqref{eq:estequ} is identified within a single market $(i,n,t)$: the intercept gives $\b^l_i$ and the slopes give that market's markup function.
+So with unrestricted market-specific coefficients, the derivation also holds if the aggregator differs by region and period, $\Upsilon_{int}$.
+A common $\Upsilon_i$ is needed only for the cross-market restrictions in Section~\ref{sec:recovermu}.
+A common $\b^l_i$ across regions and periods is likewise a testable restriction, not a requirement.
+
 \textbf{Open:}
 \begin{itemize}
+	\item The JMP's consistency argument (Appendix \texttt{a:mucons}) takes $s^y \P/\mathbb{D}$ to be bounded away from zero. That conflicts with identification of the level, which needs shares near zero. The argument needs to be redone on a support that includes zero, where $m_i$ may not be smooth.
 	\item The sieve approximation error is not mean zero given the instruments for finite $K$. This is the usual sieve caveat. Formal consistency needs the JMP's \textcite{Newey97}-type argument (Appendix \texttt{a:mucons}) adapted to IV.
 	\item Lagged shares exist only for establishments active in $t-1$. Under Assumption~\ref{assum:me}, survival does not depend on $\n$, so the moment condition still holds in the sample of survivors. Survival may depend on productivity, though, so the estimation sample is selected toward more productive establishments.
 	\item Persistent measurement error (for example, an establishment-level fixed component) would invalidate lagged shares as instruments.

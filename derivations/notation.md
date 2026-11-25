@@ -27,7 +27,7 @@ When porting JMP material, relabel sector $n \to i$ and city $c$ (or $a$) $\to n
 | $\mathcal{J}_{int}$ | Finite set of establishments in industry $i$, region $n$, period $t$ (taken as given) |
 | $U_{nt}$ | Household utility |
 | $\theta_i$ | Cobb-Douglas expenditure share of industry $i$, $\sum_i \theta_i = 1$ |
-| $\Upsilon_i(\cdot)$ | HDIA (Kimball) aggregator of industry $i$: $C^2$, strictly increasing, strictly concave, $\Upsilon_i(0)=0$ |
+| $\Upsilon_i(\cdot)$ | HDIA (Kimball) aggregator of industry $i$: continuous on $[0,\infty)$, $C^2$ on $(0,\infty)$, strictly increasing, strictly concave, $\Upsilon_i(0)=0$ |
 | $y_{jint}$, $Y_{int}$ | Per-capita consumption of variety $j$; per-capita industry-$i$ bundle |
 | $\xi_{jint}$ | Quality (taste shifter) of variety $j$; utility depends on $e^{\xi_{jint}} y_{jint}$; costless, not in the production function |
 | $p_{jint}$ | Price of establishment $j$ |
@@ -68,7 +68,7 @@ When porting JMP material, relabel sector $n \to i$ and city $c$ (or $a$) $\to n
 | $\tilde{s}^y_{jint}$ | Observed sales share (built from $\tilde{R}$) |
 | $h_i(x) \equiv x\varphi_i(x)$ | Share function: $s^y_{jint} = h_i(x_{jint})\,\mathbb{D}_{int}/\mathbb{P}_{int}$ |
 | $\zeta_i(\cdot)$ | Inverse of $h_i$; maps $s^y_{jint}\,\mathbb{P}_{int}/\mathbb{D}_{int}$ to $x_{jint}$ |
-| $\overline{p}_i$ | Choke price: $\varphi_i(\overline{p}_i) = 0$ |
+| $\overline{p}_i \equiv \Upsilon_i'(0)$ | Choke price: $\varphi_i(\overline{p}_i) = 0$. No restriction on $\varphi_i'(\overline{p}_i)$ |
 | $\underline{x}_i$ | Lower end of the elastic interval $(\underline{x}_i, \overline{p}_i)$ where $\sigma_i > 1$ |
 | $m_i(a) \equiv \log\mu_i(\zeta_i(a))$ | Log markup as a function of $a = s^y\,\mathbb{P}/\mathbb{D}$; $m_i(0) = 0$ |
 | $a_{jint} \equiv s^y_{jint}\,\mathbb{P}_{int}/\mathbb{D}_{int}$ | Argument of $m_i$ |
@@ -77,6 +77,7 @@ When porting JMP material, relabel sector $n \to i$ and city $c$ (or $a$) $\to n
 | $K$ | Sieve order (baseline $K=3$) |
 | $\varsigma_{k,i}$ | Industry-level sieve coefficients of $m_i$ |
 | $r_i(a)$ | Sieve approximation error |
+| $\rho_k$ | Possibly fractional sieve exponents, $\rho_k > 0$ (open idea; the baseline uses $\rho_k = k$) |
 | $\varsigma_{k,int} \equiv -(\varsigma_{k,i}/\kappa_k)(\bar{e}_{int}\mathbb{P}_{int}/\mathbb{D}_{int})^k$ | Market-specific coefficients in the estimating equation |
 | $\Phi_{int} \equiv \bar{e}_{int}\mathbb{P}_{int}/\mathbb{D}_{int}$ | The single market-level shifter behind all $\varsigma_{k,int}$ |
 | $\upsilon_{jint}$ | Composite error: measurement error in shares and sales, plus sieve error |

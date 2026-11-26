@@ -193,10 +193,15 @@ Appendices~\ref{sec:app-demand}, \ref{sec:app-hsa}, and \ref{sec:app-hiia} show 
 \end{equation}
 The market-level term $H_{int}$ is where the families differ:
 \begin{equation}\label{eq:Hterm}
-	H_{int} = \frac{\P_{int}}{\mathbb{D}_{int}} \quad \text{under HDIA}, \qquad H_{int} = 1 \quad \text{under HSA}.
+	H_{int} =
+	\begin{cases}
+		\P_{int}/\mathbb{D}_{int} & \text{under HDIA}, \\[4pt]
+		1 & \text{under HSA}, \\[4pt]
+		\displaystyle \sum_{j' \in \cJ_{int}} -\check{p}_{j'int} \, \theta_{in}'\left(\check{p}_{j'int}\right) & \text{under HIIA}.
+	\end{cases}
 \end{equation}
 Under HIIA, $H_{int}$ is the denominator of \eqref{eq:hiiashare}.
-It varies across markets and has no simpler form.
+It varies across markets and does not reduce to one or to a ratio of price indices.
 
 \textbf{Market demand and elasticity.}
 Total demand for variety $j$ is $q_{jint} = L_{nt} y_{jint}$.
